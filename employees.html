@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Employees - Iconia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <img src="logo.png" alt="Iconia Logo" width="50" height="50">
+    </div>
+    <div class="nav-item"><a class="nav-link" href="/Users/apple/Desktop/iconiaticketing/newticket.html"><i class="fas fa-plus"></i><span>New Ticket</span></a></div>
+    <div class="nav-item"><a class="nav-link" href="/Users/apple/Desktop/iconiaticketing/viewtickets.html"><i class="fas fa-list"></i><span>Tickets</span></a></div>
+    <div class="nav-item"><a class="nav-link" href="/Users/apple/Desktop/iconiaticketing/viewcustomer.html"><i class="fas fa-users"></i><span>Customers</span></a></div>
+    <div class="nav-item"><a class="nav-link active" href="/Users/apple/Desktop/iconiaticketing/employees.html"><i class="fas fa-user-cog"></i><span>Employees</span></a></div>
+  </div>
+
+  <!-- Content -->
+  <div id="content">
+    <!-- Topbar -->
+    <nav class="topbar">
+      <div class="d-flex align-items-center">
+        <button class="mobile-menu-toggle me-3" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="page-title mb-0">Manage Employees</h1>
+      </div>
+      <div class="user-menu">
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+            <span class="me-2 d-none d-sm-inline fw-bold">John Doe</span>
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid p-4">
+      <div class="row">
+        <!-- Employee Table -->
+        <div class="col-12">
+          <div class="card mb-4 animate-in">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="fas fa-users me-2"></i>Employee List</h5>
+              <button class="btn btn-primary btn-sm position-absolute top-50 end-0 translate-middle-y me-4" id="addEmployeeBtn">
+                <i class="fas fa-user-plus me-2"></i>Add Employee
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                  <thead>
+                    <tr class="table-light">
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th class="text-end">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="employeeTableBody">
+                    <!-- Example Rows -->
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="rounded-circle me-3" width="40" height="40">
+                          <div>
+                            <h6 class="mb-0">Jane Smith</h6>
+                            <small class="text-muted">ID: EMP001</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>jane@example.com</td>
+                      <td><span class="badge bg-primary bg-gradient">Admin</span></td>
+                      <td><span class="badge bg-success bg-gradient">Active</span></td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary me-2 edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="rounded-circle me-3" width="40" height="40">
+                          <div>
+                            <h6 class="mb-0">John Doe</h6>
+                            <small class="text-muted">ID: EMP002</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>john@example.com</td>
+                      <td><span class="badge bg-secondary bg-gradient">Support</span></td>
+                      <td><span class="badge bg-success bg-gradient">Active</span></td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary me-2 edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="rounded-circle me-3" width="40" height="40">
+                          <div>
+                            <h6 class="mb-0">Sarah Johnson</h6>
+                            <small class="text-muted">ID: EMP003</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>sarah@example.com</td>
+                      <td><span class="badge bg-secondary bg-gradient">Support</span></td>
+                      <td><span class="badge bg-warning text-dark bg-gradient">Pending</span></td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary me-2 edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Employee Modal -->
+  <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Add New Employee</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addEmployeeForm">
+            <div class="mb-3">
+              <label for="empName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="empName" required />
+            </div>
+            <div class="mb-3">
+              <label for="empEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="empEmail" required />
+            </div>
+            <div class="mb-3">
+              <label for="empRole" class="form-label">Role</label>
+              <select class="form-select" id="empRole" required>
+                <option value="" disabled selected>Select role</option>
+                <option value="Admin">Admin</option>
+                <option value="Support">Support</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="empPassword" class="form-label">Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="empPassword" required />
+                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="d-grid gap-2 mt-4">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-user-plus me-2"></i> Create Employee
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom Script -->
+  <script>
+    // Toggle sidebar on mobile
+    document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    // Show add employee modal
+    document.getElementById('addEmployeeBtn').addEventListener('click', function() {
+      const modal = new bootstrap.Modal(document.getElementById('addEmployeeModal'));
+      modal.show();
+    });
+
+    // Toggle password visibility
+    document.getElementById('togglePassword').addEventListener('click', function() {
+      const passwordInput = document.getElementById('empPassword');
+      const icon = this.querySelector('i');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+
+    // Handle form submission
+    document.getElementById('addEmployeeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('empName').value;
+      const email = document.getElementById('empEmail').value;
+      const role = document.getElementById('empRole').value;
+      
+      // Create new employee row
+      const tableBody = document.getElementById('employeeTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random" alt="User" class="rounded-circle me-3" width="40" height="40">
+            <div>
+              <h6 class="mb-0">${name}</h6>
+              <small class="text-muted">ID: EMP${(tableBody.children.length + 1).toString().padStart(3, '0')}</small>
+            </div>
+          </div>
+        </td>
+        <td>${email}</td>
+        <td><span class="badge ${role === 'Admin' ? 'bg-primary' : 'bg-secondary'} bg-gradient">${role}</span></td>
+        <td><span class="badge bg-success bg-gradient">Active</span></td>
+        <td class="text-end">
+          <button class="btn btn-sm btn-outline-primary me-2 edit-btn"><i class="fas fa-edit"></i></button>
+          <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash"></i></button>
+        </td>
+      `;
+      
+      // Add row to table
+      tableBody.appendChild(newRow);
+      
+      // Close modal and reset form
+      const modal = bootstrap.Modal.getInstance(document.getElementById('addEmployeeModal'));
+      modal.hide();
+      this.reset();
+      
+      // Show success message
+      alert('Employee added successfully!');
+    });
+
+    // Add event listeners for edit and delete buttons
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('delete-btn') || e.target.closest('.delete-btn')) {
+        if (confirm('Are you sure you want to delete this employee?')) {
+          e.target.closest('tr').remove();
+        }
+      } else if (e.target.classList.contains('edit-btn') || e.target.closest('.edit-btn')) {
+        // In a real app, you would populate the modal with the employee data
+        const modal = new bootstrap.Modal(document.getElementById('addEmployeeModal'));
+        modal.show();
+        document.querySelector('.modal-title').innerHTML = '<i class="fas fa-user-edit me-2"></i>Edit Employee';
+      }
+    });
+  </script>
+</body>
+</html>
