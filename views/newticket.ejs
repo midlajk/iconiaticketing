@@ -1,0 +1,228 @@
+<%- include('./components/head.ejs') -%>
+
+<body>
+  <!-- Sidebar -->
+  <%- include('./components/navigation.ejs') -%>
+
+
+  <!-- Content Wrapper -->
+  <div id="content">
+    <!-- Top Navigation -->
+    <nav class="topbar">
+      <div class="d-flex align-items-center">
+        <button class="mobile-menu-toggle me-3" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="page-title mb-0">New Ticket</h1>
+      </div>
+      <div class="user-menu">
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="me-2 d-none d-sm-inline fw-bold">John Doe</span>
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-bell me-2"></i> Notifications</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid p-4">
+      <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-10">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0">Create New Ticket</h5>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="form-section animate-in">
+                  <label for="subject" class="form-label">Subject</label>
+                  <input type="text" class="form-control" id="subject" placeholder="Briefly describe the issue">
+                </div>
+                
+                <div class="row form-section animate-in">
+                  <div class="col-md-6 mb-4 mb-md-0">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="department">
+                      <option selected disabled>Select department</option>
+                      <option>Technical Support</option>
+                      <option>Billing</option>
+                      <option>Sales</option>
+                      <option>Customer Service</option>
+                      <option>Product Management</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Priority</label>
+                    <div class="priority-options">
+                      <div class="priority-option low">
+                        <input type="radio" id="priority-low" name="priority" value="low">
+                        <label for="priority-low">Low</label>
+                        <i class="fas fa-arrow-down"></i>
+                      </div>
+                      <div class="priority-option medium">
+                        <input type="radio" id="priority-medium" name="priority" value="medium">
+                        <label for="priority-medium">Medium</label>
+                        <i class="fas fa-equals"></i>
+                      </div>
+                      <div class="priority-option high">
+                        <input type="radio" id="priority-high" name="priority" value="high">
+                        <label for="priority-high">High</label>
+                        <i class="fas fa-arrow-up"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-section animate-in">
+                  <label for="description" class="form-label">Description</label>
+                  <textarea class="form-control" id="description" rows="5" placeholder="Please describe your issue in detail..."></textarea>
+                </div>
+                
+                <div class="form-section animate-in">
+                  <label class="form-label">Attachments</label>
+                  <div class="file-upload">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop files here or click to browse</p>
+                    <small class="text-muted">Max. file size: 5MB</small>
+                    <input type="file" multiple>
+                  </div>
+                </div>
+                
+                <div class="d-flex justify-content-end gap-3 mt-4 form-section animate-in">
+                  <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-ticket-alt me-2"></i> Create Ticket
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Priority selection effect
+      const priorityOptions = document.querySelectorAll('.priority-option');
+      const priorityRadios = document.querySelectorAll('.priority-option input[type="radio"]');
+      
+      priorityRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          priorityOptions.forEach(option => {
+            option.classList.remove('selected');
+          });
+          
+          if (this.checked) {
+            const parent = this.closest('.priority-option');
+            parent.classList.add('selected');
+          }
+        });
+      });
+      
+      // File upload hover effect and file selection
+      const fileUpload = document.querySelector('.file-upload');
+      const fileInput = document.querySelector('.file-upload input[type="file"]');
+      
+      if (fileUpload && fileInput) {
+        fileUpload.addEventListener('dragover', function(e) {
+          e.preventDefault();
+          this.style.borderColor = '#4fd1c5';
+          this.style.backgroundColor = 'rgba(79, 209, 197, 0.1)';
+          this.style.transform = 'translateY(-5px)';
+        });
+        
+        fileUpload.addEventListener('dragleave', function() {
+          this.style.borderColor = '#e2e8f0';
+          this.style.backgroundColor = 'transparent';
+          this.style.transform = 'translateY(0)';
+        });
+        
+        fileUpload.addEventListener('drop', function(e) {
+          e.preventDefault();
+          this.style.borderColor = '#4fd1c5';
+          this.style.backgroundColor = 'rgba(79, 209, 197, 0.05)';
+          this.style.transform = 'translateY(0)';
+          
+          if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            updateFileList(fileInput);
+          }
+        });
+        
+        fileInput.addEventListener('change', function() {
+          updateFileList(this);
+        });
+        
+        function updateFileList(input) {
+          const fileInfo = document.createElement('div');
+          fileInfo.className = 'mt-3 text-start';
+          let fileListHTML = '<p class="fw-bold mb-2">Selected Files:</p><ul class="list-group">';
+          
+          for (let i = 0; i < input.files.length; i++) {
+            const file = input.files[i];
+            const fileSize = (file.size / 1024).toFixed(1);
+            const fileIcon = getFileIcon(file.name);
+            
+            fileListHTML += `<li class="list-group-item d-flex align-items-center">
+                                <i class="${fileIcon} me-2" style="color: var(--primary-color)"></i>
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                  <span class="text-truncate" style="max-width: 200px;">${file.name}</span>
+                                  <span class="badge bg-light text-secondary">${fileSize} KB</span>
+                                </div>
+                              </li>`;
+          }
+          
+          fileListHTML += '</ul>';
+          
+          const existingFileInfo = fileUpload.querySelector('.mt-3');
+          if (existingFileInfo) {
+            existingFileInfo.remove();
+          }
+          
+          if (input.files.length) {
+            fileInfo.innerHTML = fileListHTML;
+            fileUpload.appendChild(fileInfo);
+          }
+        }
+        
+        function getFileIcon(filename) {
+          const extension = filename.split('.').pop().toLowerCase();
+          
+          const iconMap = {
+            'pdf': 'fas fa-file-pdf',
+            'doc': 'fas fa-file-word',
+            'docx': 'fas fa-file-word',
+            'xls': 'fas fa-file-excel',
+            'xlsx': 'fas fa-file-excel',
+            'ppt': 'fas fa-file-powerpoint',
+            'pptx': 'fas fa-file-powerpoint',
+            'jpg': 'fas fa-file-image',
+            'jpeg': 'fas fa-file-image',
+            'png': 'fas fa-file-image',
+            'gif': 'fas fa-file-image',
+            'zip': 'fas fa-file-archive',
+            'rar': 'fas fa-file-archive',
+            'txt': 'fas fa-file-alt'
+          };
+          
+          return iconMap[extension] || 'fas fa-file';
+        }
+      }
+    })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<%- include('./components/head.ejs') -%>
+
+<body>
+  <%- include('./components/navigation.ejs') -%>
+
+  <div id="content">
+    <nav class="topbar">
+      <div class="d-flex align-items-center">
+        <button class="mobile-menu-toggle me-3" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="page-title mb-0">Edit Customer</h1>
+      </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card action-card shadow-sm">
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="mb-1">Edit Customer</h5>
+                <p class="text-muted mb-0">Update customer information and settings</p>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="/customers" class="btn btn-outline-secondary">
+                  <i class="fas fa-arrow-left me-2"></i> Back to Customers
+                </a>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Card -->
+      <div class="row">
+        <div class="col-md-10 col-lg-9 mx-auto">
+          <div class="card shadow-sm rounded-3 overflow-hidden">
+            <div class="card-header bg-light py-3">
+              <ul class="nav nav-tabs card-header-tabs" id="customerEditTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">
+                    <i class="fas fa-info-circle me-1"></i> Basic Info
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                    <i class="fas fa-address-book me-1"></i> Contact Details
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="services" aria-selected="false">
+                    <i class="fas fa-cogs me-1"></i> IT Services
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <form action="/customers/update/<%= customer._id %>" method="POST" enctype="multipart/form-data" id="editCustomerForm">
+                <div class="tab-content" id="customerEditTabsContent">
+                  <!-- Basic Info Tab -->
+                  <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                    <!-- Customer Logo Preview -->
+                    <div class="text-center mb-4">
+                      <div class="position-relative d-inline-block">
+                        <% if(customer.logo) { %>
+                          <img src="/uploads/<%= customer.logo %>" alt="<%= customer.name %>" class="rounded-3 shadow-sm" width="120" height="120" id="logoPreview">
+                        <% } else { %>
+                          <div class="bg-light rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 120px; height: 120px;" id="logoPreview">
+                            <i class="fas fa-building fa-3x text-primary"></i>
+                          </div>
+                        <% } %>
+                        <div class="position-absolute bottom-0 end-0">
+                          <label for="logo" class="btn btn-sm btn-primary rounded-circle" style="width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-camera"></i>
+                          </label>
+                          <input type="file" class="d-none" name="logo" id="logo" accept="image/*">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Basic Info Fields -->
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Name *</label>
+                        <input type="text" name="name" class="form-control" value="<%= customer.name %>" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Phone *</label>
+                        <input type="text" name="phone" class="form-control" value="<%= customer.phone %>" required>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Address *</label>
+                      <input type="text" name="address" class="form-control" value="<%= customer.address %>" required>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Emirates *</label>
+                        <input type="text" name="emirates" class="form-control" value="<%= customer.emirates %>" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Area</label>
+                        <input type="text" name="area" class="form-control" value="<%= customer.area %>">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-4">
+                        <label class="form-label">City</label>
+                        <input type="text" name="city" class="form-control" value="<%= customer.city %>">
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">State</label>
+                        <input type="text" name="state" class="form-control" value="<%= customer.state %>">
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">P.O.</label>
+                        <input type="text" name="po" class="form-control" value="<%= customer.po %>">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Email *</label>
+                        <input type="email" name="email" class="form-control" value="<%= customer.email %>" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">T.R.N. *</label>
+                        <input type="text" name="trn" class="form-control" value="<%= customer.trn %>" required>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Trade License</label>
+                        <input type="text" name="tradeLicense" class="form-control" value="<%= customer.tradeLicense %>">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">M.F.I.D.</label>
+                        <input type="text" name="mfid" class="form-control" value="<%= customer.mfid %>">
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Status</label>
+                      <select name="status" class="form-select">
+                        <option value="">Select</option>
+                        <option value="Active" <%= customer.status === 'Active' ? 'selected' : '' %>>Active</option>
+                        <option value="Inactive" <%= customer.status === 'Inactive' ? 'selected' : '' %>>Inactive</option>
+                        <option value="Pending" <%= customer.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                      </select>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                      <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='/customers'">Cancel</button>
+                      <button type="button" class="btn btn-primary" onclick="goToNextTab('contact-tab')">Next <i class="fas fa-chevron-right ms-1"></i></button>
+                    </div>
+                  </div>
+
+                  <!-- Contact Details Tab -->
+                  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="card bg-light border-0 mb-4">
+                      <div class="card-body">
+                        <h6 class="card-title mb-3"><i class="fas fa-user-tie me-2"></i>Manager/Director Information</h6>
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label class="form-label">Manager/Director</label>
+                            <input type="text" name="contactDetails.managerDirector" class="form-control" value="<%= customer.contactDetails?.managerDirector || '' %>">
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Contact *</label>
+                            <input type="text" name="contactDetails.managerContact" class="form-control" value="<%= customer.contactDetails?.managerContact || '' %>" required>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="contactDetails.managerEmail" class="form-control" value="<%= customer.contactDetails?.managerEmail || '' %>">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card bg-light border-0 mb-4">
+                      <div class="card-body">
+                        <h6 class="card-title mb-3"><i class="fas fa-user-alt me-2"></i>Point of Contact Information</h6>
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label class="form-label">P.O.C. Name</label>
+                            <input type="text" name="contactDetails.pocName" class="form-control" value="<%= customer.contactDetails?.pocName || '' %>">
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Contact</label>
+                            <input type="text" name="contactDetails.pocContact" class="form-control" value="<%= customer.contactDetails?.pocContact || '' %>">
+                          </div>
+                          <div class="col-md-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="contactDetails.pocEmail" class="form-control" value="<%= customer.contactDetails?.pocEmail || '' %>">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                      <button type="button" class="btn btn-outline-secondary" onclick="goToNextTab('basic-tab')"><i class="fas fa-chevron-left me-1"></i> Previous</button>
+                      <button type="button" class="btn btn-primary" onclick="goToNextTab('services-tab')">Next <i class="fas fa-chevron-right ms-1"></i></button>
+                    </div>
+                  </div>
+
+                  <!-- IT Services Tab -->
+                  <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-tab">
+                    <div class="mb-4">
+                      <h6 class="mb-3"><i class="fas fa-cogs me-2"></i>IT Services</h6>
+                      <p class="text-muted">Select all IT services that apply to this customer</p>
+                      
+                      <div class="mb-3">
+                        <select class="form-control" id="services-select" name="services" multiple>
+                          <option value="Monthly Visit" <%= customer.itService?.services?.includes('Monthly Visit') ? 'selected' : '' %>>Monthly Visit</option>
+                          <option value="Hardware and Software Support" <%= customer.itService?.services?.includes('Hardware and Software Support') ? 'selected' : '' %>>Hardware and Software Support (Online and On-site)</option>
+                          <option value="Firewall Support" <%= customer.itService?.services?.includes('Firewall Support') ? 'selected' : '' %>>Firewall Support</option>
+                          <option value="Anti-virus Support" <%= customer.itService?.services?.includes('Anti-virus Support') ? 'selected' : '' %>>Anti-virus Support</option>
+                          <option value="SD-WAN Support" <%= customer.itService?.services?.includes('SD-WAN Support') ? 'selected' : '' %>>SD-WAN Support</option>
+                          <option value="Attendance Machine" <%= customer.itService?.services?.includes('Attendance Machine') ? 'selected' : '' %>>Attendance Machine</option>
+                          <option value="Aamen Portal Submission" <%= customer.itService?.services?.includes('Aamen Portal Submission') ? 'selected' : '' %>>Aamen Portal Submission</option>
+                          <option value="Audit Support" <%= customer.itService?.services?.includes('Audit Support') ? 'selected' : '' %>>Audit Support</option>
+                          <option value="Audit Documents Support" <%= customer.itService?.services?.includes('Audit Documents Support') ? 'selected' : '' %>>Audit Documents Support (Policies and Procedures)</option>
+                          <option value="IT and Software Asset Ledger" <%= customer.itService?.services?.includes('IT and Software Asset Ledger') ? 'selected' : '' %>>IT and Software Asset Ledger</option>
+                          <option value="Network Support" <%= customer.itService?.services?.includes('Network Support') ? 'selected' : '' %>>Network Support</option>
+                          <option value="E-mail Configuration and Support" <%= customer.itService?.services?.includes('E-mail Configuration and Support') ? 'selected' : '' %>>E-mail Configuration and Support</option>
+                          <option value="Server Maintenance" <%= customer.itService?.services?.includes('Server Maintenance') ? 'selected' : '' %>>Server Maintenance</option>
+                          <option value="Database Administration" <%= customer.itService?.services?.includes('Database Administration') ? 'selected' : '' %>>Database Administration</option>
+                          <option value="User Creation and Revocation" <%= customer.itService?.services?.includes('User Creation and Revocation') ? 'selected' : '' %>>User Creation and Revocation</option>
+                          <option value="Group Policy Setup" <%= customer.itService?.services?.includes('Group Policy Setup') ? 'selected' : '' %>>Group Policy Setup</option>
+                          <option value="Data Backup and Recovery" <%= customer.itService?.services?.includes('Data Backup and Recovery') ? 'selected' : '' %>>Data Backup and Recovery</option>
+                          <option value="Managing Server Credentials" <%= customer.itService?.services?.includes('Managing Server Credentials') ? 'selected' : '' %>>Managing Server Credentials</option>
+                          <option value="Employee Training Programs" <%= customer.itService?.services?.includes('Employee Training Programs') ? 'selected' : '' %>>Employee Training Programs</option>
+                          <option value="Telephone Support" <%= customer.itService?.services?.includes('Telephone Support') ? 'selected' : '' %>>Telephone Support</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                      <button type="button" class="btn btn-outline-secondary" onclick="goToNextTab('contact-tab')"><i class="fas fa-chevron-left me-1"></i> Previous</button>
+                      <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save me-2"></i> Save Changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+  <!-- jQuery and Select2 JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Initialize Select2
+      $('#services-select').select2({
+        placeholder: "Select IT Services",
+        allowClear: true,
+        width: '100%',
+        closeOnSelect: false
+      });
+
+      // Logo preview
+      $('#logo').change(function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            // Replace icon with image
+            $('#logoPreview').replaceWith(`<img src="${e.target.result}" alt="Preview" class="rounded-3 shadow-sm" width="120" height="120" id="logoPreview">`);
+          }
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+
+    // Function to navigate between tabs
+    function goToNextTab(tabId) {
+      document.getElementById(tabId).click();
+    }
+  </script>
+
+  <style>
+    /* Custom CSS for improved interface */
+    body {
+      background-color: #f8f9fa;
+    }
+    
+    .card {
+      border: none;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      border-radius: 0.5rem;
+    }
+    
+    .action-card {
+      border-radius: 0.5rem;
+      transition: transform 0.2s;
+    }
+    
+    .action-card:hover {
+      transform: translateY(-3px);
+    }
+    
+    .nav-tabs .nav-link {
+      color: #ffffff;
+      font-weight: 500;
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-bottom: 2px solid transparent;
+    }
+    
+    .nav-tabs .nav-link.active {
+      color: #ffffff ;
+      font-weight: 600;
+      background: transparent;
+      border-bottom: 2px solid #000;
+    }
+    
+    .nav-tabs .nav-link:hover:not(.active) {
+      border-color: transparent;
+      color: #000;
+    }
+    
+    .form-control, .form-select {
+      padding: 0.6rem 0.75rem;
+      border-radius: 0.375rem;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+    
+    .btn {
+      padding: 0.5rem 1.25rem;
+      font-weight: 500;
+      border-radius: 0.375rem;
+    }
+    
+    .select2-container--default .select2-selection--multiple {
+      border-color: #ced4da;
+      min-height: 38px;
+      border-radius: 0.375rem;
+    }
+    
+    .select2-container--default.select2-container--focus .select2-selection--multiple {
+      border-color: #86b7fe;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+    
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+      background-color: #e9ecef;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      padding: 0.2rem 0.5rem;
+      margin-top: 0.3rem;
+    }
+    
+    label.form-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #495057;
+    }
+  </style>
+</body>
+</html>

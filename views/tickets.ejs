@@ -1,0 +1,548 @@
+<%- include('./components/head.ejs') -%>
+
+<body>
+  <!-- Sidebar -->
+
+  <%- include('./components/navigation.ejs') -%>
+
+  <!-- Content Wrapper -->
+  <div id="content">
+    <!-- Top Navigation -->
+    <nav class="topbar">
+      <div class="d-flex align-items-center">
+        <button class="mobile-menu-toggle me-3" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="page-title mb-0">Ticket Dashboard</h1>
+      </div>
+      <div class="user-menu">
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="me-2 d-none d-sm-inline fw-bold">John Doe</span>
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-bell me-2"></i> Notifications</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid p-4">
+      <!-- Status Tabs -->
+      <ul class="nav nav-tabs mb-4" id="ticketTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link text-secondary active" id="open-tab" data-bs-toggle="tab" data-bs-target="#open-tickets" type="button" role="tab">
+            <i class="fas fa-folder-open me-2"></i> Open Tickets
+            <span class="badge bg-primary ms-2">5</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link text-secondary"  id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending-tickets" type="button" role="tab">
+            <i class="fas fa-clock me-2"></i> Pending
+            <span class="badge bg-warning ms-2">3</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link text-secondary" id="solved-tab" data-bs-toggle="tab" data-bs-target="#solved-tickets" type="button" role="tab">
+            <i class="fas fa-check-circle me-2"></i> Solved
+            <span class="badge bg-success ms-2">12</span>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Search and Filter Bar -->
+      <div class="row mb-4">
+        <div class="col-md-8">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" class="form-control" placeholder="Search tickets...">
+            <button class="btn btn-outline-secondary" type="button">Search</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex justify-content-end">
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown">
+                <i class="fas fa-filter me-2"></i> Filter
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">All Tickets</a></li>
+                <li><a class="dropdown-item" href="#">Assigned to Me</a></li>
+                <li><a class="dropdown-item" href="#">High Priority</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+                <li><a class="dropdown-item" href="#">Last 30 Days</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="ticketTabsContent">
+        <!-- Open Tickets Tab -->
+        <div class="tab-pane fade show active" id="open-tickets" role="tabpanel">
+          <div class="card mb-4">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Ticket ID</th>
+                      <th>Subject</th>
+                      <th>Customer</th>
+                      <th>Priority</th>
+                      <th>Created</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="ticket-row animate-in" style="animation-delay: 0.1s;">
+                      <td>#TKT-1001</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="badge bg-primary me-2">Support</span>
+                          Login issues after system update
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          Sarah Johnson
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-danger">High</span>
+                      </td>
+                      <td>2 hours ago</td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="ticket-row animate-in" style="animation-delay: 0.2s;">
+                      <td>#TKT-1002</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="badge bg-warning me-2">Billing</span>
+                          Invoice discrepancy for March
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          Michael Brown
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-warning">Medium</span>
+                      </td>
+                      <td>1 day ago</td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="ticket-row animate-in" style="animation-delay: 0.3s;">
+                      <td>#TKT-1003</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="badge bg-success me-2">Sales</span>
+                          Request for product demo
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          Emily Davis
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-success">Low</span>
+                      </td>
+                      <td>2 days ago</td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending Tickets Tab -->
+        <div class="tab-pane fade" id="pending-tickets" role="tabpanel">
+          <div class="card mb-4">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Ticket ID</th>
+                      <th>Subject</th>
+                      <th>Customer</th>
+                      <th>Priority</th>
+                      <th>Waiting Since</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="ticket-row animate-in" style="animation-delay: 0.1s;">
+                      <td>#TKT-2001</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="badge bg-primary me-2">Support</span>
+                          Feature request: Dark mode
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          Robert Wilson
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-warning">Medium</span>
+                      </td>
+                      <td>3 days</td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="ticket-row animate-in" style="animation-delay: 0.2s;">
+                      <td>#TKT-2002</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="badge bg-warning me-2">Billing</span>
+                          Subscription cancellation request
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          Jessica Miller
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-success">Low</span>
+                      </td>
+                      <td>1 week</td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solved Tickets Tab -->
+        <div class="tab-pane fade" id="solved-tickets" role="tabpanel">
+          <div class="card mb-4">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Ticket ID</th>
+                      <th>Subject</th>
+                      <th>Customer</th>
+                      <th>Priority</th>
+                      <th>Solved On</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="ticket-row animate-in" style="animation-delay: 0.1s;">
+                      <td>#TKT-3001</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="badge bg-primary me-2">Support</span>
+                          Password reset not working
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          David Anderson
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-danger">High</span>
+                      </td>
+                      <td>Yesterday</td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-undo"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="ticket-row animate-in" style="animation-delay: 0.2s;">
+                      <td>#TKT-3002</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="badge bg-success me-2">Sales</span>
+                          Pricing inquiry for enterprise plan
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          Lisa Thompson
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-success">Low</span>
+                      </td>
+                      <td>3 days ago</td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-undo"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View Ticket Modal -->
+      <div class="modal fade" id="ticketModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Ticket #TKT-1001</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center mb-3">
+                    <span class="badge bg-danger me-2">High Priority</span>
+                    <span class="badge bg-primary">Support</span>
+                  </div>
+                  <h4>Login issues after system update</h4>
+                  <p class="text-muted">Created: 2 hours ago | Updated: 1 hour ago</p>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center mb-3">
+                        <div>
+                          <h6 class="mb-0">Sarah Johnson</h6>
+                          <small class="text-muted">Premium Customer</small>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <small class="text-muted">Email</small>
+                          <p class="mb-2">sarah.johnson@example.com</p>
+                        </div>
+                        <div>
+                          <small class="text-muted">Phone</small>
+                          <p class="mb-2">(555) 123-4567</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h6 class="mb-0">Description</h6>
+                </div>
+                <div class="card-body">
+                  <p>After the latest system update (v2.3.5), I'm unable to login to my account. I keep getting an "Invalid credentials" error even though I'm sure I'm using the correct password. I've tried resetting my password but the issue persists.</p>
+                  <p>This is preventing me from accessing important client data. Please help resolve this as soon as possible.</p>
+                </div>
+              </div>
+
+              <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h6 class="mb-0">Attachments</h6>
+                  <button class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus me-1"></i> Add File
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-file-image text-primary me-3" style="font-size: 1.5rem;"></i>
+                    <div class="flex-grow-1">
+                      <div class="d-flex justify-content-between">
+                        <span>screenshot-error.png</span>
+                        <small class="text-muted">1.2 MB</small>
+                      </div>
+                      <div class="progress mt-1" style="height: 5px;">
+                        <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h6 class="mb-0">Activity</h6>
+                </div>
+                <div class="card-body">
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-badge bg-primary">
+                        <i class="fas fa-ticket-alt"></i>
+                      </div>
+                      <div class="timeline-content">
+                        <div class="d-flex justify-content-between">
+                          <span class="fw-bold">Ticket Created</span>
+                          <small class="text-muted">2 hours ago</small>
+                        </div>
+                        <small>By Sarah Johnson</small>
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-badge bg-info">
+                        <i class="fas fa-user-tie"></i>
+                      </div>
+                      <div class="timeline-content">
+                        <div class="d-flex justify-content-between">
+                          <span class="fw-bold">Assigned to Support Team</span>
+                          <small class="text-muted">1 hour ago</small>
+                        </div>
+                        <small>By System</small>
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-badge bg-success">
+                        <i class="fas fa-comment"></i>
+                      </div>
+                      <div class="timeline-content">
+                        <div class="d-flex justify-content-between">
+                          <span class="fw-bold">Comment Added</span>
+                          <small class="text-muted">45 minutes ago</small>
+                        </div>
+                        <p class="mb-1">We've identified the issue and are working on a fix. This appears to be affecting multiple users after the update.</p>
+                        <small>By John Doe (Support Agent)</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Show ticket modal when view buttons are clicked
+    document.querySelectorAll('.btn-outline-primary').forEach(button => {
+      button.addEventListener('click', function() {
+        var modal = new bootstrap.Modal(document.getElementById('ticketModal'));
+        modal.show();
+      });
+    });
+
+    // Priority selection effect
+    document.querySelectorAll('.priority-option input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll('.priority-option').forEach(option => {
+          option.classList.remove('selected');
+        });
+        
+        if (this.checked) {
+          const parent = this.closest('.priority-option');
+          parent.classList.add('selected');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

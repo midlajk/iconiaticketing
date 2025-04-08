@@ -1,10 +1,31 @@
 <div class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
-      <img src="logo.png" alt="Iconia Logo" width="50" height="50">
-    </div>
-    <div class="nav-item"><a class="nav-link" href="/Users/apple/Desktop/iconiaticketing/newticket.html"><i class="fas fa-plus"></i><span>New Ticket</span></a></div>
-    <div class="nav-item"><a class="nav-link" href="/Users/apple/Desktop/iconiaticketing/viewtickets.html"><i class="fas fa-list"></i><span>Tickets</span></a></div>
-    <div class="nav-item"><a class="nav-link active" href="/Users/apple/Desktop/iconiaticketing/viewcustomer.html"><i class="fas fa-users"></i><span>Customers</span></a></div>
-    <div class="nav-item"><a class="nav-link" href="#"><i class="fas fa-chart-bar"></i><span>Reports</span></a></div>
-    <div class="nav-item"><a class="nav-link" href="/Users/apple/Desktop/iconiaticketing/employees.html"><i class="fas fa-user-cog"></i><span>Employees</span></a></div>
+  <div class="sidebar-brand">
+    <img src="images/logo.png" alt="Iconia Logo" width="50" height="50">
   </div>
+  
+  <div class="nav-item">
+    <a class="nav-link <%= screen=='New Ticket'?'active':'' %>" href="/newticket">
+      <i class="fas fa-plus"></i>
+      <span>New Ticket</span>
+    </a>
+  </div>
+  
+  <div class="nav-item">
+    <a class="nav-link <%= screen=='Tickets'?'active':'' %>" href="/tickets">
+      <i class="fas fa-list"></i>
+      <span>Tickets</span>
+    </a>
+  </div>
+  
+  <div class="nav-item">
+    <a class="nav-link <%= screen=='Customers'?'active':'' %>" href="/customers">
+      <i class="fas fa-users"></i>
+      <span>Customers</span>
+    </a>
+  </div>
+  
+  
+  
+  <div class="nav-item"><a class="nav-link <%= screen=='Employees'?'active':'' %>" href="/employees"><i class="fas fa-user-cog"></i><span>Employees</span></a></div>
+
+</div>

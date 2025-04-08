@@ -6,21 +6,37 @@ const bcrypt = require('bcrypt');
 
 const customerSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  location: { type: String },
+  address: { type: String, required: true },
+  emirates: { type: String, required: true },
+  area: { type: String },
+  city: { type: String },
+  state: { type: String },
+  po: { type: String }, // P.O.
+  email: { type: String, required: true },
+  trn: { type: String, required: true }, // T.R.N.
+  tradeLicense: { type: String },
+  mfid: { type: String }, // M.F.I.D.
+  status: { type: String },
+  phone: { type: String, required: true },
+
+  contactDetails: {
+    managerDirector: { type: String },
+    managerContact: { type: String },
+    managerEmail: { type: String },
+    pocName: { type: String },
+    pocContact: { type: String },
+    pocEmail: { type: String },
+  },
+
+  itService: {
+    services: [{ type: String }] // allow multiple services like 'AMC', 'Troubleshooting'
+  },
+
   createdAt: { type: Date, default: Date.now },
-  mobileNumber: { type: String, required: true },
-  updatedAt: { type: Date, default: Date.now },
-  address: { type: String },
-  contractDate: { type: Date },
-  createdByEmployee: { type: String },
-  representativeId: { type: String },
-  // routeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Route' },
-  email: { type: String },
+  logo: { type: String }, // Stores filename like '17232091212-logo.png'
 
 });
 
-module.exports = {
-    Customer: mongoose.model('Customer', customerSchema),
-    
+module.exports = mongoose.model('Customer', customerSchema);
 
-  };
+
