@@ -2,7 +2,6 @@
 
 <body>
   <!-- Sidebar -->
-
   <%- include('./components/navigation.ejs') -%>
 
   <!-- Content -->
@@ -36,16 +35,21 @@
       <div class="row">
         <!-- Employee Table -->
         <div class="col-12">
-          <div class="card mb-4 animate-in">
-            <div class="card-header">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0"><i class="fas fa-users me-2"></i>Employee List</h5>
-              <button class="btn btn-primary btn-sm position-absolute top-50 end-0 translate-middle-y me-4" id="addEmployeeBtn">
-                <i class="fas fa-user-plus me-2"></i>Add Employee
-              </button>
+              <div>
+                <button class="btn btn-outline-secondary btn-sm me-2" id="refreshBtn">
+                  <i class="fas fa-sync-alt me-1"></i> Refresh
+                </button>
+                <button class="btn btn-primary btn-sm" id="addEmployeeBtn">
+                  <i class="fas fa-user-plus me-1"></i> Add Employee
+                </button>
+              </div>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle" id="employeeTable">
                   <thead>
                     <tr class="table-light">
                       <th>Name</th>
@@ -56,58 +60,7 @@
                     </tr>
                   </thead>
                   <tbody id="employeeTableBody">
-                    <!-- Example Rows -->
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div>
-                            <h6 class="mb-0">Jane Smith</h6>
-                            <small class="text-muted">ID: EMP001</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td>jane@example.com</td>
-                      <td><span class="badge bg-primary bg-gradient">Admin</span></td>
-                      <td><span class="badge bg-success bg-gradient">Active</span></td>
-                      <td class="text-end">
-                        <button class="btn btn-sm btn-outline-primary me-2 edit-btn"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div>
-                            <h6 class="mb-0">John Doe</h6>
-                            <small class="text-muted">ID: EMP002</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td>john@example.com</td>
-                      <td><span class="badge bg-secondary bg-gradient">Support</span></td>
-                      <td><span class="badge bg-success bg-gradient">Active</span></td>
-                      <td class="text-end">
-                        <button class="btn btn-sm btn-outline-primary me-2 edit-btn"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div>
-                            <h6 class="mb-0">Sarah Johnson</h6>
-                            <small class="text-muted">ID: EMP003</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td>sarah@example.com</td>
-                      <td><span class="badge bg-secondary bg-gradient">Support</span></td>
-                      <td><span class="badge bg-warning text-dark bg-gradient">Pending</span></td>
-                      <td class="text-end">
-                        <button class="btn btn-sm btn-outline-primary me-2 edit-btn"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash"></i></button>
-                      </td>
-                    </tr>
+                    <!-- Table data loaded by DataTables -->
                   </tbody>
                 </table>
               </div>
@@ -142,6 +95,7 @@
                 <option value="" disabled selected>Select role</option>
                 <option value="Admin">Admin</option>
                 <option value="Support">Support</option>
+                <option value="Assistant">Assistant</option>
               </select>
             </div>
             <div class="mb-3">
@@ -164,93 +118,485 @@
     </div>
   </div>
 
-  <!-- Bootstrap Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Edit Employee Modal -->
+  <div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fas fa-user-edit me-2"></i>Edit Employee</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editEmployeeForm">
+            <input type="hidden" id="editEmpId">
+            <div class="mb-3">
+              <label for="editEmpName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="editEmpName" required />
+            </div>
+            <div class="mb-3">
+              <label for="editEmpEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="editEmpEmail" required />
+            </div>
+            <div class="mb-3">
+              <label for="editEmpRole" class="form-label">Role</label>
+              <select class="form-select" id="editEmpRole" required>
+                <option value="" disabled>Select role</option>
+                <option value="Admin">Admin</option>
+                <option value="Support">Support</option>
+                <option value="Assistant">Assistant</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="editEmpStatus" class="form-label">Status</label>
+              <select class="form-select" id="editEmpStatus" required>
+                <option value="" disabled>Select Status</option>
+                <option value="Active">Active</option>
+                <option value="Suspended">Suspended</option>
+                <!-- <option value="Assistant">Assistant</option> -->
+              </select>
+            </div>
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="changePassword">
+                <label class="form-check-label" for="changePassword">
+                  Change Password
+                </label>
+              </div>
+            </div>
+            <div class="mb-3 password-fields" style="display: none;">
+              <label for="editEmpPassword" class="form-label">New Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="editEmpPassword" />
+                <button class="btn btn-outline-secondary" type="button" id="toggleEditPassword">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="d-grid gap-2 mt-4">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-2"></i> Update Employee
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Confirmation Modal -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Action</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="confirmationMessage">Are you sure you want to proceed?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmActionBtn">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+  <!-- Bootstrap Bundle -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  
   <!-- Custom Script -->
   <script>
-    // Toggle sidebar on mobile
-    document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('open');
-    });
+    $(document).ready(function () {
+      // Initialize DataTable with basic settings
+      const table = $('#employeeTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+          url: '/employee/employees',
+          data: function (d) {
+            d.searchQuery = d.search.value;
+          },
+          dataSrc: function(resp) {
+            // Check if response has data field
+            if (resp.data) {
+              return resp.data;
+            } 
+            // If response is direct array
+            else if (Array.isArray(resp)) {
+              return resp;
+            }
+            // Default empty array if none of the above
+            return [];
+          }
+        },
+        columns: [
+          {
+            data: 'name',
+          },
+          { 
+            data: 'email',
+            render: function(data) {
+              return data || '';
+            }
+          },
+          {
+            data: 'role',
+            render: function (data) {
+              if (!data) return '';
+              const badges = {
+                'Admin': 'bg-primary',
+                'Support': 'bg-info',
+                'Assistant': 'bg-secondary'
+              };
+              const badgeClass = badges[data] || 'bg-secondary';
+              return `<span class="badge ${badgeClass} bg-gradient">${data}</span>`;
+            }
+          },
+          {
+            // Default to 'Active' if status is not present
+            data: null,
+            render: function (data, type, row) {
+              const status = row.status || 'Active';
+              const badgeClass = status === 'Active' ? 'bg-success' : 'bg-danger';
+              return `<span class="badge ${badgeClass} bg-gradient">${status}</span>`;
+            }
+          },
+          {
+            data: '_id',
+            orderable: false,
+            searchable: false,
+            className: 'text-end',
+            render: function (data, type, row) {
+              if (!data) return '';
+              return `
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary me-2 edit-btn" data-id="${data}">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${data}" data-name="${row.name || ''}">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              `;
+            }
+          }
+        ],
+        // Handle errors gracefully
+        error: function(xhr, error, thrown) {
+          console.error('DataTables error:', error);
+          showToast('Error', 'Failed to load employee data', 'error');
+        }
+      });
 
-    // Show add employee modal
-    document.getElementById('addEmployeeBtn').addEventListener('click', function() {
-      const modal = new bootstrap.Modal(document.getElementById('addEmployeeModal'));
-      modal.show();
-    });
+      // Add Employee Button Click
+      $('#addEmployeeBtn').click(function () {
+        $('#addEmployeeForm')[0].reset();
+        $('#addEmployeeModal').modal('show');
+      });
+      
+      // Refresh Button Click
+      $('#refreshBtn').click(function() {
+        const $icon = $(this).find('i');
+        $icon.addClass('fa-spin');
+        
+        try {
+          table.ajax.reload(function() {
+            setTimeout(() => {
+              $icon.removeClass('fa-spin');
+            }, 500);
+          });
+        } catch (err) {
+          console.error('Refresh error:', err);
+          $icon.removeClass('fa-spin');
+          showToast('Error', 'Failed to refresh data', 'error');
+        }
+      });
+  
+      // Add Employee Form Submit
+      $('#addEmployeeForm').submit(function (e) {
+        e.preventDefault();
+        const payload = {
+          name: $('#empName').val(),
+          email: $('#empEmail').val(),
+          role: $('#empRole').val(),
+          password: $('#empPassword').val()
+        };
+  
+        $.ajax({
+          url: '/employee/addemployee',
+          method: 'POST',
+          data: payload,
+          success: function (res) {
+            if (res.success) {
+              $('#addEmployeeModal').modal('hide');
+              table.ajax.reload();
+              showToast('Success', 'Employee added successfully', 'success');
+            } else {
+              showToast('Error', res.message || 'Failed to add employee', 'error');
+            }
+          },
+          error: (xhr) => {
+            showToast('Error', xhr.responseJSON?.message || 'Server error', 'error');
+          }
+        });
+      });
 
-    // Toggle password visibility
-    document.getElementById('togglePassword').addEventListener('click', function() {
-      const passwordInput = document.getElementById('empPassword');
-      const icon = this.querySelector('i');
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-      } else {
-        passwordInput.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
+      // Edit Button Click (delegated event)
+      $(document).on('click', '.edit-btn', function() {
+        const employeeId = $(this).data('id');
+        
+        // Find employee in the current data
+        const row = table.row($(this).closest('tr')).data();
+        if (row) {
+          populateEditForm(row);
+          $('#editEmployeeModal').modal('show');
+        } 
+        
+      });
+      
+      // Populate edit form with employee data
+      function populateEditForm(employee) {
+        $('#editEmpId').val(employee._id);
+        $('#editEmpName').val(employee.name || '');
+        $('#editEmpEmail').val(employee.email || '');
+        $('#editEmpRole').val(employee.role || 'Assistant');
+        $('#editEmpStatus').val(employee.status || 'Active');
+
+        // Reset password fields
+        $('#changePassword').prop('checked', false);
+        $('.password-fields').hide();
+        $('#editEmpPassword').val('').attr('required', false);
+        
+        // Set up password toggle
+        $('#toggleEditPassword').off('click').on('click', function() {
+          togglePasswordVisibility('#editEmpPassword', this);
+        });
+        
+        // Change password checkbox
+        $('#changePassword').off('change').on('change', function() {
+          $('.password-fields').toggle(this.checked);
+          $('#editEmpPassword').attr('required', this.checked);
+        });
       }
-    });
+      
+  
 
-    // Handle form submission
-    document.getElementById('addEmployeeForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+      // Edit Employee Form Submit (delegated event)
+      $(document).on('submit', '#editEmployeeForm', function(e) {
+        e.preventDefault();
+        
+        const employeeId = $('#editEmpId').val();
+        const payload = {
+          id: employeeId,
+          name: $('#editEmpName').val(),
+          email: $('#editEmpEmail').val(),
+          role: $('#editEmpRole').val(),
+          status: $('#editEmpStatus').val()
+
+        };
+        
+        if ($('#changePassword').is(':checked')) {
+          payload.password = $('#editEmpPassword').val();
+        }
+        
+        $.ajax({
+                url: '/employee/update',
+                method: 'POST',
+                data: payload,
+                success: function(res) {
+                  if (res.success) {
+                    $('#editEmployeeModal').modal('hide');
+                    table.ajax.reload(null, false);
+                    showToast('Success', 'Employee updated successfully', 'success');
+                  } else {
+                    showToast('Error', res.message || 'Failed to update employee', 'error');
+                  }
+                },
+                error: function(xhr) {
+                  showToast('Error', xhr.responseJSON?.message || 'Server error', 'error');
+                }
+              });
+      });
       
-      // Get form values
-      const name = document.getElementById('empName').value;
-      const email = document.getElementById('empEmail').value;
-      const role = document.getElementById('empRole').value;
+      // Delete Button Click (delegated event)
+      $(document).on('click', '.delete-btn', function() {
+        const employeeId = $(this).data('id');
+        const employeeName = $(this).data('name') || 'this employee';
+        
+        $('#confirmationMessage').text(`Are you sure you want to delete ${employeeName}?`);
+        $('#confirmActionBtn').data('id', employeeId);
+        $('#confirmActionBtn').data('action', 'delete');
+        $('#confirmationModal').modal('show');
+      });
       
-      // Create new employee row
-      const tableBody = document.getElementById('employeeTableBody');
-      const newRow = document.createElement('tr');
-      newRow.innerHTML = `
-        <td>
-          <div class="d-flex align-items-center">
-            <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random" alt="User" class="rounded-circle me-3" width="40" height="40">
-            <div>
-              <h6 class="mb-0">${name}</h6>
-              <small class="text-muted">ID: EMP${(tableBody.children.length + 1).toString().padStart(3, '0')}</small>
+      // Confirmation Modal Button Click
+      $('#confirmActionBtn').click(function() {
+        const id = $(this).data('id');
+        const action = $(this).data('action');
+        
+        if (action === 'delete') {
+          $.ajax({
+            url: `/employee/delete/${id}`,
+            method: 'DELETE',
+            success: function(res) {
+              if (res.success) {
+                $('#confirmationModal').modal('hide');
+                table.ajax.reload();
+                showToast('Success', 'Employee deleted successfully', 'success');
+              } else {
+                showToast('Error', res.message || 'Failed to delete employee', 'error');
+              }
+            },
+            error: function(xhr) {
+              // Try POST method if DELETE not supported
+              if (xhr.status === 404) {
+                $.ajax({
+                  url: '/employee/delete',
+                  method: 'POST',
+                  data: { id: id },
+                  success: function(res) {
+                    if (res.success) {
+                      $('#confirmationModal').modal('hide');
+                      table.ajax.reload();
+                      showToast('Success', 'Employee deleted successfully', 'success');
+                    } else {
+                      showToast('Error', res.message || 'Failed to delete employee', 'error');
+                    }
+                  },
+                  error: function(xhr) {
+                    showToast('Error', xhr.responseJSON?.message || 'Server error', 'error');
+                  }
+                });
+              } else {
+                showToast('Error', xhr.responseJSON?.message || 'Server error', 'error');
+              }
+            }
+          });
+        }
+      });
+
+      // Password toggle function
+      function togglePasswordVisibility(inputSelector, button) {
+        const passwordInput = $(inputSelector);
+        const icon = $(button).find('i');
+        
+        if (passwordInput.attr('type') === 'password') {
+          passwordInput.attr('type', 'text');
+          icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+          passwordInput.attr('type', 'password');
+          icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+      }
+      
+      // Toggle password visibility for add form
+      $('#togglePassword').click(function() {
+        togglePasswordVisibility('#empPassword', this);
+      });
+      
+      // Toast notification function
+      function showToast(title, message, type) {
+        const toastId = 'toast-' + Date.now();
+        const bgClass = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-info';
+        
+        const toast = `
+          <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+            <div class="toast-header ${bgClass} text-white">
+              <strong class="me-auto">${title}</strong>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              ${message}
             </div>
           </div>
-        </td>
-        <td>${email}</td>
-        <td><span class="badge ${role === 'Admin' ? 'bg-primary' : 'bg-secondary'} bg-gradient">${role}</span></td>
-        <td><span class="badge bg-success bg-gradient">Active</span></td>
-        <td class="text-end">
-          <button class="btn btn-sm btn-outline-primary me-2 edit-btn"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash"></i></button>
-        </td>
-      `;
-      
-      // Add row to table
-      tableBody.appendChild(newRow);
-      
-      // Close modal and reset form
-      const modal = bootstrap.Modal.getInstance(document.getElementById('addEmployeeModal'));
-      modal.hide();
-      this.reset();
-      
-      // Show success message
-      alert('Employee added successfully!');
-    });
-
-    // Add event listeners for edit and delete buttons
-    document.addEventListener('click', function(e) {
-      if (e.target.classList.contains('delete-btn') || e.target.closest('.delete-btn')) {
-        if (confirm('Are you sure you want to delete this employee?')) {
-          e.target.closest('tr').remove();
-        }
-      } else if (e.target.classList.contains('edit-btn') || e.target.closest('.edit-btn')) {
-        // In a real app, you would populate the modal with the employee data
-        const modal = new bootstrap.Modal(document.getElementById('addEmployeeModal'));
-        modal.show();
-        document.querySelector('.modal-title').innerHTML = '<i class="fas fa-user-edit me-2"></i>Edit Employee';
+        `;
+        
+        $('#toastContainer').append(toast);
+        const toastElement = new bootstrap.Toast(document.getElementById(toastId));
+        toastElement.show();
+        
+        // Auto remove toast from DOM after it's hidden
+        $(`#${toastId}`).on('hidden.bs.toast', function() {
+          $(this).remove();
+        });
       }
+      
+      // Mobile menu toggle
+      $('#mobileMenuToggle').click(function() {
+        $('body').toggleClass('sidebar-toggled');
+        $('.sidebar').toggleClass('toggled');
+      });
+      
+      // Error reporting for debugging
+      window.onerror = function(message, source, lineno, colno, error) {
+        console.error("JS Error:", message, "at", source, ":", lineno);
+        showToast('JavaScript Error', 'Check console for details', 'error');
+        return false;
+      };
     });
   </script>
+
+  <style>
+    /* Fix for blinking/disappearing content */
+    #content {
+      min-height: 100vh;
+      display: block;
+    }
+    
+    /* Add some animations and enhancements */
+    .card {
+      transition: all 0.3s ease;
+    }
+    
+    #refreshBtn i.fa-spin {
+      animation: spin 1s infinite linear;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Improve table appearance */
+    #employeeTable {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    
+    #employeeTable th {
+      font-weight: 600;
+      color: #495057;
+    }
+    
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .topbar .page-title {
+        font-size: 1.25rem;
+      }
+      
+      .table-responsive {
+        border-radius: 0.25rem;
+      }
+    }
+    
+    /* Ensure toast container is visible */
+    #toastContainer {
+      z-index: 9999;
+    }
+  </style>
 </body>
 </html>

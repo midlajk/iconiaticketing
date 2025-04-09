@@ -10,6 +10,8 @@ const flash = require('connect-flash');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const customerRoutes = require('./routes/customer');
+const employeeRoutes = require('./routes/employees');
+const ticketRoutes = require('./routes/tickets');
 
 var app = express();
 
@@ -17,7 +19,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -32,6 +34,9 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/employee', employeeRoutes);
+app.use('/tickets', ticketRoutes);
+
 app.use('/customers', customerRoutes);
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
@@ -46,7 +51,6 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  console.log(err.message)
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
