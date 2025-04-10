@@ -1,0 +1,508 @@
+<div class="card" id="changeManagementForm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Change Management Form</h5>
+      <span class="badge bg-purple">Management</span>
+    </div>
+    <div class="card-body">
+      <form id="managementForm" enctype="multipart/form-data">
+        <!-- 1. General Information -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">1. General Information</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="changeRequestId" class="form-label">Change Request ID</label>
+                <input type="text" class="form-control" id="changeRequestId" name="changeRequestId" required>
+                <div class="invalid-feedback">Please enter Change Request ID.</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="dateSubmitted" class="form-label">Date Submitted</label>
+                <input type="date" class="form-control" id="dateSubmitted" name="dateSubmitted" required>
+                <div class="invalid-feedback">Please select submission date.</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="requestedBy" class="form-label">Requested By</label>
+                <input type="text" class="form-control" id="requestedBy" name="requestedBy" required>
+                <div class="invalid-feedback">Please enter requester name.</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="department" class="form-label">Department/Section</label>
+                <input type="text" class="form-control" id="department" name="department" required>
+                <div class="invalid-feedback">Please enter department/section.</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="changeManager" class="form-label">Change Manager</label>
+                <input type="text" class="form-control" id="changeManager" name="changeManager" required>
+                <div class="invalid-feedback">Please enter Change Manager name.</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="assignedTo" class="form-label">Assigned To</label>
+                <input type="text" class="form-control" id="assignedTo" name="assignedTo" required>
+                <div class="invalid-feedback">Please enter assignee name.</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="changeTitle" class="form-label">Change Title</label>
+              <input type="text" class="form-control form-control-lg" id="changeTitle" name="changeTitle" required>
+              <div class="invalid-feedback">Please provide a title for the change.</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 2. Change Details -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">2. Change Details</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-4">
+              <label class="form-label">Type of Change</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="changeType" id="type-emergency" value="Emergency Change" autocomplete="off">
+                <label class="btn btn-outline-danger" for="type-emergency">Emergency Change</label>
+  
+                <input type="radio" class="btn-check" name="changeType" id="type-normal" value="Normal Change" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="type-normal">Normal Change</label>
+  
+                <input type="radio" class="btn-check" name="changeType" id="type-standard" value="Standard Change" autocomplete="off">
+                <label class="btn btn-outline-success" for="type-standard">Standard Change</label>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="changeSummary" class="form-label">Summary of Change</label>
+              <textarea class="form-control" id="changeSummary" name="changeSummary" rows="3" required></textarea>
+              <div class="invalid-feedback">Please provide a summary of the change.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="changeReason" class="form-label">Reason for Change</label>
+              <textarea class="form-control" id="changeReason" name="changeReason" rows="3" required></textarea>
+              <div class="invalid-feedback">Please provide a reason for the change.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="changeScope" class="form-label">Scope of Change</label>
+              <textarea class="form-control" id="changeScope" name="changeScope" rows="3" required></textarea>
+              <div class="invalid-feedback">Please define the scope of change.</div>
+            </div>
+            
+            <div class="mb-4">
+              <label class="form-label">Priority</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="priority" id="priority-low" value="Low" autocomplete="off">
+                <label class="btn btn-outline-success" for="priority-low">Low</label>
+  
+                <input type="radio" class="btn-check" name="priority" id="priority-medium" value="Medium" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="priority-medium">Medium</label>
+  
+                <input type="radio" class="btn-check" name="priority" id="priority-high" value="High" autocomplete="off">
+                <label class="btn btn-outline-danger" for="priority-high">High</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="proposedDate" class="form-label">Proposed Implementation Date</label>
+                <input type="date" class="form-control" id="proposedDate" name="proposedDate" required>
+                <div class="invalid-feedback">Please select proposed date.</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="estimatedEffort" class="form-label">Estimated Effort (hours)</label>
+                <input type="number" class="form-control" id="estimatedEffort" name="estimatedEffort" min="0" step="0.5" required>
+                <div class="invalid-feedback">Please enter estimated effort.</div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="resourcesRequired" class="form-label">Resources Required</label>
+              <textarea class="form-control" id="resourcesRequired" name="resourcesRequired" rows="2" required></textarea>
+              <div class="invalid-feedback">Please specify required resources.</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 3. Impact Analysis -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">3. Impact Analysis</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="businessImpact" class="form-label">Impact on Business Operations</label>
+              <textarea class="form-control" id="businessImpact" name="businessImpact" rows="2" required></textarea>
+              <div class="invalid-feedback">Please describe business impact.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="userImpact" class="form-label">Impact on Users/Departments</label>
+              <textarea class="form-control" id="userImpact" name="userImpact" rows="2" required></textarea>
+              <div class="invalid-feedback">Please describe user impact.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="systemImpact" class="form-label">Impact on Systems/Services</label>
+              <textarea class="form-control" id="systemImpact" name="systemImpact" rows="2" required></textarea>
+              <div class="invalid-feedback">Please describe system impact.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="securityImpact" class="form-label">Impact on Security (Data Confidentiality, Integrity, Availability)</label>
+              <textarea class="form-control" id="securityImpact" name="securityImpact" rows="2" required></textarea>
+              <div class="invalid-feedback">Please describe security impact.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="complianceImpact" class="form-label">Compliance and Regulatory Impact</label>
+              <textarea class="form-control" id="complianceImpact" name="complianceImpact" rows="2" required></textarea>
+              <div class="invalid-feedback">Please describe compliance impact.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="dependencies" class="form-label">Dependencies</label>
+              <textarea class="form-control" id="dependencies" name="dependencies" rows="2" required></textarea>
+              <div class="invalid-feedback">Please list dependencies.</div>
+            </div>
+            
+            <div class="mb-4">
+              <label class="form-label">Risk Assessment</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="riskAssessment" id="risk-low" value="Low" autocomplete="off">
+                <label class="btn btn-outline-success" for="risk-low">Low</label>
+  
+                <input type="radio" class="btn-check" name="riskAssessment" id="risk-medium" value="Medium" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="risk-medium">Medium</label>
+  
+                <input type="radio" class="btn-check" name="riskAssessment" id="risk-high" value="High" autocomplete="off">
+                <label class="btn btn-outline-danger" for="risk-high">High</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 4. Implementation Plan -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">4. Implementation Plan</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="plannedImplementationDate" class="form-label">Planned Implementation Date</label>
+              <input type="date" class="form-control" id="plannedImplementationDate" name="plannedImplementationDate" required>
+              <div class="invalid-feedback">Please select planned implementation date.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Change Implementation Steps</label>
+              <div id="implementationSteps">
+                <div class="input-group mb-2">
+                  <span class="input-group-text">1.</span>
+                  <input type="text" class="form-control" name="implementationSteps[]" required>
+                  <button type="button" class="btn btn-outline-secondary delete-step" disabled>
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+                <div class="input-group mb-2">
+                  <span class="input-group-text">2.</span>
+                  <input type="text" class="form-control" name="implementationSteps[]" required>
+                  <button type="button" class="btn btn-outline-secondary delete-step">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+                <div class="input-group mb-2">
+                  <span class="input-group-text">3.</span>
+                  <input type="text" class="form-control" name="implementationSteps[]" required>
+                  <button type="button" class="btn btn-outline-secondary delete-step">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="addStepBtn">
+                <i class="fas fa-plus me-1"></i> Add Step
+              </button>
+            </div>
+            
+            <div class="mb-3">
+              <label for="backupPlan" class="form-label">Backup/Contingency Plan</label>
+              <textarea class="form-control" id="backupPlan" name="backupPlan" rows="3" required></textarea>
+              <div class="invalid-feedback">Please provide a backup plan.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="rollbackPlan" class="form-label">Rollback Plan</label>
+              <textarea class="form-control" id="rollbackPlan" name="rollbackPlan" rows="3" required></textarea>
+              <div class="invalid-feedback">Please provide a rollback plan.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="communicationPlan" class="form-label">Communication Plan</label>
+              <textarea class="form-control" id="communicationPlan" name="communicationPlan" rows="3" required></textarea>
+              <div class="invalid-feedback">Please provide a communication plan.</div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="downtimeStart" class="form-label">Scheduled Downtime Start (if applicable)</label>
+                <input type="datetime-local" class="form-control" id="downtimeStart" name="downtimeStart">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="downtimeEnd" class="form-label">Scheduled Downtime End (if applicable)</label>
+                <input type="datetime-local" class="form-control" id="downtimeEnd" name="downtimeEnd">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 5. Testing and Validation -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">5. Testing and Validation</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="testingPlan" class="form-label">Testing Plan</label>
+              <textarea class="form-control" id="testingPlan" name="testingPlan" rows="3" required></textarea>
+              <div class="invalid-feedback">Please provide a testing plan.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="testingEnvironment" class="form-label">Testing Environment</label>
+              <input type="text" class="form-control" id="testingEnvironment" name="testingEnvironment" required>
+              <div class="invalid-feedback">Please specify the testing environment.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="testingResults" class="form-label">Testing Results</label>
+              <textarea class="form-control" id="testingResults" name="testingResults" rows="3"></textarea>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="validationBy" class="form-label">Validation by</label>
+                <input type="text" class="form-control" id="validationBy" name="validationBy">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="validationDate" class="form-label">Date of Validation</label>
+                <input type="date" class="form-control" id="validationDate" name="validationDate">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 6. Approval Process -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">6. Approval Process</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label">Change Advisory Board (CAB) Approval</label>
+              <div class="d-flex gap-3 mb-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="cabApproval" id="cab-approved" value="Approved">
+                  <label class="form-check-label" for="cab-approved">Approved</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="cabApproval" id="cab-rejected" value="Rejected">
+                  <label class="form-check-label" for="cab-rejected">Rejected</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card mb-3">
+              <div class="card-header bg-light">
+                <h6 class="mb-0">CAB Members</h6>
+              </div>
+              <div class="card-body">
+                <div class="mb-2">
+                  <label for="itTeamRep" class="form-label">IT Teams Representative</label>
+                  <input type="text" class="form-control" id="itTeamRep" name="cabMembers.itTeamRep">
+                </div>
+                <div class="mb-2">
+                  <label for="infoSecRep" class="form-label">Information Security Representative</label>
+                  <input type="text" class="form-control" id="infoSecRep" name="cabMembers.infoSecRep">
+                </div>
+                <div class="mb-2">
+                  <label for="businessUnitRep" class="form-label">Business Unit Representative</label>
+                  <input type="text" class="form-control" id="businessUnitRep" name="cabMembers.businessUnitRep">
+                </div>
+                <div class="mb-2">
+                  <label for="cabChangeManager" class="form-label">Change Manager</label>
+                  <input type="text" class="form-control" id="cabChangeManager" name="cabMembers.changeManager">
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="approvalDate" class="form-label">Approval Date</label>
+              <input type="date" class="form-control" id="approvalDate" name="approvalDate">
+            </div>
+          </div>
+        </div>
+        
+        <!-- 7. Post-Implementation Review -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">7. Post-Implementation Review</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="reviewDate" class="form-label">Date of Review</label>
+              <input type="date" class="form-control" id="reviewDate" name="reviewDate">
+            </div>
+            
+            <div class="mb-3">
+              <label for="implementationSummary" class="form-label">Summary of Implementation</label>
+              <textarea class="form-control" id="implementationSummary" name="implementationSummary" rows="3"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="issuesEncountered" class="form-label">Any Issues Encountered</label>
+              <textarea class="form-control" id="issuesEncountered" name="issuesEncountered" rows="2"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="correctiveActions" class="form-label">Corrective Actions Taken</label>
+              <textarea class="form-control" id="correctiveActions" name="correctiveActions" rows="2"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="operationalImpact" class="form-label">Impact on Operations</label>
+              <textarea class="form-control" id="operationalImpact" name="operationalImpact" rows="2"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="postImplSignOff" class="form-label">Post-Implementation Sign-Off</label>
+              <input type="text" class="form-control" id="postImplSignOff" name="postImplSignOff">
+            </div>
+          </div>
+        </div>
+        
+        <!-- 8. Documentation and Record Keeping -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">8. Documentation and Record Keeping</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label">Documentation Updated</label>
+              <div class="d-flex gap-3 mb-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="docUpdated" id="doc-yes" value="Yes">
+                  <label class="form-check-label" for="doc-yes">Yes</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="docUpdated" id="doc-no" value="No">
+                  <label class="form-check-label" for="doc-no">No</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="recordsRetained" class="form-label">Records Retained in</label>
+              <input type="text" class="form-control" id="recordsRetained" name="recordsRetained">
+            </div>
+          </div>
+        </div>
+        
+        <!-- 9. Comments and Notes -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">9. Comments and Notes</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="implementedBy" class="form-label">Implemented By</label>
+                <input type="text" class="form-control" id="implementedBy" name="implementedBy">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="verifiedBy" class="form-label">Verified By</label>
+                <input type="text" class="form-control" id="verifiedBy" name="verifiedBy">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="approvedBy" class="form-label">Approved By</label>
+                <input type="text" class="form-control" id="approvedBy" name="approvedBy">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Submit Buttons -->
+        <div class="d-flex justify-content-end gap-3">
+          <button type="button" class="btn btn-outline-secondary" id="cancelManagementButton">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitManagementButton">
+            <i class="fas fa-tasks me-2"></i> Submit Change Management Form
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Dynamic implementation steps
+    document.getElementById('addStepBtn').addEventListener('click', function() {
+      const stepsContainer = document.getElementById('implementationSteps');
+      const stepCount = stepsContainer.children.length + 1;
+      
+      const newStepDiv = document.createElement('div');
+      newStepDiv.className = 'input-group mb-2';
+      newStepDiv.innerHTML = `
+        <span class="input-group-text">${stepCount}.</span>
+        <input type="text" class="form-control" name="implementationSteps[]" required>
+        <button type="button" class="btn btn-outline-secondary delete-step">
+          <i class="fas fa-trash"></i>
+        </button>
+      `;
+      
+      stepsContainer.appendChild(newStepDiv);
+      
+      // Add event listener to the new delete button
+      const deleteBtn = newStepDiv.querySelector('.delete-step');
+      deleteBtn.addEventListener('click', deleteStep);
+    });
+    
+    // Function to delete a step
+    function deleteStep() {
+      const stepsContainer = document.getElementById('implementationSteps');
+      if (stepsContainer.children.length > 1) {
+        this.closest('.input-group').remove();
+        
+        // Renumber the steps
+        const steps = stepsContainer.querySelectorAll('.input-group');
+        steps.forEach((step, index) => {
+          step.querySelector('.input-group-text').textContent = `${index + 1}.`;
+          
+          // Enable/disable delete buttons based on count
+          const deleteBtn = step.querySelector('.delete-step');
+          deleteBtn.disabled = stepsContainer.children.length <= 1;
+        });
+      }
+    }
+    
+    // Add event listeners to initial delete buttons
+    document.querySelectorAll('.delete-step').forEach(btn => {
+      btn.addEventListener('click', deleteStep);
+    });
+    
+    // Form validation (similar to your general ticket form)
+    document.getElementById('managementForm').addEventListener('submit', function(event) {
+      if (!this.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      this.classList.add('was-validated');
+    });
+  </script>

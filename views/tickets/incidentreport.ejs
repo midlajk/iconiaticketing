@@ -1,0 +1,522 @@
+<div class="card" id="securityIncidentForm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Information Security Incident Report</h5>
+      <span class="badge bg-danger">Security</span>
+    </div>
+    <div class="card-body">
+      <form id="incidentReportForm" enctype="multipart/form-data">
+        <!-- Basic Incident Information -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="incidentId" class="form-label">Incident No.</label>
+            <input type="text" class="form-control" id="incidentId" name="incidentId" value="2023JUN-000" readonly>
+          </div>
+          <div class="col-md-6">
+            <label for="severity" class="form-label">Severity</label>
+            <select class="form-select" id="severity" name="severity" required>
+              <option value="" selected disabled>Choose an item</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+            <div class="invalid-feedback">Please select severity level.</div>
+          </div>
+        </div>
+  
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+              <option value="" selected disabled>Choose an item</option>
+              <option value="Malware">Malware</option>
+              <option value="Phishing">Phishing</option>
+              <option value="Unauthorized Access">Unauthorized Access</option>
+              <option value="Data Breach">Data Breach</option>
+              <option value="DoS/DDoS">DoS/DDoS</option>
+              <option value="Social Engineering">Social Engineering</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="invalid-feedback">Please select incident category.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="categoryOther" class="form-label">Category (Other)</label>
+            <input type="text" class="form-control" id="categoryOther" name="categoryOther" disabled>
+          </div>
+        </div>
+  
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="repetitiveIncident" class="form-label">Repetitive Incident</label>
+            <select class="form-select" id="repetitiveIncident" name="repetitiveIncident" required>
+              <option value="" selected disabled>Choose an item</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <div class="invalid-feedback">Please specify if this is a repetitive incident.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="incidentStatus" class="form-label">Status of Incident</label>
+            <select class="form-select" id="incidentStatus" name="incidentStatus" required>
+              <option value="Open" selected>Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Contained">Contained</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+            </select>
+            <div class="invalid-feedback">Please select incident status.</div>
+          </div>
+        </div>
+  
+        <div class="mb-4" id="repetitiveIncidentDetails" style="display: none;">
+          <label for="repetitiveIncidentComments" class="form-label">Repetitive Incident Comments</label>
+          <textarea class="form-control" id="repetitiveIncidentComments" name="repetitiveIncidentComments" rows="3" placeholder="Provide details of the previous incident (What/When/Impact)"></textarea>
+        </div>
+  
+        <div class="mb-4">
+          <label for="reportedBy" class="form-label">Reported by</label>
+          <input type="text" class="form-control" id="reportedBy" name="reportedBy" placeholder="Name of the user who reported the incident" required>
+          <div class="invalid-feedback">Please provide the name of who reported this incident.</div>
+        </div>
+  
+        <!-- Incident Details Section -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Incident Details</h6>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="detectedDateTime" class="form-label">Detected Date & Time</label>
+                <input type="datetime-local" class="form-control" id="detectedDateTime" name="detectedDateTime" required>
+                <div class="invalid-feedback">Please provide when the incident was detected.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="reportedToDoHDate" class="form-label">Reported to DoH Date</label>
+                <input type="date" class="form-control" id="reportedToDoHDate" name="reportedToDoHDate" required>
+                <div class="invalid-feedback">Please provide when the incident was reported to DoH.</div>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="closedDateTime" class="form-label">Closed Date & Time</label>
+                <input type="datetime-local" class="form-control" id="closedDateTime" name="closedDateTime">
+              </div>
+              <div class="col-md-6">
+                <label for="detectedSource" class="form-label">Detected Source</label>
+                <input type="text" class="form-control" id="detectedSource" name="detectedSource" placeholder="Source through which the incident was detected" required>
+                <div class="invalid-feedback">Please provide the detection source.</div>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="affectedSystems" class="form-label">Affected Systems/Services</label>
+              <textarea class="form-control" id="affectedSystems" name="affectedSystems" rows="2" placeholder="Details about affected systems/services (Host name/application/server etc.)" required></textarea>
+              <div class="invalid-feedback">Please provide information about affected systems.</div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="monetaryDamage" class="form-label">Monetary Damage</label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="monetaryDamage" name="monetaryDamage" placeholder="Cost of the damage caused by the incident">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="outageInformation" class="form-label">Outage Information</label>
+                <input type="text" class="form-control" id="outageInformation" name="outageInformation" placeholder="Start date, end date and time of the downtime" required>
+                <div class="invalid-feedback">Please provide outage information.</div>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="businessImpact" class="form-label">Business Impact Caused</label>
+              <textarea class="form-control" id="businessImpact" name="businessImpact" rows="2" placeholder="Impact of the incident on the business/operations/services" required></textarea>
+              <div class="invalid-feedback">Please provide information about business impact.</div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="suspectedMethod" class="form-label">Suspected Method</label>
+              <textarea class="form-control" id="suspectedMethod" name="suspectedMethod" rows="2" placeholder="Suspected cause for security Incident from the first level of investigation" required></textarea>
+              <div class="invalid-feedback">Please provide suspected method information.</div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="incidentSummary" class="form-label">Summary/Description</label>
+              <textarea class="form-control" id="incidentSummary" name="incidentSummary" rows="4" placeholder="Brief about the incident and behaviour" required></textarea>
+              <div class="invalid-feedback">Please provide an incident summary.</div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="policiesProcedures" class="form-label">Policies and Procedures</label>
+              <textarea class="form-control" id="policiesProcedures" name="policiesProcedures" rows="2" placeholder="Policies & procedures in place that are considered relevant to the incident" required></textarea>
+              <div class="invalid-feedback">Please provide relevant policies and procedures.</div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="reasonDelay" class="form-label">Reason for Delay</label>
+              <textarea class="form-control" id="reasonDelay" name="reasonDelay" rows="2" placeholder="Reason for delay in providing notification timely to the authorities"></textarea>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Host/User Identification Section -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Host/User Identification</h6>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="sourceUser" class="form-label">Source User/Name</label>
+                <input type="text" class="form-control" id="sourceUser" name="sourceUser" placeholder="Name of the affected user">
+              </div>
+              <div class="col-md-6">
+                <label for="userEmail" class="form-label">User ID/Email ID</label>
+                <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="Email ID of affected user">
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="sourceIP" class="form-label">Source IP</label>
+                <input type="text" class="form-control" id="sourceIP" name="sourceIP" placeholder="IP addresses from which the attack is originated">
+              </div>
+              <div class="col-md-6">
+                <label for="destinationIP" class="form-label">Destination IP</label>
+                <input type="text" class="form-control" id="destinationIP" name="destinationIP" placeholder="IP addresses of the Impacted Systems">
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="destinationDomain" class="form-label">Destination Domain</label>
+              <input type="text" class="form-control" id="destinationDomain" name="destinationDomain" placeholder="Domain name of the Impacted System">
+            </div>
+  
+            <div class="mb-3">
+              <label for="otherArtifacts" class="form-label">Others</label>
+              <textarea class="form-control" id="otherArtifacts" name="otherArtifacts" rows="2" placeholder="Provide if any additional artefacts/information available in regards to the Incident"></textarea>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Root Cause Analysis Section -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Root Cause Analysis</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <textarea class="form-control" id="rootCauseAnalysis" name="rootCauseAnalysis" rows="3" placeholder="Fundamental, underlying, system-related reason why an incident occurred that identifies one or more correctable system failures"></textarea>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Containment & Recovery Section -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Containment & Recovery</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="containmentMeasures" class="form-label">Containment Measures</label>
+              <textarea class="form-control" id="containmentMeasures" name="containmentMeasures" rows="3" placeholder="Set of actions that are to be performed for immediate containment of the incident"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="recoveryMeasures" class="form-label">Recovery Measures</label>
+              <textarea class="form-control" id="recoveryMeasures" name="recoveryMeasures" rows="3" placeholder="Steps/actions performed to ensure incident eradication and recovery"></textarea>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Prevention & Lessons Section -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Prevention & Lessons</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="preventiveActions" class="form-label">Preventive Actions</label>
+              <textarea class="form-control" id="preventiveActions" name="preventiveActions" rows="3" placeholder="Actions taken to prevent similar incident/attack reoccurrence in the future"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="lessonLearned" class="form-label">Lesson Learned</label>
+              <textarea class="form-control" id="lessonLearned" name="lessonLearned" rows="3" placeholder="Security gaps, weaknesses, and other areas that need attention"></textarea>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Evidence Collections Section -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Evidence Collections</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="suspectedEmail" class="form-label">Suspected Email</label>
+              <textarea class="form-control" id="suspectedEmail" name="suspectedEmail" rows="2" placeholder="Details about the email source collected as evidence"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="siemAlert" class="form-label">SIEM Alert</label>
+              <textarea class="form-control" id="siemAlert" name="siemAlert" rows="2" placeholder="Details about SIEM logs collected as evidence"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="firewallLogs" class="form-label">Firewall Logs</label>
+              <textarea class="form-control" id="firewallLogs" name="firewallLogs" rows="2" placeholder="Details about Firewall logs collected as evidence"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="otherEvidence" class="form-label">Others</label>
+              <textarea class="form-control" id="otherEvidence" name="otherEvidence" rows="2" placeholder="Details about any other information collected as evidence"></textarea>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Attachments -->
+        <div class="mb-4">
+          <label class="form-label">Attachments</label>
+          <div class="file-upload-area p-4 border rounded text-center">
+            <i class="fas fa-shield-alt fa-3x text-danger mb-3"></i>
+            <h5>Drag and drop evidence files here</h5>
+            <p class="text-muted">or click to browse files</p>
+            <input type="file" id="fileInput" name="attachments" multiple class="d-none">
+            <button type="button" class="btn btn-outline-danger mt-2" id="browseFilesBtn">
+              <i class="fas fa-folder-open me-2"></i>Browse Files
+            </button>
+          </div>
+          <div id="fileList" class="mt-3"></div>
+        </div>
+        
+        <!-- Submit Buttons -->
+        <div class="d-flex justify-content-end gap-3">
+          <button type="button" class="btn btn-outline-secondary" id="cancelButton">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-danger" id="submitButton">
+            <i class="fas fa-exclamation-triangle me-2"></i> Submit Incident Report
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Show/hide other category field
+      const categorySelect = document.getElementById('category');
+      const categoryOtherInput = document.getElementById('categoryOther');
+      
+      categorySelect.addEventListener('change', function() {
+        if (this.value === 'Other') {
+          categoryOtherInput.disabled = false;
+          categoryOtherInput.required = true;
+        } else {
+          categoryOtherInput.disabled = true;
+          categoryOtherInput.required = false;
+          categoryOtherInput.value = '';
+        }
+      });
+      
+      // Show/hide repetitive incident details
+      const repetitiveIncidentSelect = document.getElementById('repetitiveIncident');
+      const repetitiveIncidentDetails = document.getElementById('repetitiveIncidentDetails');
+      const repetitiveIncidentComments = document.getElementById('repetitiveIncidentComments');
+      
+      repetitiveIncidentSelect.addEventListener('change', function() {
+        if (this.value === 'Yes') {
+          repetitiveIncidentDetails.style.display = 'block';
+          repetitiveIncidentComments.required = true;
+        } else {
+          repetitiveIncidentDetails.style.display = 'none';
+          repetitiveIncidentComments.required = false;
+          repetitiveIncidentComments.value = '';
+        }
+      });
+      
+      // File upload handling
+      const fileUploadArea = document.querySelector('.file-upload-area');
+      const fileInput = document.getElementById('fileInput');
+      const browseFilesBtn = document.getElementById('browseFilesBtn');
+      const fileList = document.getElementById('fileList');
+      
+      // Click on area or button to trigger file input
+      fileUploadArea.addEventListener('click', function() {
+        fileInput.click();
+      });
+      
+      browseFilesBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        fileInput.click();
+      });
+      
+      // Drag and drop effects
+      fileUploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('bg-light');
+      });
+      
+      fileUploadArea.addEventListener('dragleave', function() {
+        this.classList.remove('bg-light');
+      });
+      
+      fileUploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('bg-light');
+        
+        if (e.dataTransfer.files.length) {
+          fileInput.files = e.dataTransfer.files;
+          updateFileList();
+        }
+      });
+      
+      // File input change handler
+      fileInput.addEventListener('change', updateFileList);
+      
+      // Update file list display
+      function updateFileList() {
+        fileList.innerHTML = '';
+        
+        if (fileInput.files.length > 0) {
+          const listGroup = document.createElement('div');
+          listGroup.className = 'list-group';
+          
+          for (let i = 0; i < fileInput.files.length; i++) {
+            const file = fileInput.files[i];
+            const fileSize = (file.size / 1024).toFixed(1); // KB
+            
+            const listItem = document.createElement('div');
+            listItem.className = 'list-group-item d-flex align-items-center';
+            listItem.innerHTML = `
+              <i class="${getFileIcon(file.name)} me-3 text-danger"></i>
+              <div class="flex-grow-1">
+                <div class="d-flex justify-content-between">
+                  <span class="text-truncate" style="max-width: 250px;">${file.name}</span>
+                  <small class="text-muted">${fileSize} KB</small>
+                </div>
+              </div>
+              <button type="button" class="btn btn-sm btn-link text-danger remove-file" data-index="${i}">
+                <i class="fas fa-times"></i>
+              </button>
+            `;
+            
+            listGroup.appendChild(listItem);
+          }
+          
+          fileList.appendChild(listGroup);
+          
+          // Add event listeners to remove buttons
+          document.querySelectorAll('.remove-file').forEach(button => {
+            button.addEventListener('click', function() {
+              const index = parseInt(this.getAttribute('data-index'));
+              removeFile(index);
+            });
+          });
+        }
+      }
+      
+      // Remove file from list
+      function removeFile(index) {
+        const dt = new DataTransfer();
+        const files = fileInput.files;
+        
+        for (let i = 0; i < files.length; i++) {
+          if (i !== index) {
+            dt.items.add(files[i]);
+          }
+        }
+        
+        fileInput.files = dt.files;
+        updateFileList();
+      }
+      
+      // Get appropriate icon for file type
+      function getFileIcon(filename) {
+        const extension = filename.split('.').pop().toLowerCase();
+        
+        const iconMap = {
+          'pdf': 'fas fa-file-pdf',
+          'doc': 'fas fa-file-word',
+          'docx': 'fas fa-file-word',
+          'xls': 'fas fa-file-excel',
+          'xlsx': 'fas fa-file-excel',
+          'ppt': 'fas fa-file-powerpoint',
+          'pptx': 'fas fa-file-powerpoint',
+          'jpg': 'fas fa-file-image',
+          'jpeg': 'fas fa-file-image',
+          'png': 'fas fa-file-image',
+          'gif': 'fas fa-file-image',
+          'zip': 'fas fa-file-archive',
+          'rar': 'fas fa-file-archive',
+          'txt': 'fas fa-file-alt',
+          'log': 'fas fa-file-code'
+        };
+        
+        return iconMap[extension] || 'fas fa-file';
+      }
+      
+      // Cancel button
+      document.getElementById('cancelButton').addEventListener('click', function() {
+        if (confirm('Are you sure you want to cancel? All entered data will be lost.')) {
+          window.location.href = '/incidents';
+        }
+      });
+      
+      // Form validation and submission
+      const incidentForm = document.getElementById('incidentReportForm');
+      
+      incidentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Check form validity
+        if (!incidentForm.checkValidity()) {
+          event.stopPropagation();
+          incidentForm.classList.add('was-validated');
+          alert('Please fill in all required fields.');
+          return;
+        }
+        
+        // Create FormData object
+        const formData = new FormData(incidentForm);
+        
+        // Show loading overlay or spinner here
+        document.getElementById('submitButton').disabled = true;
+        
+        // Here you would send formData to your server
+        // Example AJAX call:
+        /*
+        fetch('/incidents/report', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert('Incident report submitted successfully!');
+          // Redirect or reset form
+          window.location.href = '/incidents';
+        })
+        .catch(error => {
+          console.error('Error submitting report:', error);
+          alert('Error submitting report. Please try again.');
+        })
+        .finally(() => {
+          document.getElementById('submitButton').disabled = false;
+        });
+        */
+        
+        // For demo purposes:
+        setTimeout(() => {
+          alert('Incident report submitted successfully!');
+          document.getElementById('submitButton').disabled = false;
+          // Uncomment to reset the form:
+          // incidentForm.reset();
+          // incidentForm.classList.remove('was-validated');
+        }, 1500);
+      });
+    });
+  </script>

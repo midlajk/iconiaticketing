@@ -1,0 +1,306 @@
+<div class="card" id="changeRequestForm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Change Request Form</h5>
+      <span class="badge bg-warning">Change</span>
+    </div>
+    <div class="card-body">
+      <form id="changeForm" enctype="multipart/form-data">
+        <!-- Requester Information -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Change Requester Information</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="requesterEmpId" class="form-label">Change requester employee no.</label>
+                <input type="text" class="form-control" id="requesterEmpId" name="requester.empId" placeholder="EMP ID of employee requesting the change" required>
+                <div class="invalid-feedback">Please enter employee ID.</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="changeId" class="form-label">Change ID</label>
+                <input type="text" class="form-control" id="changeId" name="changeId" placeholder="Change ID number assigned to the change request">
+                <div class="invalid-feedback">Please enter change ID.</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="requesterName" class="form-label">Change requester employee name</label>
+                <input type="text" class="form-control" id="requesterName" name="requester.name" placeholder="Name of the employee" required>
+                <div class="invalid-feedback">Please enter employee name.</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="requestDate" class="form-label">Date</label>
+                <input type="date" class="form-control" id="requestDate" name="requestDate" required>
+                <div class="invalid-feedback">Please select request date.</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="department" class="form-label">Section/Department</label>
+                <input type="text" class="form-control" id="department" name="department" placeholder="Section/Department of the employee" required>
+                <div class="invalid-feedback">Please enter the department.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Change Request Details -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Change Request Details</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="changeTitle" class="form-label">Title of the change</label>
+              <input type="text" class="form-control" id="changeTitle" name="changeTitle" placeholder="Clear and concise title of the change being requested" required>
+              <div class="invalid-feedback">Please provide a title for the change.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="changeDescription" class="form-label">Description of change</label>
+              <textarea class="form-control" id="changeDescription" name="changeDescription" rows="3" placeholder="Brief information about the change being requested" required></textarea>
+              <div class="invalid-feedback">Please provide a description of the change.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="changeReason" class="form-label">Reason for change</label>
+              <textarea class="form-control" id="changeReason" name="changeReason" rows="3" placeholder="Clear and concise explanation of why the change is necessary" required></textarea>
+              <div class="invalid-feedback">Please provide a reason for the change.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="service" class="form-label">Service</label>
+              <input type="text" class="form-control" id="service" name="service" placeholder="Service/Process/Technology on which change has to be implemented" required>
+              <div class="invalid-feedback">Please specify the service affected.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="requesterSignOff" class="form-label">Change requester sign off</label>
+              <input type="text" class="form-control" id="requesterSignOff" name="requesterSignOff" placeholder="Sign off from the change requester">
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Change Request Status</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="requestStatus" id="status-pending" value="Pending" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="status-pending">Pending</label>
+  
+                <input type="radio" class="btn-check" name="requestStatus" id="status-approved" value="Approved" autocomplete="off">
+                <label class="btn btn-outline-success" for="status-approved">Approved</label>
+  
+                <input type="radio" class="btn-check" name="requestStatus" id="status-rejected" value="Rejected" autocomplete="off">
+                <label class="btn btn-outline-danger" for="status-rejected">Rejected</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Change Impact Evaluation -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Change Impact Evaluation</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="infrastructure" class="form-label">Infrastructure</label>
+              <textarea class="form-control" id="infrastructure" name="infrastructure" rows="3" placeholder="Potential effects on the existing infrastructure (Application/Network/Database/Security Devices/Server etc.)"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Type</label>
+              <select class="form-select" id="changeType" name="changeType">
+                <option value="" selected disabled>Select change type...</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Operating System">Operating System</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Procedure">Procedure</option>
+                <option value="Planned outage">Planned outage</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Change Category</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="changeCategory" id="category-emergency" value="Emergency" autocomplete="off">
+                <label class="btn btn-outline-danger" for="category-emergency">Emergency</label>
+  
+                <input type="radio" class="btn-check" name="changeCategory" id="category-normal" value="Normal" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="category-normal">Normal</label>
+  
+                <input type="radio" class="btn-check" name="changeCategory" id="category-standard" value="Standard" autocomplete="off">
+                <label class="btn btn-outline-success" for="category-standard">Standard</label>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Change Impact</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="changeImpact" id="impact-minor" value="Minor" autocomplete="off">
+                <label class="btn btn-outline-success" for="impact-minor">Minor</label>
+  
+                <input type="radio" class="btn-check" name="changeImpact" id="impact-medium" value="Medium" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="impact-medium">Medium</label>
+  
+                <input type="radio" class="btn-check" name="changeImpact" id="impact-major" value="Major" autocomplete="off">
+                <label class="btn btn-outline-danger" for="impact-major">Major</label>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Change Urgency</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="changeUrgency" id="urgency-low" value="Low" autocomplete="off">
+                <label class="btn btn-outline-success" for="urgency-low">Low</label>
+  
+                <input type="radio" class="btn-check" name="changeUrgency" id="urgency-medium" value="Medium" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="urgency-medium">Medium</label>
+  
+                <input type="radio" class="btn-check" name="changeUrgency" id="urgency-high" value="High" autocomplete="off">
+                <label class="btn btn-outline-danger" for="urgency-high">High</label>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Priority</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="priority" id="priority-low" value="Low" autocomplete="off">
+                <label class="btn btn-outline-success" for="priority-low">Low</label>
+  
+                <input type="radio" class="btn-check" name="priority" id="priority-medium" value="Medium" autocomplete="off" checked>
+                <label class="btn btn-outline-warning" for="priority-medium">Medium</label>
+  
+                <input type="radio" class="btn-check" name="priority" id="priority-high" value="High" autocomplete="off">
+                <label class="btn btn-outline-danger" for="priority-high">High</label>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="affectedServices" class="form-label">Affected Services</label>
+              <textarea class="form-control" id="affectedServices" name="affectedServices" rows="2" placeholder="Identify the services that may be potentially impacted due to change"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="affectedConfigItems" class="form-label">Affected Configuration Items</label>
+              <textarea class="form-control" id="affectedConfigItems" name="affectedConfigItems" rows="2" placeholder="Identify the configuration items that may be impacted as result of the change"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="resourceRequirements" class="form-label">Resource Requirements</label>
+              <textarea class="form-control" id="resourceRequirements" name="resourceRequirements" rows="2" placeholder="Resources (Employee, Hardware, Software) that are required to implement the change"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="financialImpact" class="form-label">Financial Impact</label>
+              <textarea class="form-control" id="financialImpact" name="financialImpact" rows="2" placeholder="Total of direct or indirect cost associated with implementing the change"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="rollbackPlan" class="form-label">Rollback Plan Description</label>
+              <textarea class="form-control" id="rollbackPlan" name="rollbackPlan" rows="3" placeholder="Steps to reverse the change that has been made"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Pre Implementation Testing</label>
+              <div class="d-flex gap-3 mb-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="preImplementationTesting" id="testing-successful" value="Successful">
+                  <label class="form-check-label" for="testing-successful">Successful</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="preImplementationTesting" id="testing-unsuccessful" value="Unsuccessful">
+                  <label class="form-check-label" for="testing-unsuccessful">Unsuccessful</label>
+                </div>
+              </div>
+              <textarea class="form-control" id="testingComments" name="testingComments" rows="2" placeholder="Comments (if any)"></textarea>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Change Plan and Schedule -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Change Plan and Schedule</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="implementationPlan" class="form-label">Implementation Plan Description</label>
+              <textarea class="form-control" id="implementationPlan" name="implementationPlan" rows="3" placeholder="Steps involved in implementation of the change"></textarea>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="downtimeStart" class="form-label">Downtime Window Start</label>
+                <input type="datetime-local" class="form-control" id="downtimeStart" name="downtimeStart">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="downtimeEnd" class="form-label">Downtime Window End</label>
+                <input type="datetime-local" class="form-control" id="downtimeEnd" name="downtimeEnd">
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="approverSignOff" class="form-label">Change Control Committee/Change Advisory Board/Designated Approver Sign off</label>
+              <input type="text" class="form-control" id="approverSignOff" name="approverSignOff" placeholder="Approval from committee or group responsible for reviewing changes">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Change Implementation Status -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">Change Implementation Status</h6>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label">Implementation</label>
+              <div class="d-flex gap-3 mb-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="implementationStatus" id="implementation-successful" value="Successful">
+                  <label class="form-check-label" for="implementation-successful">Successful</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="implementationStatus" id="implementation-unsuccessful" value="Unsuccessful">
+                  <label class="form-check-label" for="implementation-unsuccessful">Unsuccessful</label>
+                </div>
+              </div>
+              <textarea class="form-control" id="implementationComments" name="implementationComments" rows="2" placeholder="Comments (if any)"></textarea>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-8 mb-3">
+                <label for="implementerSignOff" class="form-label">Implementer Sign off</label>
+                <input type="text" class="form-control" id="implementerSignOff" name="implementerSignOff" placeholder="Sign off from the implementer">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="implementationDate" class="form-label">Date</label>
+                <input type="date" class="form-control" id="implementationDate" name="implementationDate">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Submit Buttons -->
+        <div class="d-flex justify-content-end gap-3">
+          <button type="button" class="btn btn-outline-secondary" id="cancelChangeButton">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitChangeButton">
+            <i class="fas fa-exchange-alt me-2"></i> Submit Change Request
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Form validation (similar to your general ticket form)
+    document.getElementById('changeForm').addEventListener('submit', function(event) {
+      if (!this.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      this.classList.add('was-validated');
+    });
+  </script>

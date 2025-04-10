@@ -3,122 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Iconia Ticketing</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f0f0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f2f2;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-    }
-
-    .login-container {
-      background: #ffffff;
-      padding: 50px 40px;
-      border-radius: 20px;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-    }
-
-    .logo img {
-      height: 60px;
-      margin-bottom: 30px;
-    }
-
-    h2 {
-      color: #1c1c1c;
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
       color: #333;
     }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 15px;
-      font-size: 14px;
-      border: 1px solid #ccc;
+    .error-container {
+      text-align: center;
+      background: #fff;
+      padding: 40px;
       border-radius: 10px;
-      box-sizing: border-box;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
     }
-
-    .login-btn {
-      width: 100%;
-      padding: 14px;
-      background-color: #00897B;
-      color: #fff;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .login-btn:hover {
-      background-color: #00796B;
-    }
-
-    .footer-text {
-      margin-top: 30px;
-      color: #555;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    .footer-text span {
-      color: #00897B;
+    .error-code {
+      font-size: 72px;
       font-weight: bold;
+      color: #ff4c4c;
     }
-
-    @media (max-width: 480px) {
-      .login-container {
-        padding: 30px 20px;
-        border-radius: 15px;
-      }
-
-      h2 {
-        font-size: 20px;
-      }
+    .error-message {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+    .error-details {
+      font-size: 14px;
+      color: #777;
+      margin-top: 20px;
+    }
+    a.home-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007bff;
+      border: 1px solid #007bff;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: 0.3s ease;
+    }
+    a.home-link:hover {
+      background-color: #007bff;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="logo">
-      <img src="logo.png" alt="Iconia Logo">
-    </div>
-    <h2>Log in to Iconia Ticketing</h2>
-    <form>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter your username" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password" required>
-      </div>
-      <button type="submit" class="login-btn" onclick="window.location.href='/newticket'">Login Now error</button>
-    </form>
-    <div class="footer-text">
-      Work smarter,<br/>
-      <span>Log in to Iconia</span>
-    </div>
+  <div class="error-container">
+    <div class="error-message">Oops! Something went wrong.</div>
+    <% if (message) { %>
+      <div class="error-details"><%= message %></div>
+    <% } %>
+    <a class="home-link" href="/">Go back home</a>
   </div>
 </body>
 </html>

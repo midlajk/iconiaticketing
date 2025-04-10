@@ -7,12 +7,13 @@ router.get('/login', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/', function(req, res, next) {
-  res.render('ticketform', { title: 'Express',screen : 'Customer Ticket' });
+router.get('/customerticket/:id?', function(req, res, next) {
+  const ticketId = req.params.id || 'general';
+  res.render('ticketform', { title: 'Express', screen: 'Customer Ticket', ticket: ticketId });
 });
 
-router.get('/newticket', function(req, res, next) {
-  res.render('newticket', { title: 'Express',screen : 'New Ticket' });
+router.get('/newticket/:id', function(req, res, next) {
+  res.render('newticket', { title: 'Express',screen : 'New Ticket',ticket:req.params.id });
 });
 
 
@@ -30,5 +31,9 @@ router.get('/newcustomers', function(req, res, next) {
 
 router.get('/employees', function(req, res, next) {
   res.render('users', { title: 'Express' ,screen : 'Employees' });
+});
+
+router.get('/updateticket', function(req, res, next) {
+  res.render('viewticket', { title: 'Express' ,screen : 'Tickets' });
 });
 module.exports = router;

@@ -1,0 +1,386 @@
+<div class="card" id="exitClearanceForm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Exit Clearance Form</h5>
+      <span class="badge bg-warning">HR Document</span>
+    </div>
+    <div class="card-body">
+      <form id="clearanceForm">
+        <!-- Employee Information Section -->
+        <div class="row mb-4">
+          <div class="col-md-6 mb-3">
+            <label for="employeeName" class="form-label">Employee Name</label>
+            <input type="text" class="form-control" id="employeeName" name="employeeName" placeholder="Name of employee leaving the organization" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="employeeId" class="form-label">Employee ID</label>
+            <input type="text" class="form-control" id="employeeId" name="employeeId" placeholder="EMP ID of employee" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="emailId" class="form-label">Email ID</label>
+            <input type="email" class="form-control" id="emailId" name="emailId" placeholder="Email ID of the employee" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="phoneExt" class="form-label">Phone Ext.</label>
+            <input type="text" class="form-control" id="phoneExt" name="phoneExt" placeholder="Ext. of the employee">
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="department" class="form-label">Section/Department</label>
+            <input type="text" class="form-control" id="department" name="department" placeholder="Section/Department of the employee" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control" id="location" name="location" placeholder="Location (HR/Branch detail etc.) of the employee" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastWorkingDay" class="form-label">Last Working Day</label>
+            <input type="date" class="form-control" id="lastWorkingDay" name="lastWorkingDay" required>
+          </div>
+        </div>
+  
+        <div class="alert alert-info mb-4">
+          <p class="mb-0">Before your departure, please ensure that you surrender all your entity assets and get clearance from your immediate manager, Finance and Administration office on the following items:</p>
+        </div>
+  
+        <!-- HR Department/Admin - Physical Access Revocation -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h6 class="mb-0">HR Department/Admin - Physical Access Revocation</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="doorAccess" name="hrRevocation.doorAccess">
+                  <label class="form-check-label" for="doorAccess">Door Access</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="deskKeys" name="hrRevocation.deskKeys">
+                  <label class="form-check-label" for="deskKeys">Desk Keys</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="medicalBenefits" name="hrRevocation.medicalBenefits">
+                  <label class="form-check-label" for="medicalBenefits">Cancellation of benefits – medical/life</label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" id="hrOther" name="hrRevocation.other">
+                  </div>
+                  <input type="text" class="form-control" placeholder="Other" aria-label="HR Other" id="hrOtherText" name="hrRevocation.otherText">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="adminSignature" class="form-label">Admin Signature</label>
+                  <input type="text" class="form-control" id="adminSignature" name="hrRevocation.adminSignature">
+                </div>
+                <div class="mb-3">
+                  <label for="adminDate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="adminDate" name="hrRevocation.adminDate">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Immediate Manager -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h6 class="mb-0">Immediate Manager</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="handoverReport" name="manager.handoverReport">
+                  <label class="form-check-label" for="handoverReport">Handover Report Submitted</label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" id="managerOther" name="manager.other">
+                  </div>
+                  <input type="text" class="form-control" placeholder="Other" aria-label="Manager Other" id="managerOtherText" name="manager.otherText">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="managerSignature" class="form-label">Manager Signature</label>
+                  <input type="text" class="form-control" id="managerSignature" name="manager.signature">
+                </div>
+                <div class="mb-3">
+                  <label for="managerDate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="managerDate" name="manager.date">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Apps. Access Revocation -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h6 class="mb-0">Apps. Access Revocation</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="appAccess" name="appsRevocation.appAccess">
+                  <label class="form-check-label" for="appAccess">Application(s) Access</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="emrAccess" name="appsRevocation.emrAccess">
+                  <label class="form-check-label" for="emrAccess">EMR Access</label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" id="appsOther" name="appsRevocation.other">
+                  </div>
+                  <input type="text" class="form-control" placeholder="Other" aria-label="Apps Other" id="appsOtherText" name="appsRevocation.otherText">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="appsAdminSignature" class="form-label">Apps. Admin Signature</label>
+                  <input type="text" class="form-control" id="appsAdminSignature" name="appsRevocation.adminSignature">
+                </div>
+                <div class="mb-3">
+                  <label for="appsAdminDate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="appsAdminDate" name="appsRevocation.adminDate">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- System Access Revocation -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h6 class="mb-0">System Access Revocation</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="username" name="sysRevocation.username">
+                  <label class="form-check-label" for="username">Username</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="mailbox" name="sysRevocation.mailbox">
+                  <label class="form-check-label" for="mailbox">Mailbox</label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" id="sysOther" name="sysRevocation.other">
+                  </div>
+                  <input type="text" class="form-control" placeholder="Other" aria-label="System Other" id="sysOtherText" name="sysRevocation.otherText">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="sysAdminSignature" class="form-label">Sys. Admin Signature</label>
+                  <input type="text" class="form-control" id="sysAdminSignature" name="sysRevocation.adminSignature">
+                </div>
+                <div class="mb-3">
+                  <label for="sysAdminDate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="sysAdminDate" name="sysRevocation.adminDate">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Communication Access Revocation -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h6 class="mb-0">Communication Access Revocation</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="phoneExt" name="comRevocation.phoneExt">
+                  <label class="form-check-label" for="phoneExt">Phone Ext</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="eFax" name="comRevocation.eFax">
+                  <label class="form-check-label" for="eFax">e-Fax</label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" id="comOther" name="comRevocation.other">
+                  </div>
+                  <input type="text" class="form-control" placeholder="Other" aria-label="Communication Other" id="comOtherText" name="comRevocation.otherText">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="comAdminSignature" class="form-label">Com. Admin Signature</label>
+                  <input type="text" class="form-control" id="comAdminSignature" name="comRevocation.adminSignature">
+                </div>
+                <div class="mb-3">
+                  <label for="comAdminDate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="comAdminDate" name="comRevocation.adminDate">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- IT Asset Return -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h6 class="mb-0">IT Asset Return</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="desktop" name="itAsset.desktop">
+                  <label class="form-check-label" for="desktop">Desktop</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="laptop" name="itAsset.laptop">
+                  <label class="form-check-label" for="laptop">Laptop</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="printer" name="itAsset.printer">
+                  <label class="form-check-label" for="printer">Printer</label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" id="itOther" name="itAsset.other">
+                  </div>
+                  <input type="text" class="form-control" placeholder="Other" aria-label="IT Other" id="itOtherText" name="itAsset.otherText">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="itAdminSignature" class="form-label">IT Asset Admin Signature</label>
+                  <input type="text" class="form-control" id="itAdminSignature" name="itAsset.adminSignature">
+                </div>
+                <div class="mb-3">
+                  <label for="itAdminDate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="itAdminDate" name="itAsset.adminDate">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Approvals Section -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h6 class="mb-0">Department Approvals</h6>
+          </div>
+          <div class="card-body">
+            <!-- HR Section Approval -->
+            <div class="row mb-4">
+              <div class="col-md-12 mb-2">
+                <h6>HR Section/Department Approval</h6>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="hrApprovalName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="hrApprovalName" name="hrApproval.name">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="hrApprovalSignature" class="form-label">Signature</label>
+                <input type="text" class="form-control" id="hrApprovalSignature" name="hrApproval.signature">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="hrApprovalDate" class="form-label">Date</label>
+                <input type="date" class="form-control" id="hrApprovalDate" name="hrApproval.date">
+              </div>
+            </div>
+  
+            <!-- Finance Section Approval -->
+            <div class="row mb-4">
+              <div class="col-md-12 mb-2">
+                <h6>Finance Section/Department Approval</h6>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="financeApprovalName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="financeApprovalName" name="financeApproval.name">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="financeApprovalSignature" class="form-label">Signature</label>
+                <input type="text" class="form-control" id="financeApprovalSignature" name="financeApproval.signature">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="financeApprovalDate" class="form-label">Date</label>
+                <input type="date" class="form-control" id="financeApprovalDate" name="financeApproval.date">
+              </div>
+            </div>
+  
+            <!-- Clearance Reason -->
+            <div class="row mb-4">
+              <div class="col-md-12 mb-2">
+                <h6>Clearance Reason</h6>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="clearanceReason" id="endOfService" value="Employee End of service" checked>
+                  <label class="form-check-label" for="endOfService">Employee End of service</label>
+                </div>
+                <div class="input-group">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="radio" name="clearanceReason" id="otherReason" value="Other">
+                  </div>
+                  <input type="text" class="form-control" placeholder="Other reason" id="otherReasonText" name="otherReasonText">
+                </div>
+              </div>
+            </div>
+  
+            <!-- Director Approval -->
+            <div class="row mb-4">
+              <div class="col-md-12 mb-2">
+                <h6>Head of Section/Department (Director)</h6>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="directorName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="directorName" name="director.name">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="directorSignature" class="form-label">Signature</label>
+                <input type="text" class="form-control" id="directorSignature" name="director.signature">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="directorDate" class="form-label">Date</label>
+                <input type="date" class="form-control" id="directorDate" name="director.date">
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Comments -->
+        <div class="mb-4">
+          <label for="comments" class="form-label">Comments</label>
+          <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+        </div>
+  
+        <!-- Completed By -->
+        <div class="row mb-4">
+          <div class="col-md-6 mb-3">
+            <label for="completedBy" class="form-label">Completed By</label>
+            <input type="text" class="form-control" id="completedBy" name="completedBy" placeholder="Employee Name">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="completionSignatureDate" class="form-label">Signature & Date</label>
+            <input type="text" class="form-control" id="completionSignatureDate" name="completionSignatureDate">
+          </div>
+        </div>
+  
+        <!-- Submit Buttons -->
+        <div class="d-flex justify-content-end gap-3">
+          <button type="button" class="btn btn-outline-secondary" id="cancelButton">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-outline-primary" id="saveButton">
+            <i class="fas fa-save me-2"></i>Save as Draft
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitButton">
+            <i class="fas fa-paper-plane me-2"></i>Submit Form
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
