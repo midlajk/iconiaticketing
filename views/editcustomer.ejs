@@ -376,5 +376,19 @@
       color: #495057;
     }
   </style>
+
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    
+    if (mobileMenuToggle && sidebar) {
+      mobileMenuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+      });
+    }
+  });
+</script>
 </body>
 </html>

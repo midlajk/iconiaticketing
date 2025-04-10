@@ -535,11 +535,11 @@
         });
       }
       
-      // Mobile menu toggle
-      $('#mobileMenuToggle').click(function() {
-        $('body').toggleClass('sidebar-toggled');
-        $('.sidebar').toggleClass('toggled');
-      });
+      // // Mobile menu toggle
+      // $('#mobileMenuToggle').click(function() {
+      //   $('body').toggleClass('sidebar-toggled');
+      //   $('.sidebar').toggleClass('toggled');
+      // });
       
       // Error reporting for debugging
       window.onerror = function(message, source, lineno, colno, error) {
@@ -598,5 +598,18 @@
       z-index: 9999;
     }
   </style>
+     <script>
+      // Mobile menu toggle
+      document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        
+        if (mobileMenuToggle && sidebar) {
+          mobileMenuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+          });
+        }
+      });
+    </script>
 </body>
 </html>

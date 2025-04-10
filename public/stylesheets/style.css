@@ -457,9 +457,18 @@ body {
   .card-body {
     padding: 1.5rem;
   }
+
+  .nav-link span  {
+    color: rgba(255, 255, 255, 0.7);
+    display: block;
+  }
 }
 
+
 @media (max-width: 768px) {
+  .nav-link span {
+    color: rgba(255, 255, 255, 0.7);
+  }
   .sidebar {
     width: 60px;
   }
@@ -473,7 +482,7 @@ body {
   }
   
   .sidebar:hover ~ #content {
-    margin-left: 200px;
+    margin-left: 0;
   }
   
   .topbar {
@@ -514,7 +523,9 @@ body {
     width: 0;
     opacity: 0;
   }
-  
+  .nav-link span  {
+    color: rgba(255, 255, 255, 0.7);
+  }
   #content {
     margin-left: 0;
   }
@@ -560,11 +571,14 @@ body {
   .sidebar.open {
     width: 240px;
     opacity: 1;
+    height: 100%;
   }
-  
-  .sidebar.open ~ #content {
+  .nav-link span {
+    display: contents;
+  }
+  /* .sidebar.open ~ #content {
     margin-left: 240px;
-  }
+  } */
 }
 
 /* Animation effects */
