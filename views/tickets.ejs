@@ -2,7 +2,6 @@
 
 <body>
   <!-- Sidebar -->
-
   <%- include('./components/navigation.ejs') -%>
 
   <!-- Content Wrapper -->
@@ -45,8 +44,7 @@
                 </div>
                 <div class="col ml-3">
                   <div class="text-xs font-weight-bold text-uppercase mb-1">Pending Tickets</div>
-                  <div class="h3 mb-0 font-weight-bold">42</div>
-                
+                  <div class="h3 mb-0 font-weight-bold" id="pending-count">...</div>
                 </div>
               </div>
             </div>
@@ -62,8 +60,7 @@
                 </div>
                 <div class="col ml-3">
                   <div class="text-xs font-weight-bold text-uppercase mb-1">Unassigned</div>
-                  <div class="h3 mb-0 font-weight-bold">7</div>
-                  
+                  <div class="h3 mb-0 font-weight-bold" id="unassigned-count">...</div>
                 </div>
               </div>
             </div>
@@ -79,8 +76,7 @@
                 </div>
                 <div class="col ml-3">
                   <div class="text-xs font-weight-bold text-uppercase mb-1">Open Tickets</div>
-                  <div class="h3 mb-0 font-weight-bold">18</div>
-               
+                  <div class="h3 mb-0 font-weight-bold" id="open-count">...</div>
                 </div>
               </div>
             </div>
@@ -96,8 +92,7 @@
                 </div>
                 <div class="col ml-3">
                   <div class="text-xs font-weight-bold text-uppercase mb-1">Completed Today</div>
-                  <div class="h3 mb-0 font-weight-bold">24</div>
-              
+                  <div class="h3 mb-0 font-weight-bold" id="completed-count">...</div>
                 </div>
               </div>
             </div>
@@ -110,8 +105,13 @@
         <!-- Tabs -->
         <ul class="nav nav-tabs" id="ticketTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-secondary active" id="open-tab" data-bs-toggle="tab" data-bs-target="#open-tickets" type="button" role="tab">
-              <i class="fas fa-folder-open me-2"></i> Open Tickets
+            <button class="nav-link text-secondary active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-tickets" type="button" role="tab">
+              <i class="fas fa-list me-2"></i> All Tickets
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-secondary" id="open-tab" data-bs-toggle="tab" data-bs-target="#open-tickets" type="button" role="tab">
+              <i class="fas fa-folder-open me-2"></i> Open
             </button>
           </li>
           <li class="nav-item" role="presentation">
@@ -132,169 +132,288 @@
         </a>
       </div>
       
+      <!-- Tab Content -->
+      <div class="tab-content" id="ticketTabsContent">
+        <!-- All Tickets Tab -->
+        <div class="tab-pane fade show active" id="all-tickets" role="tabpanel" aria-labelledby="all-tab">
+          <div class="card mb-4">
+            <div class="card-body">
+              <table id="ticketsTable" class="table table-hover display nowrap w-100">
+                <thead>
+                  <tr>
+                    <th>Ticket ID</th>
+                    <th>Title</th>
+                    <th>Requestor</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Data will be loaded dynamically via DataTables -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other tab panes for Open, Pending, Solved -->
+        <div class="tab-pane fade" id="open-tickets" role="tabpanel" aria-labelledby="open-tab">
+          <!-- Content for open tickets will be loaded via JS -->
+        </div>
+        
+        <div class="tab-pane fade" id="pending-tickets" role="tabpanel" aria-labelledby="pending-tab">
+          <!-- Content for pending tickets will be loaded via JS -->
+        </div>
+        
+        <div class="tab-pane fade" id="solved-tickets" role="tabpanel" aria-labelledby="solved-tab">
+          <!-- Content for solved tickets will be loaded via JS -->
+        </div>
+      </div>
 
-      <!-- Search and Filter Bar -->
-      <div class="card mb-4 search-filter-card animate-in">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-lg-5 mb-3 mb-lg-0">
-              <div class="input-group">
-                <span class="input-group-text bg-transparent"><i class="fas fa-search"></i></span>
-                <input type="text" id="searchTickets" class="form-control" placeholder="Search tickets by ID, subject, or customer...">
+      <!-- Ticket Details Modal -->
+      <div class="modal fade" id="ticketDetailsModal" tabindex="-1" aria-labelledby="ticketDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ticketDetailsModalLabel">Ticket Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Ticket ID</h6>
+                    <p id="modal-ticket-id"></p>
+                  </div>
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Title</h6>
+                    <p id="modal-title"></p>
+                  </div>
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Description</h6>
+                    <p id="modal-description"></p>
+                  </div>
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Created By</h6>
+                    <p id="modal-created-by"></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Status</h6>
+                    <p id="modal-status"></p>
+                  </div>
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Priority</h6>
+                    <p id="modal-priority"></p>
+                  </div>
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Category</h6>
+                    <p id="modal-category"></p>
+                  </div>
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Requestor</h6>
+                    <p id="modal-requestor"></p>
+                  </div>
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Created At</h6>
+                    <p id="modal-created-at"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Data Section -->
+              <div class="mt-4">
+                <h6 class="fw-bold">Form Data</h6>
+                <div class="row" id="form-data-container">
+                  <!-- Form data will be inserted here dynamically -->
+                </div>
+              </div>
+
+              <!-- Attachments Section -->
+              <div class="mt-4" id="attachments-section">
+                <h6 class="fw-bold">Attachments</h6>
+                <div id="attachments-container">
+                  <!-- Attachments will be inserted here dynamically -->
+                </div>
+              </div>
+
+              <!-- Approvals Section -->
+              <div class="mt-4" id="approvals-section">
+                <h6 class="fw-bold">Approvals</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Approved By</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody id="approvals-container">
+                      <!-- Approvals will be inserted here dynamically -->
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-            <div class="col-lg-7">
-              <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
-                <select class="form-select w-auto" id="priorityFilter">
-                  <option value="">All Priorities</option>
-                  <option value="high">High</option>
-                  <option value="medium">Medium</option>
-                  <option value="low">Low</option>
-                </select>
-                <select class="form-select w-auto" id="categoryFilter">
-                  <option value="">All Categories</option>
-                  <option value="support">Support</option>
-                  <option value="billing">Billing</option>
-                  <option value="sales">Sales</option>
-                </select>
-                <select class="form-select w-auto" id="dateFilter">
-                  <option value="">All Dates</option>
-                  <option value="today">Today</option>
-                  <option value="week">This Week</option>
-                  <option value="month">This Month</option>
-                </select>
-                <button class="btn btn-primary" id="applyFilters">
-                  <i class="fas fa-filter me-2"></i>Apply Filters
-                </button>
-              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="btn-update-ticket">Update Ticket</button>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Tab Content -->
-        <!-- Open Tickets Tab -->
-          <div class="card mb-4">
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                  <thead>
-                    <tr>
-                      <th>Ticket ID</th>
-                      <th>Subject</th>
-                      <th>Customer</th>
-                      <th>Priority</th>
-                      <th>Created</th>
-                      <th>Updated</th>
-                      <th>Assigned</th>
-
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="ticket-row animate-in" style="animation-delay: 0.1s;">
-                      <td>#TKT-1001</td>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <span class="badge bg-primary me-2">Support</span>
-                          Login issues after system update
-                        </div>
-                      </td>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          Sarah Johnson
-                        </div>
-                      </td>
-                      <td>
-                        <span class="badge bg-danger">High</span>
-                      </td>
-                      <td>2 hours ago</td>
-                      <td>1 hours ago</td>
-                      <td>Midlaj</td>
-
-                      <td>
-                        <div class="d-flex gap-2">
-                          <a href="/viewticket" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-eye"></i>
-                          </a>
-                    
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="ticket-row animate-in" style="animation-delay: 0.2s;">
-                      <td>#TKT-1002</td>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <span class="badge bg-warning me-2">Billing</span>
-                          Invoice discrepancy for March
-                        </div>
-                      </td>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          Michael Brown
-                        </div>
-                      </td>
-                      <td>
-                        <span class="badge bg-warning">Medium</span>
-                      </td>
-                      <td>1 day ago</td>
-                      <td>1 hours ago</td>
-                      <td>Midlaj</td>
-
-                      <td>
-                        <div class="d-flex gap-2">
-                          <a href="/viewticket" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-eye"></i>
-                          </a>
-                    
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="ticket-row animate-in" style="animation-delay: 0.3s;">
-                      <td>#TKT-1003</td>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <span class="badge bg-success me-2">Sales</span>
-                          Request for product demo
-                        </div>
-                      </td>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          Emily Davis
-                        </div>
-                      </td>
-                      <td>
-                        <span class="badge bg-success">Low</span>
-                      </td>
-                      <td>2 days ago</td>
-                      <td>1 hours ago</td>
-                      <td>Midlaj</td>
-
-                      <td>
-                        <div class="d-flex gap-2">
-                          <a href="/viewticket" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-eye"></i>
-                          </a>
-                    
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-        <!-- Pending Tickets Tab -->
-  
-
-      <!-- View Ticket Modal -->
-      
     </div>
   </div>
 
-  <!-- Bootstrap JS Bundle with Popper -->
+  <!-- Required JS Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  
+  <!-- Custom JS for Ticket Dashboard -->
+  <script>
+    $(document).ready(function() {
+      // Initialize DataTable
+      const ticketsTable = $('#ticketsTable').DataTable({
+        ajax: {
+          url: '/tickets/tickets',
+          dataSrc: 'data'
+        },
+        columns: [
+          { 
+            data: '_id',
+            render: function(data) {
+              return `#TKT-${data.substring(0, 6)}`;
+            }
+          },
+          { data: 'title' },
+          { 
+            data: 'requestor',
+            render: function(data) {
+              return data ? data.name : 'N/A';
+            }
+          },
+          { 
+            data: 'ticketType',
+            render: function(data) {
+              let badgeClass = '';
+              switch(data) {
+                case 'Support': badgeClass = 'bg-primary'; break;
+                case 'Billing': badgeClass = 'bg-warning'; break;
+                case 'Sales': badgeClass = 'bg-success'; break;
+                default: badgeClass = 'bg-secondary';
+              }
+              return `<span class="badge ${badgeClass}">${data}</span>`;
+            }
+          },
+          { 
+            data: 'status',
+            render: function(data) {
+              let badgeClass = '';
+              switch(data) {
+                case 'Open': badgeClass = 'bg-info'; break;
+                case 'Pending': badgeClass = 'bg-warning'; break;
+                case 'Solved': badgeClass = 'bg-success'; break;
+                default: badgeClass = 'bg-secondary';
+              }
+              return `<span class="badge ${badgeClass}">${data}</span>`;
+            }
+          },
+          { 
+            data: 'priority',
+            render: function(data) {
+              let badgeClass = '';
+              switch(data) {
+                case 'High': badgeClass = 'bg-danger'; break;
+                case 'Medium': badgeClass = 'bg-warning'; break;
+                case 'Low': badgeClass = 'bg-success'; break;
+                default: badgeClass = 'bg-secondary';
+              }
+              return `<span class="badge ${badgeClass}">${data}</span>`;
+            }
+          },
+          { 
+            data: 'createdAt',
+            render: function(data) {
+              return moment(data).fromNow();
+            }
+          },
+          { 
+            data: '_id',
+            orderable: false,
+            render: function(data) {
+              return `<div class="d-flex gap-2">
+                       
+                        <button class="btn btn-sm btn-outline-success" onclick="window.location.href='/updateticket/${data}'">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                      </div>`;
+            }
+          }
+        ],
+        responsive: true,
+        order: [[6, 'desc']], // Sort by created date descending
+        pageLength: 10,
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+      });
 
+      // Load dashboard counts
+      loadDashboardCounts();
+
+      // Handle tab changes - reload data for the specific tab
+      $('#ticketTabs button').on('click', function (e) {
+        const status = $(this).text().trim().replace(/^\s+|\s+$/g, '');
+        if (status === "All Tickets") {
+          ticketsTable.ajax.url('/tickets/tickets').load();
+        } else {
+          ticketsTable.ajax.url(`/tickets/tickets?status=${status}`).load();
+        }
+      });
+
+      // Function to load dashboard counts
+      function loadDashboardCounts() {
+        $.ajax({
+          url: '/tickets/counts',
+          method: 'GET',
+          success: function(data) {
+            $('#pending-count').text(data.pending || 0);
+            $('#unassigned-count').text(data.unassigned || 0);
+            $('#open-count').text(data.open || 0);
+            $('#completed-count').text(data.completedToday || 0);
+          },
+          error: function(err) {
+            console.error('Error loading dashboard counts:', err);
+          }
+        });
+      }
+
+      // Helper functions for badge classes
+      function getStatusBadgeClass(status) {
+        switch(status) {
+          case 'Open': return 'bg-info';
+          case 'Pending': return 'bg-warning';
+          case 'Solved': return 'bg-success';
+          default: return 'bg-secondary';
+        }
+      }
+      
+      function getPriorityBadgeClass(priority) {
+        switch(priority) {
+          case 'High': return 'bg-danger';
+          case 'Medium': return 'bg-warning';
+          case 'Low': return 'bg-success';
+          default: return 'bg-secondary';
+        }
+      }
+    });
+  </script>
 </body>
 </html>

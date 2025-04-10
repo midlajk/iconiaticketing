@@ -52,15 +52,7 @@ const employeeSchema = new mongoose.Schema({
 const ticketSchema = new mongoose.Schema({
   ticketType: {
     type: String,
-    // enum: [
-    //   'BackupRequest',
-    //   'ChangeRequest',
-    //   'ExitClearance',
-    //   'IncidentReport',
-    //   'DataBreach',
-    //   'NewUserCreation',
-    //   'GeneralTicket' // for regular tickets
-    // ],
+   
     required: true,
   },
   createdby:{type:String},
@@ -73,12 +65,10 @@ const ticketSchema = new mongoose.Schema({
   description: String,
   status: {
     type: String,
-    // enum: ['Pending', 'Approved', 'Rejected', 'In Progress', 'Closed'],
     default: 'Pending',
   },
   priority: {
     type: String,
-    // enum: ['Low', 'Medium', 'High'],
     default: 'Medium',
   },
   category: String, // e.g. emergency/standard, or incident severity
