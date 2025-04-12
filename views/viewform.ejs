@@ -1,0 +1,191 @@
+<%- include('./components/head.ejs') -%>
+
+<body>
+  <!-- Sidebar -->
+  <%- include('./components/navigation.ejs') -%>
+
+  <!-- Content Wrapper -->
+  <div id="content">
+    <!-- Top Navigation -->
+    <nav class="topbar">
+      <div class="d-flex align-items-center">
+        <button class="mobile-menu-toggle me-3" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="page-title mb-0">View From</h1>
+      </div>
+      <div class="user-menu">
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="me-2 d-none d-sm-inline fw-bold">John Doe</span>
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-bell me-2"></i> Notifications</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid p-4">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <% if (ticket.ticketType == 'GeneralTicket') { %>
+                    <%- include('./tickets/generalticket.ejs',{buttons:true}) %>
+                  <% } %>
+                  
+                  <% if (ticket.ticketType == 'backuprequest') { %>
+                    <%- include('./tickets/backuprequestform.ejs') %>
+                  <% } %>
+                  <% if (ticket.ticketType == 'changerequest') { %>
+                    <%- include('./tickets/changerequestform.ejs') %>
+                  <% } %>
+        
+                  <% if (ticket.ticketType == 'changemanagement') { %>
+                    <%- include('./tickets/changemanagement.ejs') %>
+                  <% } %>
+        
+                  <% if (ticket.ticketType == 'databreach') { %>
+                    <%- include('./tickets/databreachform.ejs') %>
+                  <% } %>
+        
+                  <% if (ticket.ticketType == 'exitclearance') { %>
+                    <%- include('./tickets/exitclearance.ejs') %>
+                  <% } %>
+        
+                  <% if (ticket.ticketType == 'incidentreport') { %>
+                    <%- include('./tickets/incidentreport.ejs') %>
+                  <% } %>
+        
+                  <% if (ticket.ticketType == 'newusercreation') { %>
+                    <%- include('./tickets/newusercreation.ejs') %>
+                  <% } %>
+        
+                  <div class="d-flex justify-content-end gap-3">
+                    <button type="button" class="btn btn-outline-secondary" id="cancelButton">
+                      Download
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitButton">
+                      <i class="fas fa-ticket-alt me-2"></i> Edit Ticket
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+      <!-- Breadcrumb -->
+      <!-- <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="#">Tickets</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Ticket Details</li>
+        </ol>
+      </nav>
+     -->
+</div>
+</div>
+    </div>
+    
+    <!-- Modal for Form Data -->
+    <!-- <div class="modal fade" id="formDataModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Form Data Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="formDataModalBody">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="editFormDataBtn">Edit Form</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    
+    <style>
+      .timeline {
+        position: relative;
+        padding-left: 1.5rem;
+      }
+      
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0.5rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: #e9ecef;
+      }
+      
+      .timeline-item {
+        position: relative;
+        padding-bottom: 1.5rem;
+      }
+      
+      .timeline-badge {
+        position: absolute;
+        left: -0.5rem;
+        top: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        z-index: 1;
+      }
+      
+      .timeline-content {
+        margin-left: 2rem;
+        padding: 0.5rem 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.25rem;
+      }
+      
+      .attachment-thumb {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      
+      .attachment-thumb:hover {
+        transform: scale(1.05);
+      }
+    </style>
+    
+
+  </div>
+
+  <!-- Loading Overlay -->
+
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebar = document.getElementById('sidebar');
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      
+      if (mobileMenuToggle && sidebar) {
+        mobileMenuToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('open');
+        });
+      }
+    });
+  </script>
+  </body>
+</html>

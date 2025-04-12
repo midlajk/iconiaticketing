@@ -4,36 +4,38 @@
       <span class="badge bg-warning">HR Document</span>
     </div>
     <div class="card-body">
-      <form id="clearanceForm">
+      <form id="ticketForm">
         <!-- Employee Information Section -->
+        <input type="hidden" name="ticketType" value="ExitClearance">
+        <input type="hidden" name="status" value="New">
         <div class="row mb-4">
           <div class="col-md-6 mb-3">
             <label for="employeeName" class="form-label">Employee Name</label>
-            <input type="text" class="form-control" id="employeeName" name="employeeName" placeholder="Name of employee leaving the organization" required>
+            <input type="text" class="form-control" id="employeeName" name="formData.data1" placeholder="Name of employee leaving the organization" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="employeeId" class="form-label">Employee ID</label>
-            <input type="text" class="form-control" id="employeeId" name="employeeId" placeholder="EMP ID of employee" required>
+            <input type="text" class="form-control" id="employeeId" name="formData.data2" placeholder="EMP ID of employee" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="emailId" class="form-label">Email ID</label>
-            <input type="email" class="form-control" id="emailId" name="emailId" placeholder="Email ID of the employee" required>
+            <input type="email" class="form-control" id="emailId" name="requestor.email" placeholder="Email ID of the employee" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="phoneExt" class="form-label">Phone Ext.</label>
-            <input type="text" class="form-control" id="phoneExt" name="phoneExt" placeholder="Ext. of the employee">
+            <input type="text" class="form-control" id="phoneExt" name="formData.data3" placeholder="Ext. of the employee">
           </div>
           <div class="col-md-12 mb-3">
             <label for="department" class="form-label">Section/Department</label>
-            <input type="text" class="form-control" id="department" name="department" placeholder="Section/Department of the employee" required>
+            <input type="text" class="form-control" id="department" name="formData.data4" placeholder="Section/Department of the employee" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="location" class="form-label">Location</label>
-            <input type="text" class="form-control" id="location" name="location" placeholder="Location (HR/Branch detail etc.) of the employee" required>
+            <input type="text" class="form-control" id="location" name="formData.data5" placeholder="Location (HR/Branch detail etc.) of the employee" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastWorkingDay" class="form-label">Last Working Day</label>
-            <input type="date" class="form-control" id="lastWorkingDay" name="lastWorkingDay" required>
+            <input type="date" class="form-control" id="lastWorkingDay" name="formData.data6" required>
           </div>
         </div>
   
@@ -49,33 +51,43 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-8">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="doorAccess" name="hrRevocation.doorAccess">
-                  <label class="form-check-label" for="doorAccess">Door Access</label>
+                <div class="mb-2">
+                  <label for="doorAccess" class="form-label">Door Access</label>
+                  <select class="form-control" id="doorAccess" name="formData.data7">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="deskKeys" name="hrRevocation.deskKeys">
-                  <label class="form-check-label" for="deskKeys">Desk Keys</label>
+                <div class="mb-2">
+                  <label for="deskKeys" class="form-label">Desk Keys</label>
+                  <select class="form-control" id="deskKeys" name="formData.data8">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="medicalBenefits" name="hrRevocation.medicalBenefits">
-                  <label class="form-check-label" for="medicalBenefits">Cancellation of benefits – medical/life</label>
+                <div class="mb-2">
+                  <label for="medicalBenefits" class="form-label">Cancellation of benefits – medical/life</label>
+                  <select class="form-control" id="medicalBenefits" name="formData.data9">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" id="hrOther" name="hrRevocation.other">
-                  </div>
-                  <input type="text" class="form-control" placeholder="Other" aria-label="HR Other" id="hrOtherText" name="hrRevocation.otherText">
+                <div class="mb-3">
+                  <label for="hrOtherText" class="form-label">Other</label>
+                  <input type="text" class="form-control" placeholder="Other" id="hrOtherText" name="formData.data10">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="mb-3">
                   <label for="adminSignature" class="form-label">Admin Signature</label>
-                  <input type="text" class="form-control" id="adminSignature" name="hrRevocation.adminSignature">
+                  <input type="text" class="form-control" id="adminSignature" name="formData.data11">
                 </div>
                 <div class="mb-3">
                   <label for="adminDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="adminDate" name="hrRevocation.adminDate">
+                  <input type="date" class="form-control" id="adminDate" name="formData.data12">
                 </div>
               </div>
             </div>
@@ -90,25 +102,27 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-8">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="handoverReport" name="manager.handoverReport">
-                  <label class="form-check-label" for="handoverReport">Handover Report Submitted</label>
+                <div class="mb-2">
+                  <label for="handoverReport" class="form-label">Handover Report Submitted</label>
+                  <select class="form-control" id="handoverReport" name="formData.data13">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" id="managerOther" name="manager.other">
-                  </div>
-                  <input type="text" class="form-control" placeholder="Other" aria-label="Manager Other" id="managerOtherText" name="manager.otherText">
+                <div class="mb-3">
+                  <label for="managerOtherText" class="form-label">Other</label>
+                  <input type="text" class="form-control" placeholder="Other" id="managerOtherText" name="formData.data14">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="mb-3">
                   <label for="managerSignature" class="form-label">Manager Signature</label>
-                  <input type="text" class="form-control" id="managerSignature" name="manager.signature">
+                  <input type="text" class="form-control" id="managerSignature" name="formData.data15">
                 </div>
                 <div class="mb-3">
                   <label for="managerDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="managerDate" name="manager.date">
+                  <input type="date" class="form-control" id="managerDate" name="formData.data16">
                 </div>
               </div>
             </div>
@@ -123,29 +137,35 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-8">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="appAccess" name="appsRevocation.appAccess">
-                  <label class="form-check-label" for="appAccess">Application(s) Access</label>
+                <div class="mb-2">
+                  <label for="appAccess" class="form-label">Application(s) Access</label>
+                  <select class="form-control" id="appAccess" name="formData.data17">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="emrAccess" name="appsRevocation.emrAccess">
-                  <label class="form-check-label" for="emrAccess">EMR Access</label>
+                <div class="mb-2">
+                  <label for="emrAccess" class="form-label">EMR Access</label>
+                  <select class="form-control" id="emrAccess" name="formData.data18">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" id="appsOther" name="appsRevocation.other">
-                  </div>
-                  <input type="text" class="form-control" placeholder="Other" aria-label="Apps Other" id="appsOtherText" name="appsRevocation.otherText">
+                <div class="mb-3">
+                  <label for="appsOtherText" class="form-label">Other</label>
+                  <input type="text" class="form-control" placeholder="Other" id="appsOtherText" name="formData.data19">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="mb-3">
                   <label for="appsAdminSignature" class="form-label">Apps. Admin Signature</label>
-                  <input type="text" class="form-control" id="appsAdminSignature" name="appsRevocation.adminSignature">
+                  <input type="text" class="form-control" id="appsAdminSignature" name="formData.data20">
                 </div>
                 <div class="mb-3">
                   <label for="appsAdminDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="appsAdminDate" name="appsRevocation.adminDate">
+                  <input type="date" class="form-control" id="appsAdminDate" name="formData.data21">
                 </div>
               </div>
             </div>
@@ -160,29 +180,35 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-8">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="username" name="sysRevocation.username">
-                  <label class="form-check-label" for="username">Username</label>
+                <div class="mb-2">
+                  <label for="username" class="form-label">Username</label>
+                  <select class="form-control" id="username" name="formData.data22">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="mailbox" name="sysRevocation.mailbox">
-                  <label class="form-check-label" for="mailbox">Mailbox</label>
+                <div class="mb-2">
+                  <label for="mailbox" class="form-label">Mailbox</label>
+                  <select class="form-control" id="mailbox" name="formData.data23">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" id="sysOther" name="sysRevocation.other">
-                  </div>
-                  <input type="text" class="form-control" placeholder="Other" aria-label="System Other" id="sysOtherText" name="sysRevocation.otherText">
+                <div class="mb-3">
+                  <label for="sysOtherText" class="form-label">Other</label>
+                  <input type="text" class="form-control" placeholder="Other" id="sysOtherText" name="formData.data24">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="mb-3">
                   <label for="sysAdminSignature" class="form-label">Sys. Admin Signature</label>
-                  <input type="text" class="form-control" id="sysAdminSignature" name="sysRevocation.adminSignature">
+                  <input type="text" class="form-control" id="sysAdminSignature" name="formData.data25">
                 </div>
                 <div class="mb-3">
                   <label for="sysAdminDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="sysAdminDate" name="sysRevocation.adminDate">
+                  <input type="date" class="form-control" id="sysAdminDate" name="formData.data26">
                 </div>
               </div>
             </div>
@@ -197,29 +223,35 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-8">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="phoneExt" name="comRevocation.phoneExt">
-                  <label class="form-check-label" for="phoneExt">Phone Ext</label>
+                <div class="mb-2">
+                  <label for="phoneExtRevoke" class="form-label">Phone Ext</label>
+                  <select class="form-control" id="phoneExtRevoke" name="formData.data27">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="eFax" name="comRevocation.eFax">
-                  <label class="form-check-label" for="eFax">e-Fax</label>
+                <div class="mb-2">
+                  <label for="eFax" class="form-label">e-Fax</label>
+                  <select class="form-control" id="eFax" name="formData.data1">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" id="comOther" name="comRevocation.other">
-                  </div>
-                  <input type="text" class="form-control" placeholder="Other" aria-label="Communication Other" id="comOtherText" name="comRevocation.otherText">
+                <div class="mb-3">
+                  <label for="comOtherText" class="form-label">Other</label>
+                  <input type="text" class="form-control" placeholder="Other" id="comOtherText" name="formData.data2">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="mb-3">
                   <label for="comAdminSignature" class="form-label">Com. Admin Signature</label>
-                  <input type="text" class="form-control" id="comAdminSignature" name="comRevocation.adminSignature">
+                  <input type="text" class="form-control" id="comAdminSignature" name="formData.data3">
                 </div>
                 <div class="mb-3">
                   <label for="comAdminDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="comAdminDate" name="comRevocation.adminDate">
+                  <input type="date" class="form-control" id="comAdminDate" name="formData.data4">
                 </div>
               </div>
             </div>
@@ -234,33 +266,43 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-8">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="desktop" name="itAsset.desktop">
-                  <label class="form-check-label" for="desktop">Desktop</label>
+                <div class="mb-2">
+                  <label for="desktop" class="form-label">Desktop</label>
+                  <select class="form-control" id="desktop" name="formData.data5">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="laptop" name="itAsset.laptop">
-                  <label class="form-check-label" for="laptop">Laptop</label>
+                <div class="mb-2">
+                  <label for="laptop" class="form-label">Laptop</label>
+                  <select class="form-control" id="laptop" name="formData.data6">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="printer" name="itAsset.printer">
-                  <label class="form-check-label" for="printer">Printer</label>
+                <div class="mb-2">
+                  <label for="printer" class="form-label">Printer</label>
+                  <select class="form-control" id="printer" name="formData.data7">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" id="itOther" name="itAsset.other">
-                  </div>
-                  <input type="text" class="form-control" placeholder="Other" aria-label="IT Other" id="itOtherText" name="itAsset.otherText">
+                <div class="mb-3">
+                  <label for="itOtherText" class="form-label">Other</label>
+                  <input type="text" class="form-control" placeholder="Other" id="itOtherText" name="formData.data8">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="mb-3">
                   <label for="itAdminSignature" class="form-label">IT Asset Admin Signature</label>
-                  <input type="text" class="form-control" id="itAdminSignature" name="itAsset.adminSignature">
+                  <input type="text" class="form-control" id="itAdminSignature" name="formData.data9">
                 </div>
                 <div class="mb-3">
                   <label for="itAdminDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="itAdminDate" name="itAsset.adminDate">
+                  <input type="date" class="form-control" id="itAdminDate" name="formData.data10">
                 </div>
               </div>
             </div>
@@ -280,15 +322,15 @@
               </div>
               <div class="col-md-4 mb-3">
                 <label for="hrApprovalName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="hrApprovalName" name="hrApproval.name">
+                <input type="text" class="form-control" id="hrApprovalName" name="formData.data11">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="hrApprovalSignature" class="form-label">Signature</label>
-                <input type="text" class="form-control" id="hrApprovalSignature" name="hrApproval.signature">
+                <input type="text" class="form-control" id="hrApprovalSignature" name="formData.data12">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="hrApprovalDate" class="form-label">Date</label>
-                <input type="date" class="form-control" id="hrApprovalDate" name="hrApproval.date">
+                <input type="date" class="form-control" id="hrApprovalDate" name="formData.data13">
               </div>
             </div>
   
@@ -299,15 +341,15 @@
               </div>
               <div class="col-md-4 mb-3">
                 <label for="financeApprovalName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="financeApprovalName" name="financeApproval.name">
+                <input type="text" class="form-control" id="financeApprovalName" name="formData.data14">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="financeApprovalSignature" class="form-label">Signature</label>
-                <input type="text" class="form-control" id="financeApprovalSignature" name="financeApproval.signature">
+                <input type="text" class="form-control" id="financeApprovalSignature" name="formData.data15">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="financeApprovalDate" class="form-label">Date</label>
-                <input type="date" class="form-control" id="financeApprovalDate" name="financeApproval.date">
+                <input type="date" class="form-control" id="financeApprovalDate" name="formData.data16">
               </div>
             </div>
   
@@ -317,15 +359,14 @@
                 <h6>Clearance Reason</h6>
               </div>
               <div class="col-md-12 mb-3">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="radio" name="clearanceReason" id="endOfService" value="Employee End of service" checked>
-                  <label class="form-check-label" for="endOfService">Employee End of service</label>
-                </div>
-                <div class="input-group">
-                  <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="radio" name="clearanceReason" id="otherReason" value="Other">
-                  </div>
-                  <input type="text" class="form-control" placeholder="Other reason" id="otherReasonText" name="otherReasonText">
+                <label for="clearanceReason" class="form-label">Reason</label>
+                <select class="form-control" id="clearanceReason" name="formData.data17">
+                  <option value="Employee End of service">Employee End of service</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div class="mt-2">
+                  <label for="otherReasonText" class="form-label">If Other, please specify</label>
+                  <input type="text" class="form-control" placeholder="Other reason" id="otherReasonText" name="formData.data18">
                 </div>
               </div>
             </div>
@@ -337,15 +378,15 @@
               </div>
               <div class="col-md-4 mb-3">
                 <label for="directorName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="directorName" name="director.name">
+                <input type="text" class="form-control" id="directorName" name="formData.data19">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="directorSignature" class="form-label">Signature</label>
-                <input type="text" class="form-control" id="directorSignature" name="director.signature">
+                <input type="text" class="form-control" id="directorSignature" name="formData.data20">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="directorDate" class="form-label">Date</label>
-                <input type="date" class="form-control" id="directorDate" name="director.date">
+                <input type="date" class="form-control" id="directorDate" name="formData.data21">
               </div>
             </div>
           </div>
@@ -354,33 +395,19 @@
         <!-- Comments -->
         <div class="mb-4">
           <label for="comments" class="form-label">Comments</label>
-          <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+          <textarea class="form-control" id="comments" name="formData.data22" rows="3"></textarea>
         </div>
   
         <!-- Completed By -->
         <div class="row mb-4">
           <div class="col-md-6 mb-3">
             <label for="completedBy" class="form-label">Completed By</label>
-            <input type="text" class="form-control" id="completedBy" name="completedBy" placeholder="Employee Name">
+            <input type="text" class="form-control" id="completedBy" name="formData.data23" placeholder="Employee Name">
           </div>
           <div class="col-md-6 mb-3">
             <label for="completionSignatureDate" class="form-label">Signature & Date</label>
-            <input type="text" class="form-control" id="completionSignatureDate" name="completionSignatureDate">
+            <input type="text" class="form-control" id="completionSignatureDate" name="formData.data24">
           </div>
         </div>
-  
         <!-- Submit Buttons -->
-        <div class="d-flex justify-content-end gap-3">
-          <button type="button" class="btn btn-outline-secondary" id="cancelButton">
-            Cancel
-          </button>
-          <button type="button" class="btn btn-outline-primary" id="saveButton">
-            <i class="fas fa-save me-2"></i>Save as Draft
-          </button>
-          <button type="submit" class="btn btn-primary" id="submitButton">
-            <i class="fas fa-paper-plane me-2"></i>Submit Form
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+       

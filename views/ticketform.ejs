@@ -144,16 +144,17 @@
             <div class="row g-3">
               <div class="col-md-6">
                 <div class="form-floating">
-                  <select class="form-select" id="ticketType" name="ticketType">
-                    <option value="GeneralTicket" selected>General Ticket</option>
-                    <option value="BackupRequest">Backup Request</option>
-                    <option value="ChangeRequest">Change Request</option>
-                    <option value="ChangeManagement">Change Management</option>
-                    <option value="ExitClearance">Exit Clearance</option>
-                    <option value="IncidentReport">Incident Report</option>
-                    <option value="DataBreach">Data Breach Notification</option>
-                    <option value="NewUserCreation">New User Creation</option>
+                  <select class="form-select" id="ticketType">
+                    <option value="GeneralTicket" <%= ticket == 'generalticket' ? 'selected' : '' %>>General Ticket</option>
+                    <option value="BackupRequest" <%= ticket == 'backuprequest' ? 'selected' : '' %>>Backup Request</option>
+                    <option value="ChangeRequest" <%= ticket == 'changerequest' ? 'selected' : '' %>>Change Request</option>
+                    <option value="ChangeManagement" <%= ticket == 'changemanagement' ? 'selected' : '' %>>Change Management</option>
+                    <option value="ExitClearance" <%= ticket == 'exitclearance' ? 'selected' : '' %>>Exit Clearance</option>
+                    <option value="IncidentReport" <%= ticket == 'incidentreport' ? 'selected' : '' %>>Incident Report</option>
+                    <option value="DataBreach" <%= ticket == 'databreach' ? 'selected' : '' %>>Data Breach Notification</option>
+                    <option value="NewUserCreation" <%= ticket == 'newusercreation' ? 'selected' : '' %>>New User Creation</option>
                   </select>
+                  
                   <label for="ticketType">Ticket Type</label>
                 </div>
               </div>
@@ -168,7 +169,7 @@
 
         <!-- General Ticket Form (Default) -->
 
-        <% if (ticket == 'general') { %>
+        <% if (ticket == 'generalticket') { %>
           <%- include('./tickets/generalticket.ejs') %>
         <% } %>
         
@@ -198,6 +199,17 @@
         <% if (ticket == 'newusercreation') { %>
           <%- include('./tickets/newusercreation.ejs') %>
         <% } %>
+        <div class="d-flex justify-content-end gap-3">
+          <button type="button" class="btn btn-outline-secondary" id="cancelButton">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitButton">
+            <i class="fas fa-ticket-alt me-2"></i> Create Ticket
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
       </div>
     <!-- </div> -->
@@ -212,11 +224,7 @@
           document.getElementById('continueButton').addEventListener('click', function() {
             const ticketType = document.getElementById('ticketType').value;
             
-            if (ticketType === 'GeneralTicket') {
-              // Already showing general ticket form
-              return;
-            }
-            
+          
             // Redirect to specialized ticket form
             window.location.href = `/customerticket/${ticketType.toLowerCase()}`;
           });

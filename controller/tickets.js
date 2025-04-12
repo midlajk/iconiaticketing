@@ -5,8 +5,15 @@ const Ticket = mongoose.model('Ticket')
 var path = require('path');
 var fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const handlebars = require('handlebars');
+const html_to_pdf = require('html-pdf-node');
+const moment = require('moment');
 
 exports.addticket = async (req, res) => {
+    try{
+
+console.log(req.body)
+    
     
         // Generate a unique ID for the ticket
         const ticketId = uuidv4();
@@ -17,37 +24,70 @@ exports.addticket = async (req, res) => {
           description,
           priority = 'Medium',
           ticketType = 'GeneralTicket'
+
         } = req.body;
         
         // Handle nested requestor data
         const requestorName = req.body['requestor.name'];
         const requestorEmpId = req.body['requestor.empId'];
-        
+        const email = req.body['requestor.email'];
+
         // Prepare files information
-        const attachments = req.files ? req.files.map(file => ({
-          filename: file.filename,
-          originalName: file.originalname,
-          path: file.path,
-          size: file.size,
-          mimetype: file.mimetype
-        })) : [];
-        
+        const attachments = req.files ? req.files.map(file => file.path) : [];
+
         // Create ticket object
   
         const newTicket = new Ticket({
-            id: ticketId,
-            title,
-            description,
-            priority,
-            ticketType,
+            ticketType: "Backup", // From hidden field
+            title: req.body.title,
+            description: req.body.description,
+            priority: req.body.priority,
+            category: req.body.category,
+            status: "Pending", // Default status for new tickets
+          
+            // Requestor information
             requestor: {
-              name: requestorName,
-              empId: requestorEmpId
+              name: req.body["requestor.name"],
+              email: req.body["requestor.email"],
+              customerid: req.body.requestorEmpId // If you collect this in your form
             },
-            attachments,
-            status: 'New',
+          
+            // All form-specific data mapped to formData
+            formData: {
+              data1: req.body["formData.data1"], // Location
+              data2: req.body["formData.data2"], // Contact
+              data3: req.body["formData.data3"], // Department
+              data4: req.body["formData.data4"], // Request Date
+              data5: req.body["formData.data5"], // File/Folder Names
+              data6: req.body["formData.data6"], // File Location
+              data7: req.body["formData.data7"], // Start Date
+              data8: req.body["formData.data8"], // End Date
+              data9: req.body["formData.data9"], // Frequency
+              data10: req.body["formData.data10"], // Other Frequency
+              data11: req.body["formData.data11"], // Retention Period
+              data12: req.body["formData.data12"], // Other Retention
+              data13: req.body["formData.data13"], // Backup Type
+              data14: req.body["formData.data14"], // Criticality
+              data15: req.body["formData.data15"], // HOD Approval
+              data16: req.body["formData.data16"], // HOD Signature
+              data17: req.body["formData.data17"], // HOD Date
+              data18: req.body["formData.data18"], // HOD Comments
+              data19: req.body["formData.data19"], // IT Approval
+              data20: req.body["formData.data20"], // IT Signature
+              data21: req.body["formData.data21"], // IT Date
+              data22: req.body["formData.data22"], // Operator Signature
+              data23: req.body["formData.data23"], // Operator Date
+            },
+          
+            // Handle approvals
+        
+          
+            // Handle file attachments
+            attachments: req.files ? req.files.map(file => file.filename) : [],
+            
+            // Timestamps
             createdAt: new Date(),
-            updatedAt: new Date()
+            createdby: req.user ? req.user.email : req.body["requestor.email"] // Use current user or requestor
           });
 
         // Save ticket to our "database"
@@ -63,6 +103,10 @@ exports.addticket = async (req, res) => {
           message: 'Ticket created successfully',
           ticketId
         });
+    }catch (e){
+        console.log(e)
+
+    }
     
 };
 
@@ -212,3 +256,90 @@ exports.getTickets = async (req, res) => {
       }
   };
   
+
+
+
+exports.updateticketscreen = async (req, res) => {
+    const ticket = await Ticket.findById(req.params.id)
+    
+   
+    // Create ticket object
+
+    res.render('viewticket', { title: 'Express' ,screen : 'Tickets',ticket:ticket });
+
+
+};
+
+const getBase64Image = (filePath) => {
+    const image = fs.readFileSync(filePath);
+    const ext = path.extname(filePath).slice(1); // 'png'
+    return `data:image/${ext};base64,${image.toString('base64')}`;
+  };
+exports.downloadform = async (req, res) => {
+    const logoPath = path.join(__dirname, '..', 'public', 'images', 'logo.png');
+    const logoBase64 = getBase64Image(logoPath);
+    
+    const data = {
+        requestorName: "John Doe",
+        department: "Finance",
+        location: "HQ",
+        contact: "john.doe@example.com",
+        requestDate: "2025-04-11",
+        fileNames: "Financial Reports Q1 2025",
+        logo: logoBase64,
+        fileLocation: "../public/images/logo.png",
+        startDate: "2025-04-12",
+        endDate: "2025-04-12",
+        frequency: "Daily",
+        retentionPeriod: "1 year",
+        backupType: "Full",
+        criticality: "High",
+        hodStatus: "Approved",
+        hodSignature: "",
+        hodSignatureDate: "2025-04-11",
+        hodComments: "Approved for standard backup protocol",
+        itManagerStatus: "Approved",
+        itManagerSignature: "",
+        itManagerSignatureDate: "2025-04-11",
+        backupOperatorSignature: "",
+        backupOperatorSignatureDate: ""
+    };
+
+    // Load the Handlebars template
+    const templatePath = path.join(__dirname, 'template.hbs');
+    const template = fs.readFileSync(templatePath, 'utf8');
+    const compiledTemplate = handlebars.compile(template);
+    const html = compiledTemplate({ data });
+
+    // PDF generation options
+    const options = {
+        format: 'A4',
+        margin: { top: '20px', right: '20px', bottom: '20px', left: '20px' }
+    };
+
+    const file = { content: html };
+
+    // Define ticketId or use a default one
+    const ticketId = req.params.ticketId || '12345';
+
+    try {
+        const pdfBuffer = await html_to_pdf.generatePdf(file, options);
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename=backup-request-form-${ticketId}.pdf`);
+        res.send(pdfBuffer);
+    } catch (error) {
+        console.error("Error generating PDF:", error);
+        res.status(500).send("Something went wrong while generating the PDF.");
+    }
+};
+
+exports.viewform = async (req, res) => {
+
+    const ticket = await Ticket.findById(req.params.id)
+    
+   
+    // Create ticket object
+
+    res.render('viewform', { title: 'Express' ,screen : 'Tickets',ticket:ticket });
+  
+};

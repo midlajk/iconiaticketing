@@ -4,7 +4,33 @@
       <span class="badge bg-success">HR</span>
     </div>
     <div class="card-body">
-      <form id="userCreationForm" enctype="multipart/form-data">
+      <form id="ticketForm" enctype="multipart/form-data">
+        <!-- Hidden fields for schema requirements -->
+        <input type="hidden" name="ticketType" value="NewUserCreation">
+        <input type="hidden" name="status" value="New">
+        <!-- Requestor Information -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="requestorName" class="form-label">Requestor Name</label>
+            <input type="text" class="form-control" id="requestorName" name="requestor.name" placeholder="Your name" required>
+          </div>
+          <div class="col-md-6">
+            <label for="requestorEmail" class="form-label">Requestor Email</label>
+            <input type="email" class="form-control" id="requestorEmail" name="requestor.email" placeholder="Your email" required>
+          </div>
+        </div>
+        
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="requestorCustomerId" class="form-label">Customer ID</label>
+            <input type="text" class="form-control" id="requestorCustomerId" name="requestor.customerid" placeholder="Your customer ID">
+          </div>
+          <div class="col-md-6">
+            <label for="title" class="form-label">Request Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="New User Request for [Name]" required>
+          </div>
+        </div>
+        
         <!-- Mandatory Fields Section -->
         <div class="card mb-4">
           <div class="card-header bg-light">
@@ -14,12 +40,12 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="employeeName" class="form-label">Employee or Temporary User Name</label>
-                <input type="text" class="form-control" id="employeeName" name="employeeName" placeholder="Name of the employee requiring access and assets" required>
+                <input type="text" class="form-control" id="employeeName" name="formData.data1" placeholder="Name of the employee requiring access and assets" required>
                 <div class="invalid-feedback">Please provide the employee name.</div>
               </div>
               <div class="col-md-6">
                 <label for="employeeId" class="form-label">Employee ID</label>
-                <input type="text" class="form-control" id="employeeId" name="employeeId" placeholder="Employee ID of the employee" required>
+                <input type="text" class="form-control" id="employeeId" name="formData.data2" placeholder="Employee ID of the employee" required>
                 <div class="invalid-feedback">Please provide the employee ID.</div>
               </div>
             </div>
@@ -27,12 +53,12 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="jobTitle" class="form-label">Job Title</label>
-                <input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="Job title of the employee" required>
+                <input type="text" class="form-control" id="jobTitle" name="formData.data3" placeholder="Job title of the employee" required>
                 <div class="invalid-feedback">Please provide the job title.</div>
               </div>
               <div class="col-md-6">
                 <label for="department" class="form-label">Section/Department or Third Party Company</label>
-                <input type="text" class="form-control" id="department" name="department" placeholder="Department or company name" required>
+                <input type="text" class="form-control" id="department" name="formData.data4" placeholder="Department or company name" required>
                 <div class="invalid-feedback">Please provide the department or company.</div>
               </div>
             </div>
@@ -40,12 +66,12 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="location" class="form-label">Location</label>
-                <input type="text" class="form-control" id="location" name="location" placeholder="Location (HQ/Any other site)" required>
+                <input type="text" class="form-control" id="location" name="formData.data5" placeholder="Location (HQ/Any other site)" required>
                 <div class="invalid-feedback">Please provide the location.</div>
               </div>
               <div class="col-md-6">
                 <label for="contactNumber" class="form-label">Contact Number</label>
-                <input type="tel" class="form-control" id="contactNumber" name="contactNumber" placeholder="Contact number of the employee" required>
+                <input type="tel" class="form-control" id="contactNumber" name="formData.data6" placeholder="Contact number of the employee" required>
                 <div class="invalid-feedback">Please provide a valid contact number.</div>
               </div>
             </div>
@@ -53,16 +79,21 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="joiningDate" class="form-label">Joining Date</label>
-                <input type="date" class="form-control" id="joiningDate" name="joiningDate" required>
+                <input type="date" class="form-control" id="joiningDate" name="formData.data7" required>
                 <div class="invalid-feedback">Please provide the joining date.</div>
               </div>
               <div class="col-md-6">
                 <label for="contractEndDate" class="form-label">End of Contract Date <small class="text-muted">(Mandatory for vendor or contract employees)</small></label>
-                <input type="date" class="form-control" id="contractEndDate" name="contractEndDate">
+                <input type="date" class="form-control" id="contractEndDate" name="formData.data8">
                 <div class="invalid-feedback">Please provide the contract end date.</div>
               </div>
             </div>
           </div>
+        </div>
+  
+        <div class="mb-4">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="3" placeholder="Additional details about this user request" required></textarea>
         </div>
   
         <!-- Access Requirements Section -->
@@ -83,22 +114,22 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="usernameAccess" name="systemAccess[]" value="Username">
+                    <input class="form-check-input" type="checkbox" id="usernameAccess" name="formData.data9" value="Username">
                     <label class="form-check-label" for="usernameAccess">Username</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="emailAccess" name="systemAccess[]" value="Email">
+                    <input class="form-check-input" type="checkbox" id="emailAccess" name="formData.data10" value="Email">
                     <label class="form-check-label" for="emailAccess">Email</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="internetAccess" name="systemAccess[]" value="Internet & Intranet">
+                    <input class="form-check-input" type="checkbox" id="internetAccess" name="formData.data11" value="Internet & Intranet">
                     <label class="form-check-label" for="internetAccess">Internet & Intranet</label>
                   </div>
                   <div class="input-group mt-2">
                     <div class="input-group-text">
-                      <input class="form-check-input mt-0" type="checkbox" id="otherSystemAccess" name="systemAccess[]" value="Other">
+                      <input class="form-check-input mt-0" type="checkbox" id="otherSystemAccess" name="formData.data12" value="true">
                     </div>
-                    <input type="text" class="form-control" id="otherSystemAccessText" name="otherSystemAccessText" placeholder="Other system access details">
+                    <input type="text" class="form-control" id="otherSystemAccessText" name="formData.data13" placeholder="Other system access details">
                   </div>
                 </div>
               </div>
@@ -116,14 +147,14 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="desktopAllocation" name="itAssets[]" value="Desktop">
+                    <input class="form-check-input" type="checkbox" id="desktopAllocation" name="formData.data14" value="Desktop">
                     <label class="form-check-label" for="desktopAllocation">Desktop</label>
                   </div>
                   <div class="input-group mt-2">
                     <div class="input-group-text">
-                      <input class="form-check-input mt-0" type="checkbox" id="otherITAsset" name="itAssets[]" value="Other">
+                      <input class="form-check-input mt-0" type="checkbox" id="otherITAsset" name="formData.data15" value="true">
                     </div>
-                    <input type="text" class="form-control" id="otherITAssetText" name="otherITAssetText" placeholder="Other IT assets required">
+                    <input type="text" class="form-control" id="otherITAssetText" name="formData.data16" placeholder="Other IT assets required">
                   </div>
                 </div>
               </div>
@@ -142,7 +173,7 @@
                 <div class="col-md-8">
                   <div class="mb-3">
                     <label for="applicationAccess" class="form-label">Application Names</label>
-                    <textarea class="form-control" id="applicationAccess" name="applicationAccess" rows="2" placeholder="Name of the applications on which access is required"></textarea>
+                    <textarea class="form-control" id="applicationAccess" name="formData.data17" rows="2" placeholder="Name of the applications on which access is required"></textarea>
                   </div>
                 </div>
               </div>
@@ -160,14 +191,14 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="phoneExtAccess" name="communicationAccess[]" value="Phone Ext">
+                    <input class="form-check-input" type="checkbox" id="phoneExtAccess" name="formData.data18" value="true">
                     <label class="form-check-label" for="phoneExtAccess">Phone Ext</label>
                   </div>
                   <div class="input-group mt-2">
                     <div class="input-group-text">
-                      <input class="form-check-input mt-0" type="checkbox" id="otherCommunicationAccess" name="communicationAccess[]" value="Other">
+                      <input class="form-check-input mt-0" type="checkbox" id="otherCommunicationAccess" name="formData.data19" value="true">
                     </div>
-                    <input type="text" class="form-control" id="otherCommunicationAccessText" name="otherCommunicationAccessText" placeholder="Other communication access required">
+                    <input type="text" class="form-control" id="otherCommunicationAccessText" name="formData.data20" placeholder="Other communication access required">
                   </div>
                 </div>
               </div>
@@ -195,7 +226,7 @@
               <div class="col-md-12">
                 <div class="border rounded p-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="userAgreement" name="userAgreement" required>
+                    <input class="form-check-input" type="checkbox" id="userAgreement" name="formData.data21" value="true" required>
                     <label class="form-check-label" for="userAgreement">
                       I hereby understand that I have received the required access to perform my defined set of responsibilities as per the Employment agreement or Contract with <strong>AL INSAAF MEDICAL CENTER</strong>. I shall exhibit prudent usage of the resources assigned to me and abide by the rules and regulations enforced by <strong>AL INSAAF MEDICAL CENTER</strong> at present and in future.
                     </label>
@@ -209,290 +240,19 @@
             
             <div class="mb-4">
               <label for="itComments" class="form-label">IT Comments (if any)</label>
-              <textarea class="form-control" id="itComments" name="itComments" rows="2" placeholder="To be filled by IT"></textarea>
+              <textarea class="form-control" id="itComments" name="formData.data22" rows="2" placeholder="To be filled by IT"></textarea>
             </div>
             
             <div class="row mb-4">
               <div class="col-md-6">
                 <label class="form-label">Completed and Preserved By:</label>
-                <input type="text" class="form-control" id="completedBy" name="completedBy" placeholder="IT Department Staff Name" readonly>
+                <input type="text" class="form-control" id="completedBy" name="formData.data23" placeholder="IT Department Staff Name" readonly>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Completed Date:</label>
-                <input type="text" class="form-control" id="completedDate" name="completedDate" placeholder="Will be filled automatically" readonly>
+                <input type="text" class="form-control" id="completedDate" name="formData.data24" placeholder="Will be filled automatically" readonly>
               </div>
             </div>
           </div>
         </div>
   
-        <!-- Attachments -->
-        <div class="mb-4">
-          <label class="form-label">Supporting Documents (if any)</label>
-          <div class="file-upload-area p-4 border rounded text-center">
-            <i class="fas fa-id-card fa-3x text-success mb-3"></i>
-            <h5>Drag and drop supporting documents here</h5>
-            <p class="text-muted">or click to browse files</p>
-            <input type="file" id="fileInput" name="attachments" multiple class="d-none">
-            <button type="button" class="btn btn-outline-success mt-2" id="browseFilesBtn">
-              <i class="fas fa-folder-open me-2"></i>Browse Files
-            </button>
-          </div>
-          <div id="fileList" class="mt-3"></div>
-        </div>
-        
-        <!-- Submit Buttons -->
-        <div class="d-flex justify-content-end gap-3">
-          <button type="button" class="btn btn-outline-secondary" id="cancelButton">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-success" id="submitButton">
-            <i class="fas fa-user-plus me-2"></i> Submit User Creation Request
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Employee type change
-      const contractEndDateField = document.getElementById('contractEndDate');
-      const employeeTypeRadios = document.querySelectorAll('input[name="employeeType"]');
-      
-      employeeTypeRadios.forEach(radio => {
-        radio.addEventListener('change', function() {
-          if (this.value === 'temporary' || this.value === 'contractor') {
-            contractEndDateField.required = true;
-            contractEndDateField.parentElement.querySelector('label').classList.add('required');
-          } else {
-            contractEndDateField.required = false;
-            contractEndDateField.parentElement.querySelector('label').classList.remove('required');
-          }
-        });
-      });
-      
-      // "Other" checkbox handling
-      const otherSystemAccess = document.getElementById('otherSystemAccess');
-      const otherSystemAccessText = document.getElementById('otherSystemAccessText');
-      
-      otherSystemAccess.addEventListener('change', function() {
-        otherSystemAccessText.disabled = !this.checked;
-        if (!this.checked) {
-          otherSystemAccessText.value = '';
-        }
-      });
-      
-      const otherITAsset = document.getElementById('otherITAsset');
-      const otherITAssetText = document.getElementById('otherITAssetText');
-      
-      otherITAsset.addEventListener('change', function() {
-        otherITAssetText.disabled = !this.checked;
-        if (!this.checked) {
-          otherITAssetText.value = '';
-        }
-      });
-      
-      const otherCommunicationAccess = document.getElementById('otherCommunicationAccess');
-      const otherCommunicationAccessText = document.getElementById('otherCommunicationAccessText');
-      
-      otherCommunicationAccess.addEventListener('change', function() {
-        otherCommunicationAccessText.disabled = !this.checked;
-        if (!this.checked) {
-          otherCommunicationAccessText.value = '';
-        }
-      });
-      
-      // Initialize "Other" text fields as disabled
-      otherSystemAccessText.disabled = true;
-      otherITAssetText.disabled = true;
-      otherCommunicationAccessText.disabled = true;
-      
-      // File upload handling
-      const fileUploadArea = document.querySelector('.file-upload-area');
-      const fileInput = document.getElementById('fileInput');
-      const browseFilesBtn = document.getElementById('browseFilesBtn');
-      const fileList = document.getElementById('fileList');
-      
-      // Click on area or button to trigger file input
-      fileUploadArea.addEventListener('click', function() {
-        fileInput.click();
-      });
-      
-      browseFilesBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        fileInput.click();
-      });
-      
-      // Drag and drop effects
-      fileUploadArea.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        this.classList.add('bg-light');
-      });
-      
-      fileUploadArea.addEventListener('dragleave', function() {
-        this.classList.remove('bg-light');
-      });
-      
-      fileUploadArea.addEventListener('drop', function(e) {
-        e.preventDefault();
-        this.classList.remove('bg-light');
-        
-        if (e.dataTransfer.files.length) {
-          fileInput.files = e.dataTransfer.files;
-          updateFileList();
-        }
-      });
-      
-      // File input change handler
-      fileInput.addEventListener('change', updateFileList);
-      
-      // Update file list display
-      function updateFileList() {
-        fileList.innerHTML = '';
-        
-        if (fileInput.files.length > 0) {
-          const listGroup = document.createElement('div');
-          listGroup.className = 'list-group';
-          
-          for (let i = 0; i < fileInput.files.length; i++) {
-            const file = fileInput.files[i];
-            const fileSize = (file.size / 1024).toFixed(1); // KB
-            
-            const listItem = document.createElement('div');
-            listItem.className = 'list-group-item d-flex align-items-center';
-            listItem.innerHTML = `
-              <i class="${getFileIcon(file.name)} me-3 text-success"></i>
-              <div class="flex-grow-1">
-                <div class="d-flex justify-content-between">
-                  <span class="text-truncate" style="max-width: 250px;">${file.name}</span>
-                  <small class="text-muted">${fileSize} KB</small>
-                </div>
-              </div>
-              <button type="button" class="btn btn-sm btn-link text-danger remove-file" data-index="${i}">
-                <i class="fas fa-times"></i>
-              </button>
-            `;
-            
-            listGroup.appendChild(listItem);
-          }
-          
-          fileList.appendChild(listGroup);
-          
-          // Add event listeners to remove buttons
-          document.querySelectorAll('.remove-file').forEach(button => {
-            button.addEventListener('click', function() {
-              const index = parseInt(this.getAttribute('data-index'));
-              removeFile(index);
-            });
-          });
-        }
-      }
-      
-      // Remove file from list
-      function removeFile(index) {
-        const dt = new DataTransfer();
-        const files = fileInput.files;
-        
-        for (let i = 0; i < files.length; i++) {
-          if (i !== index) {
-            dt.items.add(files[i]);
-          }
-        }
-        
-        fileInput.files = dt.files;
-        updateFileList();
-      }
-      
-      // Get appropriate icon for file type
-      function getFileIcon(filename) {
-        const extension = filename.split('.').pop().toLowerCase();
-        
-        const iconMap = {
-          'pdf': 'fas fa-file-pdf',
-          'doc': 'fas fa-file-word',
-          'docx': 'fas fa-file-word',
-          'xls': 'fas fa-file-excel',
-          'xlsx': 'fas fa-file-excel',
-          'ppt': 'fas fa-file-powerpoint',
-          'pptx': 'fas fa-file-powerpoint',
-          'jpg': 'fas fa-file-image',
-          'jpeg': 'fas fa-file-image',
-          'png': 'fas fa-file-image',
-          'gif': 'fas fa-file-image',
-          'zip': 'fas fa-file-archive',
-          'rar': 'fas fa-file-archive',
-          'txt': 'fas fa-file-alt'
-        };
-        
-        return iconMap[extension] || 'fas fa-file';
-      }
-      
-      // Cancel button
-      document.getElementById('cancelButton').addEventListener('click', function() {
-        if (confirm('Are you sure you want to cancel? All entered data will be lost.')) {
-          window.location.href = '/users';
-        }
-      });
-      
-      // Form validation and submission
-      const userForm = document.getElementById('userCreationForm');
-      
-      userForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        // Check form validity
-        if (!userForm.checkValidity()) {
-          event.stopPropagation();
-          userForm.classList.add('was-validated');
-          alert('Please fill in all required fields.');
-          return;
-        }
-        
-        // Check contract end date for temporary/contractor employees
-        if ((document.querySelector('input[name="employeeType"]:checked')?.value === 'temporary' || 
-             document.querySelector('input[name="employeeType"]:checked')?.value === 'contractor') && 
-            !contractEndDateField.value) {
-          contractEndDateField.classList.add('is-invalid');
-          alert('Contract end date is required for temporary/contractor employees.');
-          return;
-        }
-        
-        // Create FormData object
-        const formData = new FormData(userForm);
-        
-        // Show loading overlay or spinner here
-        document.getElementById('submitButton').disabled = true;
-        
-        // Here you would send formData to your server
-        // Example AJAX call:
-        /*
-        fetch('/users/create', {
-          method: 'POST',
-          body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-          alert('User creation request submitted successfully!');
-          // Redirect or reset form
-          window.location.href = '/users';
-        })
-        .catch(error => {
-          console.error('Error submitting request:', error);
-          alert('Error submitting request. Please try again.');
-        })
-        .finally(() => {
-          document.getElementById('submitButton').disabled = false;
-        });
-        */
-        
-        // For demo purposes:
-        setTimeout(() => {
-          alert('User creation request submitted successfully!');
-          document.getElementById('submitButton').disabled = false;
-          // Uncomment to reset the form:
-          // userForm.reset();
-          // userForm.classList.remove('was-validated');
-        }, 1500);
-      });
-    });
-  </script>

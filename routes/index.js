@@ -8,7 +8,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/customerticket/:id?', function(req, res, next) {
-  const ticketId = req.params.id || 'general';
+  const ticketId = req.params.id || 'generalticket';
   res.render('ticketform', { title: 'Express', screen: 'Customer Ticket', ticket: ticketId });
 });
 
@@ -33,7 +33,5 @@ router.get('/employees', function(req, res, next) {
   res.render('users', { title: 'Express' ,screen : 'Employees' });
 });
 
-router.get('/updateticket', function(req, res, next) {
-  res.render('viewticket', { title: 'Express' ,screen : 'Tickets' });
-});
+
 module.exports = router;

@@ -1,470 +1,282 @@
-<%- include('./components/head.ejs') -%>
-
-<body>
-  <!-- Sidebar -->
-  <%- include('./components/navigation.ejs') -%>
-
-  <!-- Content Wrapper -->
-  <div id="content">
-    <!-- Top Navigation -->
-    <nav class="topbar">
-      <div class="d-flex align-items-center">
-        <button class="mobile-menu-toggle me-3" id="mobileMenuToggle">
-          <i class="fas fa-bars"></i>
-        </button>
-        <h1 class="page-title mb-0">Create New Ticket</h1>
-      </div>
-      <div class="user-menu">
-        <div class="dropdown">
-          <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="me-2 d-none d-sm-inline fw-bold">John Doe</span>
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-bell me-2"></i> Notifications</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container-fluid p-4">
-      <!-- Breadcrumb -->
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="#">Tickets</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Ticket Details</li>
-        </ol>
-      </nav>
-    
-      <!-- Ticket Details Card -->
-      <div class="card shadow-sm mb-4">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-          <h5 class="card-title mb-0">Ticket #<span id="ticketId">-</span></h5>
-          <div class="badge bg-light text-dark" id="ticketStatus">Pending</div>
+<div class="card" id="backupRequestForm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Backup Request Form</h5>
+    <span class="badge bg-info">Backup</span>
+  </div>
+  <div class="card-body">
+    <form id="backupForm" enctype="multipart/form-data">
+      <!-- Requestor Information -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">Requestor Information</h6>
         </div>
         <div class="card-body">
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <h6 class="fw-bold">Title</h6>
-              <p id="ticketTitle" class="text-muted">Loading...</p>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">Registered Email</label>
+              <input type="email" class="form-control" id="email" name="requestor.email" placeholder="Your email address" required>
+              <div class="invalid-feedback">Please enter your email.</div>
             </div>
-            <div class="col-md-6">
-              <h6 class="fw-bold">Created By</h6>
-              <p id="ticketCreatedBy" class="text-muted">-</p>
+            <div class="col-md-6 mb-3">
+              <label for="name" class="form-label">Name of Requestor</label>
+              <input type="text" class="form-control" id="name" name="requestor.name" placeholder="Your full name" required>
+              <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="location" class="form-label">Location</label>
+              <input type="text" class="form-control" id="location" name="formData.data1" placeholder="Location (HQ/Any other site)" required>
+              <div class="invalid-feedback">Please enter your location.</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="contact" class="form-label">Contact</label>
+              <input type="text" class="form-control" id="contact" name="formData.data2" placeholder="Contact details" required>
+              <div class="invalid-feedback">Please enter your contact details.</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="department" class="form-label">Section/Department</label>
+              <input type="text" class="form-control" id="department" name="formData.data3" placeholder="Your department" required>
+              <div class="invalid-feedback">Please enter your department.</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="requestDate" class="form-label">Request Date</label>
+              <input type="date" class="form-control" id="requestDate" name="formData.data4" required>
+              <div class="invalid-feedback">Please select a request date.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Backup Details -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">Backup Details</h6>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Brief title for this backup request" required>
+            <div class="invalid-feedback">Please provide a title.</div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="2" placeholder="Detailed description of the backup request" required></textarea>
+            <div class="invalid-feedback">Please provide a description.</div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="fileFolder" class="form-label">File/Folder Name of Data to be backed up</label>
+            <textarea class="form-control" id="fileFolder" name="formData.data5" rows="2" placeholder="Names of the files and folders that need to be backed up" required></textarea>
+            <div class="invalid-feedback">Please provide file/folder names.</div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="fileLocation" class="form-label">File Location</label>
+            <textarea class="form-control" id="fileLocation" name="formData.data6" rows="2" placeholder="Path or address where the file or folder is stored" required></textarea>
+            <div class="invalid-feedback">Please provide the file location.</div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="startDate" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="startDate" name="formData.data7" required>
+              <div class="invalid-feedback">Please select a start date.</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="endDate" class="form-label">End Date</label>
+              <input type="date" class="form-control" id="endDate" name="formData.data8" required>
+              <div class="invalid-feedback">Please select an end date.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Backup Configuration -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">Backup Configuration</h6>
+        </div>
+        <div class="card-body">
+          <!-- Frequency -->
+          <div class="mb-4">
+            <label class="form-label">Frequency</label>
+            <select class="form-select" name="formData.data9" required>
+              <option value="">Select frequency</option>
+              <option value="Daily">Daily</option>
+              <option value="Weekly" selected>Weekly</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Yearly">Yearly</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="mt-2">
+              <input type="text" class="form-control" name="formData.data10" placeholder="Please specify if Other">
             </div>
           </div>
           
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <h6 class="fw-bold">Type</h6>
-              <p id="ticketType" class="text-muted">-</p>
+          <!-- Retention Period -->
+          <div class="mb-4">
+            <label class="form-label">Retention Period</label>
+            <select class="form-select" name="formData.data11" required>
+              <option value="">Select retention period</option>
+              <option value="1 week">1 week</option>
+              <option value="1 month" selected>1 month</option>
+              <option value="1 year">1 year</option>
+              <option value="25 years">25 years</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="mt-2">
+              <input type="text" class="form-control" name="formData.data12" placeholder="Please specify if Other">
             </div>
-            <div class="col-md-4">
-              <h6 class="fw-bold">Priority</h6>
-              <p id="ticketPriority" class="text-muted">-</p>
-            </div>
-            <div class="col-md-4">
-              <h6 class="fw-bold">Category</h6>
-              <p id="ticketCategory" class="text-muted">-</p>
+          </div>
+          
+          <!-- Backup Type -->
+          <div class="mb-4">
+            <label class="form-label">Backup Type</label>
+            <select class="form-select" name="formData.data13" required>
+              <option value="">Select backup type</option>
+              <option value="Full" selected>Full</option>
+              <option value="Differential">Differential</option>
+              <option value="Incremental">Incremental</option>
+            </select>
+          </div>
+          
+          <!-- Category -->
+          <div class="mb-4">
+            <label class="form-label">Category</label>
+            <select class="form-select" name="category" required>
+              <option value="">Select category</option>
+              <option value="Standard">Standard</option>
+              <option value="Emergency">Emergency</option>
+              <option value="Scheduled">Scheduled</option>
+            </select>
+          </div>
+          
+          <!-- Priority -->
+          <div class="mb-4">
+            <label class="form-label">Priority</label>
+            <select class="form-select" name="priority" required>
+              <option value="">Select priority</option>
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          
+          <!-- Criticality of Data -->
+          <div class="mb-4">
+            <label class="form-label">Criticality of Data</label>
+            <select class="form-select" name="formData.data14" required>
+              <option value="">Select criticality</option>
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Approval Section -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">Approval</h6>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label">Head of Department</label>
+            <select class="form-select mb-2" name="formData.data15">
+              <option value="">Select approval status</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Pending" selected>Pending</option>
+            </select>
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <input type="text" class="form-control" name="formData.data16" placeholder="Signature">
+              </div>
+              <div class="col-md-4">
+                <input type="date" class="form-control" name="formData.data17">
+              </div>
             </div>
           </div>
           
           <div class="mb-3">
-            <h6 class="fw-bold">Description</h6>
-            <p id="ticketDescription" class="text-muted">-</p>
+            <label class="form-label">Comments</label>
+            <textarea class="form-control" name="formData.data18" rows="2"></textarea>
           </div>
           
-          <!-- Form Data Button (Conditional) -->
-          <div id="formDataSection" class="mb-3 d-none">
-            <button id="viewFormDataBtn" class="btn btn-outline-primary">
-              <i class="fas fa-file-alt me-2"></i>View Form Data
-            </button>
-          </div>
-          
-          <!-- Attachments -->
-          <div id="attachmentsSection" class="mb-3 d-none">
-            <h6 class="fw-bold">Attachments</h6>
-            <div id="ticketAttachments" class="d-flex flex-wrap gap-2">
-              <!-- Attachments will be added here dynamically -->
+          <div class="mb-3">
+            <label class="form-label">Head/Manager - IT</label>
+            <select class="form-select mb-2" name="formData.data19">
+              <option value="">Select approval status</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Pending" selected>Pending</option>
+            </select>
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <input type="text" class="form-control" name="formData.data20" placeholder="Signature">
+              </div>
+              <div class="col-md-4">
+                <input type="date" class="form-control" name="formData.data21">
+              </div>
             </div>
           </div>
         </div>
-        <div class="card-footer bg-light d-flex justify-content-between">
-          <small class="text-muted">Created: <span id="ticketCreatedAt">-</span></small>
-          <div>
-            <button class="btn btn-sm btn-outline-secondary me-2" id="printTicketBtn">
-              <i class="fas fa-print me-1"></i>Print
-            </button>
-            <button class="btn btn-sm btn-outline-danger" id="closeTicketBtn">
-              <i class="fas fa-times me-1"></i>Close
-            </button>
-          </div>
-        </div>
       </div>
-    
-      <!-- Status Update Section -->
-      <div class="card shadow-sm mb-4">
-        <div class="card-header bg-light">
-          <h6 class="card-title mb-0">Update Status</h6>
+      
+      <!-- Acknowledgement Section -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">Acknowledgement (Backup Operator)</h6>
         </div>
         <div class="card-body">
-          <form id="statusUpdateForm">
-            <div class="row">
-              <div class="col-md-4 mb-3">
-                <label for="statusSelect" class="form-label">Status</label>
-                <select class="form-select" id="statusSelect">
-                  <option value="Pending">Pending</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="On Hold">On Hold</option>
-                  <option value="Resolved">Resolved</option>
-                  <option value="Closed">Closed</option>
-                </select>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="assignToSelect" class="form-label">Assign To</label>
-                <select class="form-select" id="assignToSelect">
-                  <option value="">Unassigned</option>
-                  <option value="agent1">Agent 1</option>
-                  <option value="agent2">Agent 2</option>
-                  <option value="agent3">Agent 3</option>
-                </select>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="prioritySelect" class="form-label">Priority</label>
-                <select class="form-select" id="prioritySelect">
-                  <option value="Low">Low</option>
-                  <option value="Medium" selected>Medium</option>
-                  <option value="High">High</option>
-                  <option value="Critical">Critical</option>
-                </select>
-              </div>
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <input type="text" class="form-control" name="formData.data22" placeholder="Signature">
             </div>
-            <div class="mb-3">
-              <label for="statusComment" class="form-label">Comments</label>
-              <textarea class="form-control" id="statusComment" rows="3" placeholder="Add any updates or comments..."></textarea>
+            <div class="col-md-4">
+              <input type="date" class="form-control" name="formData.data23">
             </div>
-            <button type="submit" class="btn btn-primary">Update Status</button>
-          </form>
+          </div>
         </div>
       </div>
-    
-      <!-- Activity Log -->
-      <div class="card shadow-sm">
-        <div class="card-header bg-light">
-          <h6 class="card-title mb-0">Activity Log</h6>
+      
+      <!-- File Attachments -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">Attachments</h6>
         </div>
         <div class="card-body">
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-badge bg-primary"></div>
-              <div class="timeline-content">
-                <div class="d-flex justify-content-between">
-                  <h6 class="mb-1">Ticket Created</h6>
-                  <small class="text-muted">2 hours ago</small>
-                </div>
-                <p class="mb-0">Ticket was created by John Doe</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-badge bg-info"></div>
-              <div class="timeline-content">
-                <div class="d-flex justify-content-between">
-                  <h6 class="mb-1">Status Updated</h6>
-                  <small class="text-muted">1 hour ago</small>
-                </div>
-                <p class="mb-0">Status changed from Pending to In Progress</p>
-                <p class="text-muted mb-0">"Assigned to support team for investigation"</p>
-              </div>
-            </div>
-            <!-- More timeline items will be added dynamically -->
+          <div class="mb-3">
+            <input type="file" class="form-control" name="attachments" multiple>
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Modal for Form Data -->
-    <div class="modal fade" id="formDataModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Form Data Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="formDataModalBody">
-            <!-- Form data will be displayed here -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="editFormDataBtn">Edit Form</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <style>
-      .timeline {
-        position: relative;
-        padding-left: 1.5rem;
-      }
       
-      .timeline::before {
-        content: '';
-        position: absolute;
-        left: 0.5rem;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background-color: #e9ecef;
-      }
+      <!-- Submit Buttons -->
       
-      .timeline-item {
-        position: relative;
-        padding-bottom: 1.5rem;
-      }
-      
-      .timeline-badge {
-        position: absolute;
-        left: -0.5rem;
-        top: 0;
-        width: 1.5rem;
-        height: 1.5rem;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        z-index: 1;
-      }
-      
-      .timeline-content {
-        margin-left: 2rem;
-        padding: 0.5rem 1rem;
-        background-color: #f8f9fa;
-        border-radius: 0.25rem;
-      }
-      
-      .attachment-thumb {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border: 1px solid #dee2e6;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        transition: transform 0.2s;
-      }
-      
-      .attachment-thumb:hover {
-        transform: scale(1.05);
-      }
-    </style>
-    
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // This would be populated from your API based on the selected ticket
-        const ticket = {
-          _id: 'TKT-12345',
-          ticketType: 'Service Request',
-          createdby: 'John Doe',
-          requestor: {
-            name: 'Jane Smith',
-            customerid: 'CUST-789'
-          },
-          title: 'Unable to access the customer portal',
-          description: 'When trying to log in to the customer portal, I receive an error message saying "Invalid credentials" even though I\'m sure I\'m using the correct password.',
-          status: 'In Progress',
-          priority: 'High',
-          category: 'Access Issue',
-          formData: {
-            data1: 'Portal Login',
-            data2: 'jane.smith@example.com',
-            data3: '2023-05-15',
-            // ... other form data
-          },
-          createdAt: '2023-05-15T10:30:00Z',
-          attachments: [
-            'screenshot1.png',
-            'errorlog.txt'
-          ],
-          approvals: [
-            {
-              by: 'Support Manager',
-              status: 'Approved',
-              date: '2023-05-15T11:00:00Z',
-              comments: 'Approved for immediate investigation'
-            }
-          ]
-        };
-    
-        // Populate ticket data
-        document.getElementById('ticketId').textContent = ticket._id;
-        document.getElementById('ticketTitle').textContent = ticket.title;
-        document.getElementById('ticketCreatedBy').textContent = ticket.requestor.name + ' (' + ticket.requestor.customerid + ')';
-        document.getElementById('ticketType').textContent = ticket.ticketType;
-        document.getElementById('ticketPriority').textContent = ticket.priority;
-        document.getElementById('ticketCategory').textContent = ticket.category;
-        document.getElementById('ticketDescription').textContent = ticket.description;
-        document.getElementById('ticketStatus').textContent = ticket.status;
-        document.getElementById('ticketCreatedAt').textContent = new Date(ticket.createdAt).toLocaleString();
-        
-        // Update status dropdown to current status
-        document.getElementById('statusSelect').value = ticket.status;
-        document.getElementById('prioritySelect').value = ticket.priority;
-    
-        // Show form data button if formData exists
-        if (ticket.formData && Object.keys(ticket.formData).length > 0) {
-          document.getElementById('formDataSection').classList.remove('d-none');
-        }
-    
-        // Show attachments if they exist
-        if (ticket.attachments && ticket.attachments.length > 0) {
-          document.getElementById('attachmentsSection').classList.remove('d-none');
-          const attachmentsContainer = document.getElementById('ticketAttachments');
-          ticket.attachments.forEach(attachment => {
-            const attachmentElement = document.createElement('div');
-            attachmentElement.className = 'attachment-thumb-container';
-            attachmentElement.innerHTML = `
-              <img src="/path/to/thumbnails/${attachment}" alt="${attachment}" 
-                   class="attachment-thumb" data-bs-toggle="tooltip" 
-                   title="${attachment}">
-            `;
-            attachmentsContainer.appendChild(attachmentElement);
-          });
-        }
-    
-        // Form data modal handler
-        document.getElementById('viewFormDataBtn').addEventListener('click', function() {
-          const modalBody = document.getElementById('formDataModalBody');
-          modalBody.innerHTML = '';
-          
-          // Create a table to display form data
-          const table = document.createElement('table');
-          table.className = 'table table-striped';
-          
-          const tbody = document.createElement('tbody');
-          
-          for (const [key, value] of Object.entries(ticket.formData)) {
-            if (value) { // Only show fields with values
-              const row = document.createElement('tr');
-              
-              const th = document.createElement('th');
-              th.scope = 'row';
-              th.textContent = key;
-              
-              const td = document.createElement('td');
-              td.textContent = value;
-              
-              row.appendChild(th);
-              row.appendChild(td);
-              tbody.appendChild(row);
-            }
-          }
-          
-          table.appendChild(tbody);
-          modalBody.appendChild(table);
-          
-          // Show the modal
-          const modal = new bootstrap.Modal(document.getElementById('formDataModal'));
-          modal.show();
-        });
-    
-        // Edit form data button handler
-        document.getElementById('editFormDataBtn').addEventListener('click', function() {
-          // Redirect to the form editing screen with this ticket's data
-          window.location.href = `/tickets/${ticket._id}/edit-form`;
-        });
-    
-        // Status update form handler
-        document.getElementById('statusUpdateForm').addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          const newStatus = document.getElementById('statusSelect').value;
-          const newPriority = document.getElementById('prioritySelect').value;
-          const assignedTo = document.getElementById('assignToSelect').value;
-          const comment = document.getElementById('statusComment').value;
-          
-          // Here you would make an API call to update the ticket
-          console.log('Updating ticket:', {
-            status: newStatus,
-            priority: newPriority,
-            assignedTo,
-            comment
-          });
-          
-          // Update the UI
-          document.getElementById('ticketStatus').textContent = newStatus;
-          
-          // Add to activity log
-          const activityLog = document.querySelector('.timeline');
-          const newActivity = document.createElement('div');
-          newActivity.className = 'timeline-item';
-          newActivity.innerHTML = `
-            <div class="timeline-badge bg-info"></div>
-            <div class="timeline-content">
-              <div class="d-flex justify-content-between">
-                <h6 class="mb-1">Status Updated</h6>
-                <small class="text-muted">Just now</small>
-              </div>
-              <p class="mb-0">Status changed to ${newStatus}</p>
-              ${comment ? `<p class="text-muted mb-0">"${comment}"</p>` : ''}
-            </div>
-          `;
-          activityLog.insertBefore(newActivity, activityLog.firstChild);
-          
-          // Clear comment field
-          document.getElementById('statusComment').value = '';
-          
-          // Show success message
-          alert('Ticket updated successfully!');
-        });
-    
-        // Close ticket button handler
-        document.getElementById('closeTicketBtn').addEventListener('click', function() {
-          if (confirm('Are you sure you want to close this ticket?')) {
-            // Here you would make an API call to close the ticket
-            console.log('Closing ticket');
-            
-            // Update UI
-            document.getElementById('ticketStatus').textContent = 'Closed';
-            document.getElementById('statusSelect').value = 'Closed';
-            
-            // Add to activity log
-            const activityLog = document.querySelector('.timeline');
-            const newActivity = document.createElement('div');
-            newActivity.className = 'timeline-item';
-            newActivity.innerHTML = `
-              <div class="timeline-badge bg-danger"></div>
-              <div class="timeline-content">
-                <div class="d-flex justify-content-between">
-                  <h6 class="mb-1">Ticket Closed</h6>
-                  <small class="text-muted">Just now</small>
-                </div>
-                <p class="mb-0">Ticket was closed by you</p>
-              </div>
-            `;
-            activityLog.insertBefore(newActivity, activityLog.firstChild);
-          }
-        });
-    
-        // Print ticket button handler
-        document.getElementById('printTicketBtn').addEventListener('click', function() {
-          window.print();
-        });
-      });
-    </script>
-  </div>
 
-  <!-- Loading Overlay -->
-
-
-  <!-- Bootstrap JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Show/hide "Other" input fields
+  document.getElementById('frequency-other').addEventListener('change', function() {
+    document.getElementById('otherFrequencyInput').classList.toggle('d-none', !this.checked);
+  });
   
-
-</body>
-</html>
+  document.getElementById('retention-other').addEventListener('change', function() {
+    document.getElementById('otherRetentionInput').classList.toggle('d-none', !this.checked);
+  });
+  
+  // Form validation (similar to your general ticket form)
+  document.getElementById('backupForm').addEventListener('submit', function(event) {
+    if (!this.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.classList.add('was-validated');
+  });
+</script>

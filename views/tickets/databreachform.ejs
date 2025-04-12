@@ -4,42 +4,48 @@
       <span class="badge bg-danger">Confidential</span>
     </div>
     <div class="card-body">
-      <form id="breachForm" enctype="multipart/form-data">
+      <form id="ticketForm" enctype="multipart/form-data">
         <!-- Overview Section -->
+        <input type="hidden" name="ticketType" value="DataBreach">
+        <input type="hidden" name="status" value="New">
         <div class="card mb-4">
           <div class="card-header">
             <h6 class="mb-0">Overview of the personal data breach</h6>
           </div>
           <div class="card-body">
             <div class="mb-3">
+                <label for="email" class="form-label">Requestor email</label>
+                <input type="text" class="form-control" id="email" name="requestor.email" required>
+              </div>
+            <div class="mb-3">
               <label for="breachNature" class="form-label">Nature of the breach</label>
-              <input type="text" class="form-control" id="breachNature" name="breachNature" required>
+              <input type="text" class="form-control" id="breachNature" name="formData.data1" required>
             </div>
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label for="incidentDate" class="form-label">Date of when the incident occurred</label>
-                <input type="date" class="form-control" id="incidentDate" name="incidentDate" required>
+                <input type="date" class="form-control" id="incidentDate" name="formData.data2" required>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="acknowledgeDate" class="form-label">Date of when the incident was acknowledged</label>
-                <input type="date" class="form-control" id="acknowledgeDate" name="acknowledgeDate" required>
+                <input type="date" class="form-control" id="acknowledgeDate" name="formData.data3" required>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="reportDate" class="form-label">Date of when the incident was reported to DoH</label>
-                <input type="date" class="form-control" id="reportDate" name="reportDate" required>
+                <input type="date" class="form-control" id="reportDate" name="formData.data4" required>
               </div>
             </div>
             <div class="mb-3">
               <label for="incidentSummary" class="form-label">Summary of the incident</label>
-              <textarea class="form-control" id="incidentSummary" name="incidentSummary" rows="3" required></textarea>
+              <textarea class="form-control" id="incidentSummary" name="formData.data5" rows="3" required></textarea>
             </div>
             <div class="mb-3">
               <label for="howIncidentHappened" class="form-label">How did the incident happen?</label>
-              <textarea class="form-control" id="howIncidentHappened" name="howIncidentHappened" rows="3" required></textarea>
+              <textarea class="form-control" id="howIncidentHappened" name="formData.data6" rows="3" required></textarea>
             </div>
             <div class="mb-3">
               <label for="reportDelay" class="form-label">Reason for the delay in reporting the incident to DoH, if applicable</label>
-              <textarea class="form-control" id="reportDelay" name="reportDelay" rows="2"></textarea>
+              <textarea class="form-control" id="reportDelay" name="formData.data7" rows="2"></textarea>
             </div>
           </div>
         </div>
@@ -52,51 +58,45 @@
           <div class="card-body">
             <div class="mb-3">
               <label for="impactedDetails" class="form-label">Details of the impacted PII and PHI</label>
-              <textarea class="form-control" id="impactedDetails" name="impactedDetails" rows="3" required></textarea>
+              <textarea class="form-control" id="impactedDetails" name="formData.data8" rows="3" required></textarea>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="impactedRecords" class="form-label">Number of impacted records</label>
-                <input type="number" class="form-control" id="impactedRecords" name="impactedRecords" required>
+                <input type="number" class="form-control" id="impactedRecords" name="formData.data9" required>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="impactedIndividuals" class="form-label">Number of impacted individuals</label>
-                <input type="number" class="form-control" id="impactedIndividuals" name="impactedIndividuals" required>
+                <input type="number" class="form-control" id="impactedIndividuals" name="formData.data10" required>
               </div>
             </div>
             <div class="mb-3">
               <label class="form-label">Have the impacted individuals been notified about this incident?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="individualsNotified" id="individualsNotifiedYes" value="Yes">
-                <label class="form-check-label" for="individualsNotifiedYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="individualsNotified" id="individualsNotifiedNo" value="No">
-                <label class="form-check-label" for="individualsNotifiedNo">No</label>
-              </div>
+              <select class="form-control" id="individualsNotified" name="formData.data11">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
             <div class="mb-3">
               <label for="potentialDetriment" class="form-label">Potential detriment this incident will cause to individuals</label>
-              <textarea class="form-control" id="potentialDetriment" name="potentialDetriment" rows="3" required></textarea>
+              <textarea class="form-control" id="potentialDetriment" name="formData.data12" rows="3" required></textarea>
             </div>
             <div class="mb-3">
               <label class="form-label">Have any of the impacted individuals complained to the entity?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="complaintsReceived" id="complaintsReceivedYes" value="Yes">
-                <label class="form-check-label" for="complaintsReceivedYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="complaintsReceived" id="complaintsReceivedNo" value="No">
-                <label class="form-check-label" for="complaintsReceivedNo">No</label>
-              </div>
+              <select class="form-control" id="complaintsReceived" name="formData.data13">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
             <div class="mb-3">
               <label for="mitigationActions" class="form-label">Has the entity taken any action by mitigating/minimizing the effect on the impacted individuals?</label>
-              <textarea class="form-control" id="mitigationActions" name="mitigationActions" rows="3" required></textarea>
+              <textarea class="form-control" id="mitigationActions" name="formData.data14" rows="3" required></textarea>
             </div>
             <div class="mb-3">
               <label for="preventionSteps" class="form-label">What are the steps taken by the entity to prevent the incident from occurring again?</label>
-              <textarea class="form-control" id="preventionSteps" name="preventionSteps" rows="3" required></textarea>
+              <textarea class="form-control" id="preventionSteps" name="formData.data15" rows="3" required></textarea>
             </div>
           </div>
         </div>
@@ -109,56 +109,44 @@
           <div class="card-body">
             <div class="mb-3">
               <label class="form-label">Was this incident a result of a data breach by a data processor?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="dataProcessorBreach" id="dataProcessorBreachYes" value="Yes">
-                <label class="form-check-label" for="dataProcessorBreachYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="dataProcessorBreach" id="dataProcessorBreachNo" value="No">
-                <label class="form-check-label" for="dataProcessorBreachNo">No</label>
-              </div>
+              <select class="form-control" id="dataProcessorBreach" name="formData.data16">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
               <div class="form-text">If no, you may proceed to the next section.</div>
             </div>
             <div class="mb-3">
               <label for="processorActions" class="form-label">What action(s) did the data processor take to mitigate the effect on the impacted individuals?</label>
-              <textarea class="form-control" id="processorActions" name="processorActions" rows="3"></textarea>
+              <textarea class="form-control" id="processorActions" name="formData.data17" rows="3"></textarea>
             </div>
             <div class="mb-3">
               <label class="form-label">Were there any contractual obligation(s) with the data processor regarding the use of PII and PHI?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="contractualObligations" id="contractualObligationsYes" value="Yes">
-                <label class="form-check-label" for="contractualObligationsYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="contractualObligations" id="contractualObligationsNo" value="No">
-                <label class="form-check-label" for="contractualObligationsNo">No</label>
-              </div>
+              <select class="form-control" id="contractualObligations" name="formData.data18">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Did the contractual obligation(s) include technical and organizational security measures?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="securityMeasures" id="securityMeasuresYes" value="Yes">
-                <label class="form-check-label" for="securityMeasuresYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="securityMeasures" id="securityMeasuresNo" value="No">
-                <label class="form-check-label" for="securityMeasuresNo">No</label>
-              </div>
+              <select class="form-control" id="securityMeasures" name="formData.data19">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Do you consider the incident has breached any contractual obligations?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="breachedObligations" id="breachedObligationsYes" value="Yes">
-                <label class="form-check-label" for="breachedObligationsYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="breachedObligations" id="breachedObligationsNo" value="No">
-                <label class="form-check-label" for="breachedObligationsNo">No</label>
-              </div>
+              <select class="form-control" id="breachedObligations" name="formData.data20">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
             <div class="mb-3">
-              <label for="processorActions" class="form-label">What action have you taken in regard to the processor?</label>
-              <textarea class="form-control" id="processorActions" name="processorActions" rows="3"></textarea>
+              <label for="processorActions2" class="form-label">What action have you taken in regard to the processor?</label>
+              <textarea class="form-control" id="processorActions2" name="formData.data21" rows="3"></textarea>
             </div>
           </div>
         </div>
@@ -171,47 +159,35 @@
           <div class="card-body">
             <div class="mb-3">
               <label class="form-label">As a data controller, were the employees at the entity trained on data protection and the appropriate regulations?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="employeesTrained" id="employeesTrainedYes" value="Yes">
-                <label class="form-check-label" for="employeesTrainedYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="employeesTrained" id="employeesTrainedNo" value="No">
-                <label class="form-check-label" for="employeesTrainedNo">No</label>
-              </div>
+              <select class="form-control" id="employeesTrained" name="formData.data22">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Is the training mandatory for all employees?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="mandatoryTraining" id="mandatoryTrainingYes" value="Yes">
-                <label class="form-check-label" for="mandatoryTrainingYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="mandatoryTraining" id="mandatoryTrainingNo" value="No">
-                <label class="form-check-label" for="mandatoryTrainingNo">No</label>
-              </div>
+              <select class="form-control" id="mandatoryTraining" name="formData.data23">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Did the employees, who are involved in this incident, complete the training?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="completedTraining" id="completedTrainingYes" value="Yes">
-                <label class="form-check-label" for="completedTrainingYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="completedTraining" id="completedTrainingNo" value="No">
-                <label class="form-check-label" for="completedTrainingNo">No</label>
-              </div>
+              <select class="form-control" id="completedTraining" name="formData.data24">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
             <div class="mb-3">
               <label class="form-label">As the data controller, have you provided a guideline or guidance to employees on how to handle PII and PHI that is related to this incident?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="guidelinesProvided" id="guidelinesProvidedYes" value="Yes">
-                <label class="form-check-label" for="guidelinesProvidedYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="guidelinesProvided" id="guidelinesProvidedNo" value="No">
-                <label class="form-check-label" for="guidelinesProvidedNo">No</label>
-              </div>
+              <select class="form-control" id="guidelinesProvided" name="formData.data25">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
           </div>
         </div>
@@ -224,27 +200,13 @@
           <div class="card-body">
             <div class="mb-3">
               <label class="form-label">Have you reported a PII and PHI breach to DoH in the past two years?</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="previousBreachReported" id="previousBreachReportedYes" value="Yes">
-                <label class="form-check-label" for="previousBreachReportedYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="previousBreachReported" id="previousBreachReportedNo" value="No">
-                <label class="form-check-label" for="previousBreachReportedNo">No</label>
-              </div>
+              <select class="form-control" id="previousBreachReported" name="formData.data26">
+                <option value="">Please select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
           </div>
         </div>
-        
         <!-- Submit Buttons -->
-        <div class="d-flex justify-content-end gap-3">
-          <button type="button" class="btn btn-outline-secondary" id="cancelButton">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary" id="submitButton">
-            <i class="fas fa-paper-plane me-2"></i>Submit Notification
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+        

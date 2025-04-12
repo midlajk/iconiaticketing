@@ -4,7 +4,7 @@
       <span class="badge bg-info">Backup</span>
     </div>
     <div class="card-body">
-      <form id="backupForm" enctype="multipart/form-data">
+      <form id="ticketForm" enctype="multipart/form-data">
         <!-- Requestor Information -->
         <div class="card mb-4">
           <div class="card-header">
@@ -13,32 +13,38 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="requestorName" class="form-label">Name of Requestor</label>
-                <input type="text" class="form-control" id="requestorName" name="requestor.name" placeholder="Name of the employee requesting for the backup" required>
-                <div class="invalid-feedback">Please enter your name.</div>
+                <label for="email" class="form-label">Registered Email</label>
+                <input type="email" class="form-control" id="email" name="requestor.email" placeholder="Your email address" required>
+                <div class="invalid-feedback">Please enter your email.</div>
               </div>
               <div class="col-md-6 mb-3">
-                <label for="department" class="form-label">Section/Department</label>
-                <input type="text" class="form-control" id="department" name="department" placeholder="Department employee requesting for the backup" required>
-                <div class="invalid-feedback">Please enter your department.</div>
+                <label for="name" class="form-label">Name of Requestor</label>
+                <input type="text" class="form-control" id="name" name="requestor.name" placeholder="Your full name" required>
+                <div class="invalid-feedback">Please enter your name.</div>
               </div>
             </div>
+          
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="location" class="form-label">Location</label>
-                <input type="text" class="form-control" id="location" name="location" placeholder="Location (HQ/Any other site) of the employee" required>
+                <input type="text" class="form-control" id="location" name="formData.data1" placeholder="Location (HQ/Any other site)" required>
                 <div class="invalid-feedback">Please enter your location.</div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="contact" class="form-label">Contact</label>
-                <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact details of the employee" required>
+                <input type="text" class="form-control" id="contact" name="formData.data2" placeholder="Contact details" required>
                 <div class="invalid-feedback">Please enter your contact details.</div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
+                <label for="department" class="form-label">Section/Department</label>
+                <input type="text" class="form-control" id="department" name="formData.data3" placeholder="Your department" required>
+                <div class="invalid-feedback">Please enter your department.</div>
+              </div>
+              <div class="col-md-6 mb-3">
                 <label for="requestDate" class="form-label">Request Date</label>
-                <input type="date" class="form-control" id="requestDate" name="requestDate" required>
+                <input type="date" class="form-control" id="requestDate" name="formData.data4" required>
                 <div class="invalid-feedback">Please select a request date.</div>
               </div>
             </div>
@@ -51,27 +57,29 @@
             <h6 class="mb-0">Backup Details</h6>
           </div>
           <div class="card-body">
+          
+            
             <div class="mb-3">
               <label for="fileFolder" class="form-label">File/Folder Name of Data to be backed up</label>
-              <textarea class="form-control" id="fileFolder" name="fileFolder" rows="2" placeholder="Names of the files and folders that contain important data that needs to be backed up" required></textarea>
+              <textarea class="form-control" id="fileFolder" name="formData.data5" rows="2" placeholder="Names of the files and folders that need to be backed up" required></textarea>
               <div class="invalid-feedback">Please provide file/folder names.</div>
             </div>
             
             <div class="mb-3">
               <label for="fileLocation" class="form-label">File Location</label>
-              <textarea class="form-control" id="fileLocation" name="fileLocation" rows="2" placeholder="Path or address where the specific file or folder is stored" required></textarea>
+              <textarea class="form-control" id="fileLocation" name="formData.data6" rows="2" placeholder="Path or address where the file or folder is stored" required></textarea>
               <div class="invalid-feedback">Please provide the file location.</div>
             </div>
             
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="startDate" class="form-label">Start Date</label>
-                <input type="date" class="form-control" id="startDate" name="startDate" required>
+                <input type="date" class="form-control" id="startDate" name="formData.data7" required>
                 <div class="invalid-feedback">Please select a start date.</div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="endDate" class="form-label">End Date</label>
-                <input type="date" class="form-control" id="endDate" name="endDate" required>
+                <input type="date" class="form-control" id="endDate" name="formData.data8" required>
                 <div class="invalid-feedback">Please select an end date.</div>
               </div>
             </div>
@@ -87,79 +95,77 @@
             <!-- Frequency -->
             <div class="mb-4">
               <label class="form-label">Frequency</label>
-              <div class="btn-group w-100" role="group">
-                <input type="radio" class="btn-check" name="frequency" id="frequency-daily" value="Daily" autocomplete="off">
-                <label class="btn btn-outline-primary" for="frequency-daily">Daily</label>
-  
-                <input type="radio" class="btn-check" name="frequency" id="frequency-weekly" value="Weekly" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="frequency-weekly">Weekly</label>
-  
-                <input type="radio" class="btn-check" name="frequency" id="frequency-monthly" value="Monthly" autocomplete="off">
-                <label class="btn btn-outline-primary" for="frequency-monthly">Monthly</label>
-                
-                <input type="radio" class="btn-check" name="frequency" id="frequency-yearly" value="Yearly" autocomplete="off">
-                <label class="btn btn-outline-primary" for="frequency-yearly">Yearly</label>
-                
-                <input type="radio" class="btn-check" name="frequency" id="frequency-other" value="Other" autocomplete="off">
-                <label class="btn btn-outline-primary" for="frequency-other">Other</label>
-              </div>
-              <div id="otherFrequencyInput" class="mt-2 d-none">
-                <input type="text" class="form-control" placeholder="Please specify frequency">
+              <select class="form-select" name="formData.data9" required>
+                <option value="">Select frequency</option>
+                <option value="Daily">Daily</option>
+                <option value="Weekly" selected>Weekly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="mt-2">
+                <input type="text" class="form-control" name="formData.data10" placeholder="Please specify if Other">
               </div>
             </div>
             
             <!-- Retention Period -->
             <div class="mb-4">
               <label class="form-label">Retention Period</label>
-              <div class="btn-group w-100" role="group">
-                <input type="radio" class="btn-check" name="retention" id="retention-week" value="1 week" autocomplete="off">
-                <label class="btn btn-outline-secondary" for="retention-week">1 week</label>
-  
-                <input type="radio" class="btn-check" name="retention" id="retention-month" value="1 month" autocomplete="off" checked>
-                <label class="btn btn-outline-secondary" for="retention-month">1 month</label>
-  
-                <input type="radio" class="btn-check" name="retention" id="retention-year" value="1 year" autocomplete="off">
-                <label class="btn btn-outline-secondary" for="retention-year">1 year</label>
-                
-                <input type="radio" class="btn-check" name="retention" id="retention-25years" value="25 years" autocomplete="off">
-                <label class="btn btn-outline-secondary" for="retention-25years">25 years</label>
-                
-                <input type="radio" class="btn-check" name="retention" id="retention-other" value="Other" autocomplete="off">
-                <label class="btn btn-outline-secondary" for="retention-other">Other</label>
-              </div>
-              <div id="otherRetentionInput" class="mt-2 d-none">
-                <input type="text" class="form-control" placeholder="Please specify retention period">
+              <select class="form-select" name="formData.data11" required>
+                <option value="">Select retention period</option>
+                <option value="1 week">1 week</option>
+                <option value="1 month" selected>1 month</option>
+                <option value="1 year">1 year</option>
+                <option value="25 years">25 years</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="mt-2">
+                <input type="text" class="form-control" name="formData.data12" placeholder="Please specify if Other">
               </div>
             </div>
             
             <!-- Backup Type -->
             <div class="mb-4">
               <label class="form-label">Backup Type</label>
-              <div class="btn-group w-100" role="group">
-                <input type="radio" class="btn-check" name="backupType" id="backupType-full" value="Full" autocomplete="off" checked>
-                <label class="btn btn-outline-success" for="backupType-full">Full</label>
-  
-                <input type="radio" class="btn-check" name="backupType" id="backupType-differential" value="Differential" autocomplete="off">
-                <label class="btn btn-outline-success" for="backupType-differential">Differential</label>
-  
-                <input type="radio" class="btn-check" name="backupType" id="backupType-incremental" value="Incremental" autocomplete="off">
-                <label class="btn btn-outline-success" for="backupType-incremental">Incremental</label>
-              </div>
+              <select class="form-select" name="formData.data13" required>
+                <option value="">Select backup type</option>
+                <option value="Full" selected>Full</option>
+                <option value="Differential">Differential</option>
+                <option value="Incremental">Incremental</option>
+              </select>
+            </div>
+            
+            <!-- Category -->
+            <div class="mb-4">
+              <label class="form-label">Category</label>
+              <select class="form-select" name="category" required>
+                <option value="">Select category</option>
+                <option value="Standard">Standard</option>
+                <option value="Emergency">Emergency</option>
+                <option value="Scheduled">Scheduled</option>
+              </select>
+            </div>
+            
+            <!-- Priority -->
+            <div class="mb-4">
+              <label class="form-label">Priority</label>
+              <select class="form-select" name="priority" required>
+                <option value="">Select priority</option>
+                <option value="High">High</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Low">Low</option>
+              </select>
             </div>
             
             <!-- Criticality of Data -->
             <div class="mb-4">
               <label class="form-label">Criticality of Data</label>
-              <div class="btn-group w-100" role="group">
-                <input type="radio" class="btn-check" name="criticality" id="criticality-high" value="High" autocomplete="off">
-                <label class="btn btn-outline-danger" for="criticality-high">High</label>
-  
-                <input type="radio" class="btn-check" name="criticality" id="criticality-medium" value="Medium" autocomplete="off" checked>
-                <label class="btn btn-outline-warning" for="criticality-medium">Medium</label>
-  
-                <input type="radio" class="btn-check" name="criticality" id="criticality-low" value="Low" autocomplete="off">
-                <label class="btn btn-outline-success" for="criticality-low">Low</label>
-              </div>
+              <select class="form-select" name="formData.data14" required>
+                <option value="">Select criticality</option>
+                <option value="High">High</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Low">Low</option>
+              </select>
             </div>
           </div>
         </div>
@@ -172,49 +178,41 @@
           <div class="card-body">
             <div class="mb-3">
               <label class="form-label">Head of Department</label>
-              <div class="d-flex gap-3 mb-2">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="hodApproval" id="hodApproved" value="Approved">
-                  <label class="form-check-label" for="hodApproved">Approved</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="hodApproval" id="hodRejected" value="Rejected">
-                  <label class="form-check-label" for="hodRejected">Rejected</label>
-                </div>
-              </div>
+              <select class="form-select mb-2" name="formData.data15">
+                <option value="">Select approval status</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Pending" selected>Pending</option>
+              </select>
               <div class="row align-items-center">
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="hodSignature" name="hodSignature" placeholder="Signature">
+                  <input type="text" class="form-control" name="formData.data16" placeholder="Signature">
                 </div>
                 <div class="col-md-4">
-                  <input type="date" class="form-control" id="hodDate" name="hodDate">
+                  <input type="date" class="form-control" name="formData.data17">
                 </div>
               </div>
             </div>
             
             <div class="mb-3">
-              <label for="hodComments" class="form-label">Comments</label>
-              <textarea class="form-control" id="hodComments" name="hodComments" rows="2"></textarea>
+              <label class="form-label">Comments</label>
+              <textarea class="form-control" name="formData.data18" rows="2"></textarea>
             </div>
             
             <div class="mb-3">
               <label class="form-label">Head/Manager - IT</label>
-              <div class="d-flex gap-3 mb-2">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="itApproval" id="itApproved" value="Approved">
-                  <label class="form-check-label" for="itApproved">Approved</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="itApproval" id="itRejected" value="Rejected">
-                  <label class="form-check-label" for="itRejected">Rejected</label>
-                </div>
-              </div>
+              <select class="form-select mb-2" name="formData.data19">
+                <option value="">Select approval status</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Pending" selected>Pending</option>
+              </select>
               <div class="row align-items-center">
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="itSignature" name="itSignature" placeholder="Signature">
+                  <input type="text" class="form-control" name="formData.data20" placeholder="Signature">
                 </div>
                 <div class="col-md-4">
-                  <input type="date" class="form-control" id="itDate" name="itDate">
+                  <input type="date" class="form-control" name="formData.data21">
                 </div>
               </div>
             </div>
@@ -229,44 +227,28 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-md-8">
-                <input type="text" class="form-control" id="operatorSignature" name="operatorSignature" placeholder="Signature">
+                <input type="text" class="form-control" name="formData.data22" placeholder="Signature">
               </div>
               <div class="col-md-4">
-                <input type="date" class="form-control" id="operatorDate" name="operatorDate">
+                <input type="date" class="form-control" name="formData.data23">
               </div>
             </div>
           </div>
         </div>
         
+        <input type="hidden"  name="ticketType" value="BackupRequest">
+        <!-- File Attachments -->
+     
+        
         <!-- Submit Buttons -->
-        <div class="d-flex justify-content-end gap-3">
-          <button type="button" class="btn btn-outline-secondary" id="cancelBackupButton">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary" id="submitBackupButton">
-            <i class="fas fa-save me-2"></i> Submit Request
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+        
   
   <script>
     // Show/hide "Other" input fields
-    document.getElementById('frequency-other').addEventListener('change', function() {
-      document.getElementById('otherFrequencyInput').classList.toggle('d-none', !this.checked);
-    });
+  
     
-    document.getElementById('retention-other').addEventListener('change', function() {
-      document.getElementById('otherRetentionInput').classList.toggle('d-none', !this.checked);
-    });
+
     
     // Form validation (similar to your general ticket form)
-    document.getElementById('backupForm').addEventListener('submit', function(event) {
-      if (!this.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      this.classList.add('was-validated');
-    });
+
   </script>

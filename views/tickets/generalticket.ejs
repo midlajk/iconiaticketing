@@ -5,6 +5,8 @@
     </div>
     <div class="card-body">
       <form id="ticketForm" enctype="multipart/form-data">
+        <input type="hidden" name="ticketType" value="GeneralTicket">
+        <input type="hidden" name="status" value="New">
         <!-- Title -->
         <div class="mb-4">
           <label for="title" class="form-label">Title</label>
@@ -77,17 +79,7 @@
         </div>
         
         <!-- Submit Buttons -->
-        <div class="d-flex justify-content-end gap-3">
-          <button type="button" class="btn btn-outline-secondary" id="cancelButton">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary" id="submitButton">
-            <i class="fas fa-ticket-alt me-2"></i> Create Ticket
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+        
 
   <script>
        document.addEventListener('DOMContentLoaded', function() {
@@ -246,13 +238,9 @@
         const formData = new FormData(ticketForm);
         
         // Add ticket type
-        formData.append('ticketType', document.getElementById('ticketType').value);
-        formData.delete('priority');
 
         // Add priority
-        const priorityInput = document.querySelector('input[name="priority"]:checked');
-        formData.append('priority', priorityInput ? priorityInput.value : 'Medium');
-
+      
         // Show loading overlay
         loadingOverlay.style.display = 'flex';
         submitButton.disabled = true;

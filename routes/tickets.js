@@ -7,7 +7,9 @@ const upload = require('../middlewares/multipleupload');
 router.post('/newticket', upload, customerController.addticket);
 router.get('/tickets', customerController.getTickets);
 router.get('/counts', customerController.dhasboardCount);
-
+router.get('/updateticket/:id', customerController.updateticketscreen);
+router.get('/downloadform/:id', customerController.downloadform);
+router.get('/viewform/:id', customerController.viewform);
 
 
 module.exports = router;

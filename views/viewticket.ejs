@@ -12,7 +12,7 @@
         <button class="mobile-menu-toggle me-3" id="mobileMenuToggle">
           <i class="fas fa-bars"></i>
         </button>
-        <h1 class="page-title mb-0">Create New Ticket</h1>
+        <h1 class="page-title mb-0">Update Ticket</h1>
       </div>
       <div class="user-menu">
         <div class="dropdown">
@@ -82,11 +82,22 @@
           
           <!-- Form Data Button (Conditional) -->
           <div id="formDataSection" class="mb-3 d-none">
-            <button id="viewFormDataBtn" class="btn btn-outline-primary">
-              <i class="fas fa-file-alt me-2"></i>View Form Data
-            </button>
+            <a id="viewFormDataBtn" href="/tickets/viewform/<%=ticket._id%>" class="btn btn-outline-primary">
+              <i class="fas fa-file-alt me-2"></i>View Form
+            </a>
+
+     
           </div>
-          
+          <!-- <div id="formDataSection" class="mb-3">
+            <button id="viewFormDataBtn" class="btn btn-outline-primary">
+              <i class="fas fa-file-alt me-2"></i>Download Form
+            </button>
+          </div> -->
+          <!-- <div id="formDataSection" class="mb-3 d-none">
+            <button id="viewFormDataBtn" class="btn btn-outline-primary">
+              <i class="fas fa-file-alt me-2"></i>Edit Data
+            </button>
+          </div> -->
           <!-- Attachments -->
           <div id="attachmentsSection" class="mb-3 d-none">
             <h6 class="fw-bold">Attachments</h6>
@@ -98,9 +109,9 @@
         <div class="card-footer bg-light d-flex justify-content-between">
           <small class="text-muted">Created: <span id="ticketCreatedAt">-</span></small>
           <div>
-            <button class="btn btn-sm btn-outline-secondary me-2" id="printTicketBtn">
-              <i class="fas fa-print me-1"></i>Print
-            </button>
+            <a href="/tickets/downloadform/<%=ticket._id%>" class="btn btn-sm btn-outline-secondary me-2" id="printTicketBtn">
+              <i class="fas fa-print me-1"></i>Download Pdf
+            </a>
             <button class="btn btn-sm btn-outline-danger" id="closeTicketBtn">
               <i class="fas fa-times me-1"></i>Close
             </button>
@@ -189,7 +200,7 @@
     </div>
     
     <!-- Modal for Form Data -->
-    <div class="modal fade" id="formDataModal" tabindex="-1" aria-hidden="true">
+    <!-- <div class="modal fade" id="formDataModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -197,7 +208,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" id="formDataModalBody">
-            <!-- Form data will be displayed here -->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -205,7 +215,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     
     <style>
       .timeline {
@@ -300,7 +310,8 @@
             }
           ]
         };
-    
+        // const ticket = <%- JSON.stringify(ticket) %>;
+
         // Populate ticket data
         document.getElementById('ticketId').textContent = ticket._id;
         document.getElementById('ticketTitle').textContent = ticket.title;
@@ -337,47 +348,47 @@
           });
         }
     
-        // Form data modal handler
-        document.getElementById('viewFormDataBtn').addEventListener('click', function() {
-          const modalBody = document.getElementById('formDataModalBody');
-          modalBody.innerHTML = '';
+        // // Form data modal handler
+        // document.getElementById('viewFormDataBtn').addEventListener('click', function() {
+        //   const modalBody = document.getElementById('formDataModalBody');
+        //   modalBody.innerHTML = '';
           
-          // Create a table to display form data
-          const table = document.createElement('table');
-          table.className = 'table table-striped';
+        //   // Create a table to display form data
+        //   const table = document.createElement('table');
+        //   table.className = 'table table-striped';
           
-          const tbody = document.createElement('tbody');
+        //   const tbody = document.createElement('tbody');
           
-          for (const [key, value] of Object.entries(ticket.formData)) {
-            if (value) { // Only show fields with values
-              const row = document.createElement('tr');
+        //   for (const [key, value] of Object.entries(ticket.formData)) {
+        //     if (value) { // Only show fields with values
+        //       const row = document.createElement('tr');
               
-              const th = document.createElement('th');
-              th.scope = 'row';
-              th.textContent = key;
+        //       const th = document.createElement('th');
+        //       th.scope = 'row';
+        //       th.textContent = key;
               
-              const td = document.createElement('td');
-              td.textContent = value;
+        //       const td = document.createElement('td');
+        //       td.textContent = value;
               
-              row.appendChild(th);
-              row.appendChild(td);
-              tbody.appendChild(row);
-            }
-          }
+        //       row.appendChild(th);
+        //       row.appendChild(td);
+        //       tbody.appendChild(row);
+        //     }
+        //   }
           
-          table.appendChild(tbody);
-          modalBody.appendChild(table);
+        //   table.appendChild(tbody);
+        //   modalBody.appendChild(table);
           
-          // Show the modal
-          const modal = new bootstrap.Modal(document.getElementById('formDataModal'));
-          modal.show();
-        });
+        //   // Show the modal
+        //   const modal = new bootstrap.Modal(document.getElementById('formDataModal'));
+        //   modal.show();
+        // });
     
         // Edit form data button handler
-        document.getElementById('editFormDataBtn').addEventListener('click', function() {
-          // Redirect to the form editing screen with this ticket's data
-          window.location.href = `/tickets/${ticket._id}/edit-form`;
-        });
+        // document.getElementById('editFormDataBtn').addEventListener('click', function() {
+        //   // Redirect to the form editing screen with this ticket's data
+        //   window.location.href = `/tickets/${ticket._id}/edit-form`;
+        // });
     
         // Status update form handler
         document.getElementById('statusUpdateForm').addEventListener('submit', function(e) {
@@ -452,9 +463,9 @@
         });
     
         // Print ticket button handler
-        document.getElementById('printTicketBtn').addEventListener('click', function() {
-          window.print();
-        });
+        // document.getElementById('printTicketBtn').addEventListener('click', function() {
+        //   window.print();
+        // });
       });
     </script>
   </div>

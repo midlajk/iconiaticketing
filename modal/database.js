@@ -59,6 +59,7 @@ const ticketSchema = new mongoose.Schema({
   requestor: {
     name: String,
     customerid: String,
+    email:String,
 
   },
   title: String,
@@ -90,6 +91,26 @@ const ticketSchema = new mongoose.Schema({
     data15:String,
     data16:String,
     data17:String,
+    data18:String,
+    data19:String,
+    data20:String,
+    data21:String,
+    data22:String,
+    data23:String,
+    data24:String,
+    data25:String,
+    data26:String,
+    data27:String,
+    data28:String,
+    data29:String,
+    data30:String,
+    data31:String,
+    data32:String,
+    data33:String,
+    data34:String,
+    data35:String,
+    data36:String,
+
 
   }, // Stores the entire form-specific data
   createdAt: {
