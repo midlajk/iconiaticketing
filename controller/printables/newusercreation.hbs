@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User Creation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            color: #333;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #0056b3;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .signature {
+            border-top: 1px solid #000;
+            margin-top: 20px;
+            padding-top: 10px;
+        }
+        .checkbox-group {
+            margin: 10px 0;
+        }
+        .checkbox-label {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="{{logoUrl}}" alt="Company Logo" class="logo">
+        <h1>New User Creation Form</h1>
+    </div>
+
+    <div class="section">
+        <h2>Requestor Information</h2>
+        <label class="form-label">Requestor Name:</label>
+        <input type="text" class="form-control" value="{{requestor.name}}" readonly>
+
+        <label class="form-label">Requestor Email:</label>
+        <input type="email" class="form-control" value="{{requestor.email}}" readonly>
+
+        <label class="form-label">Customer ID:</label>
+        <input type="text" class="form-control" value="{{requestor.customerid}}" readonly>
+
+        <label class="form-label">Request Title:</label>
+        <input type="text" class="form-control" value="{{title}}" readonly>
+    </div>
+
+    <div class="section">
+        <h2>Mandatory Fields (To be Filled by Requestor)</h2>
+        <label class="form-label">Employee or Temporary User Name:</label>
+        <input type="text" class="form-control" value="{{formData.data1}}" readonly>
+
+        <label class="form-label">Employee ID:</label>
+        <input type="text" class="form-control" value="{{formData.data2}}" readonly>
+
+        <label class="form-label">Job Title:</label>
+        <input type="text" class="form-control" value="{{formData.data3}}" readonly>
+
+        <label class="form-label">Section/Department or Third Party Company:</label>
+        <input type="text" class="form-control" value="{{formData.data4}}" readonly>
+
+        <label class="form-label">Location:</label>
+        <input type="text" class="form-control" value="{{formData.data5}}" readonly>
+
+        <label class="form-label">Contact Number:</label>
+        <input type="tel" class="form-control" value="{{formData.data6}}" readonly>
+
+        <label class="form-label">Joining Date:</label>
+        <input type="date" class="form-control" value="{{formData.data7}}" readonly>
+
+        <label class="form-label">End of Contract Date:</label>
+        <input type="date" class="form-control" value="{{formData.data8}}" readonly>
+    </div>
+
+    <div class="section">
+        <h2>Type of Access Required (To be Filled by Requestor)</h2>
+        <h3>System Account Creation</h3>
+        <div class="checkbox-group">
+            <input type="checkbox" {{#if formData.data9}}checked{{/if}} disabled>
+            <label class="checkbox-label">Username</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" {{#if formData.data10}}checked{{/if}} disabled>
+            <label class="checkbox-label">Email</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" {{#if formData.data11}}checked{{/if}} disabled>
+            <label class="checkbox-label">Internet & Intranet</label>
+        </div>
+        <label class="form-label">Other System Access:</label>
+        <input type="text" class="form-control" value="{{formData.data13}}" readonly>
+
+        <h3>IT Asset Allocation</h3>
+        <div class="checkbox-group">
+            <input type="checkbox" {{#if formData.data14}}checked{{/if}} disabled>
+            <label class="checkbox-label">Desktop</label>
+        </div>
+        <label class="form-label">Other IT Assets Required:</label>
+        <input type="text" class="form-control" value="{{formData.data16}}" readonly>
+
+        <h3>Application Access</h3>
+        <label class="form-label">Application Names:</label>
+        <textarea class="form-control" rows="2" readonly>{{formData.data17}}</textarea>
+
+        <h3>Communication Access</h3>
+        <div class="checkbox-group">
+            <input type="checkbox" {{#if formData.data18}}checked{{/if}} disabled>
+            <label class="checkbox-label">Phone Ext</label>
+        </div>
+        <label class="form-label">Other Communication Access Required:</label>
+        <input type="text" class="form-control" value="{{formData.data20}}" readonly>
+    </div>
+
+    <div class="section">
+        <h2>Approvals</h2>
+        <div class="signature">
+            <p>Immediate Manager or HR Recruitment Officer Approval:</p>
+            <p>Digital Signature will be collected upon form submission.</p>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" {{#if formData.data21}}checked{{/if}} disabled>
+            <label class="checkbox-label">I hereby understand that I have received the required access...</label>
+        </div>
+        <label class="form-label">IT Comments (if any):</label>
+        <textarea class="form-control" rows="2" readonly>{{formData.data22}}</textarea>
+
+        <label class="form-label">Completed and Preserved By:</label>
+        <input type="text" class="form-control" value="{{formData.data23}}" readonly>
+
+        <label class="form-label">Completed Date:</label>
+        <input type="text" class="form-control" value="{{formData.data24}}" readonly>
+    </div>
+
+</body>
+</html>

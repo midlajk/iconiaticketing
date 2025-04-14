@@ -22,10 +22,10 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
             <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-bell me-2"></i> Notifications</a></li>
+            
             <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+            <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
           </ul>
         </div>
       </div>
@@ -88,17 +88,7 @@
 
      
           </div>
-          <!-- <div id="formDataSection" class="mb-3">
-            <button id="viewFormDataBtn" class="btn btn-outline-primary">
-              <i class="fas fa-file-alt me-2"></i>Download Form
-            </button>
-          </div> -->
-          <!-- <div id="formDataSection" class="mb-3 d-none">
-            <button id="viewFormDataBtn" class="btn btn-outline-primary">
-              <i class="fas fa-file-alt me-2"></i>Edit Data
-            </button>
-          </div> -->
-          <!-- Attachments -->
+     
           <div id="attachmentsSection" class="mb-3 d-none">
             <h6 class="fw-bold">Attachments</h6>
             <div id="ticketAttachments" class="d-flex flex-wrap gap-2">
@@ -127,6 +117,13 @@
         <div class="card-body">
           <form id="statusUpdateForm">
             <div class="row">
+                <div class="col-md-4 mb-3" id="selectdiv">
+                    <label for="assignToSelect" class="form-label">Assign To</label>
+                    <select class="form-select select2-employee" id="assignToSelect">
+                      <option value="">Unassigned</option>
+                      <!-- Options will be loaded dynamically -->
+                    </select>
+                  </div>
               <div class="col-md-4 mb-3">
                 <label for="statusSelect" class="form-label">Status</label>
                 <select class="form-select" id="statusSelect">
@@ -137,15 +134,7 @@
                   <option value="Closed">Closed</option>
                 </select>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="assignToSelect" class="form-label">Assign To</label>
-                <select class="form-select" id="assignToSelect">
-                  <option value="">Unassigned</option>
-                  <option value="agent1">Agent 1</option>
-                  <option value="agent2">Agent 2</option>
-                  <option value="agent3">Agent 3</option>
-                </select>
-              </div>
+             
               <div class="col-md-4 mb-3">
                 <label for="prioritySelect" class="form-label">Priority</label>
                 <select class="form-select" id="prioritySelect">
@@ -273,44 +262,36 @@
         transform: scale(1.05);
       }
     </style>
-    
+    <style>
+        /* Toast styles */
+        .toast-container {
+          z-index: 1060;
+        }
+        
+        .toast {
+          box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+        }
+        
+        .border-success {
+          border-left-color: #28a745 !important;
+        }
+        
+        .border-danger {
+          border-left-color: #dc3545 !important;
+        }
+        
+        .border-warning {
+          border-left-color: #ffc107 !important;
+        }
+        
+        .border-info {
+          border-left-color: #17a2b8 !important;
+        }
+        
+      </style>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // This would be populated from your API based on the selected ticket
-        const ticket = {
-          _id: 'TKT-12345',
-          ticketType: 'Service Request',
-          createdby: 'John Doe',
-          requestor: {
-            name: 'Jane Smith',
-            customerid: 'CUST-789'
-          },
-          title: 'Unable to access the customer portal',
-          description: 'When trying to log in to the customer portal, I receive an error message saying "Invalid credentials" even though I\'m sure I\'m using the correct password.',
-          status: 'In Progress',
-          priority: 'High',
-          category: 'Access Issue',
-          formData: {
-            data1: 'Portal Login',
-            data2: 'jane.smith@example.com',
-            data3: '2023-05-15',
-            // ... other form data
-          },
-          createdAt: '2023-05-15T10:30:00Z',
-          attachments: [
-            'screenshot1.png',
-            'errorlog.txt'
-          ],
-          approvals: [
-            {
-              by: 'Support Manager',
-              status: 'Approved',
-              date: '2023-05-15T11:00:00Z',
-              comments: 'Approved for immediate investigation'
-            }
-          ]
-        };
-        // const ticket = <%- JSON.stringify(ticket) %>;
+        const ticket = <%- JSON.stringify(ticket) %>;
 
         // Populate ticket data
         document.getElementById('ticketId').textContent = ticket._id;
@@ -348,125 +329,260 @@
           });
         }
     
-        // // Form data modal handler
-        // document.getElementById('viewFormDataBtn').addEventListener('click', function() {
-        //   const modalBody = document.getElementById('formDataModalBody');
-        //   modalBody.innerHTML = '';
-          
-        //   // Create a table to display form data
-        //   const table = document.createElement('table');
-        //   table.className = 'table table-striped';
-          
-        //   const tbody = document.createElement('tbody');
-          
-        //   for (const [key, value] of Object.entries(ticket.formData)) {
-        //     if (value) { // Only show fields with values
-        //       const row = document.createElement('tr');
-              
-        //       const th = document.createElement('th');
-        //       th.scope = 'row';
-        //       th.textContent = key;
-              
-        //       const td = document.createElement('td');
-        //       td.textContent = value;
-              
-        //       row.appendChild(th);
-        //       row.appendChild(td);
-        //       tbody.appendChild(row);
-        //     }
-        //   }
-          
-        //   table.appendChild(tbody);
-        //   modalBody.appendChild(table);
-          
-        //   // Show the modal
-        //   const modal = new bootstrap.Modal(document.getElementById('formDataModal'));
-        //   modal.show();
-        // });
+       
+document.getElementById('statusUpdateForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const newStatus = document.getElementById('statusSelect').value;
+  const newPriority = document.getElementById('prioritySelect').value;
+  const assignedTo = document.getElementById('assignToSelect').value;
+  const comment = document.getElementById('statusComment').value;
+  
+  // Show loading indicator
+  const submitBtn = this.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...';
+  
+  // Make API call to update the ticket
+  fetch('/tickets/updateticketstatus', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ticketId: ticket._id,
+      status: newStatus,
+      priority: newPriority,
+      assignedTo,
+      comment
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Update the UI
+      document.getElementById('ticketStatus').textContent = newStatus;
+      document.getElementById('ticketPriority').textContent = newPriority;
+      
+      // Add new activity to the timeline
+      addActivityToTimeline(data.activity);
+      
+      // Clear comment field
+      document.getElementById('statusComment').value = '';
+      
+      // Show success message
+      showToast('Success', 'Ticket updated successfully!', 'success');
+    } else {
+      showToast('Error', data.message || 'Error updating ticket status', 'danger');
+    }
+  })
+  .catch(error => {
+    console.error('Error updating ticket status:', error);
+    showToast('Error', 'Network or server error occurred', 'danger');
+  })
+  .finally(() => {
+    // Restore button state
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnText;
+  });
+});
+
+// Function to add activity to timeline
+function addActivityToTimeline(activity) {
+  const activityLog = document.querySelector('.timeline');
+  const newActivity = document.createElement('div');
+  newActivity.className = 'timeline-item';
+  
+  // Determine badge color based on activity type
+  let badgeColor = 'bg-info';
+  if (activity.title.includes('Status')) badgeColor = 'bg-info';
+  if (activity.title.includes('Assigned')) badgeColor = 'bg-success';
+  if (activity.title.includes('Closed')) badgeColor = 'bg-danger';
+  if (activity.title.includes('Priority')) badgeColor = 'bg-warning';
+  
+  newActivity.innerHTML = `
+    <div class="timeline-badge ${badgeColor}"></div>
+    <div class="timeline-content">
+      <div class="d-flex justify-content-between">
+        <h6 class="mb-1">${activity.title}</h6>
+        <small class="text-muted">${formatTimeAgo(new Date(activity.date))}</small>
+      </div>
+      <p class="mb-0">${activity.solution}</p>
+    </div>
+  `;
+  
+  activityLog.insertBefore(newActivity, activityLog.firstChild);
+}
+
+// Helper function to format date as "time ago"
+function formatTimeAgo(date) {
+  const now = new Date();
+  const diffMs = now - date;
+  const diffSec = Math.round(diffMs / 1000);
+  const diffMin = Math.round(diffSec / 60);
+  const diffHour = Math.round(diffMin / 60);
+
+  if (diffSec < 60) return 'Just now';
+  if (diffMin < 60) return `${diffMin} minute${diffMin > 1 ? 's' : ''} ago`;
+  if (diffHour < 24) return `${diffHour} hour${diffHour > 1 ? 's' : ''} ago`;
+  return date.toLocaleDateString();
+}
+
+// Toast notification function
+function showToast(title, message, type) {
+  // Create toast container if it doesn't exist
+  let toastContainer = document.querySelector('.toast-container');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+    document.body.appendChild(toastContainer);
+  }
+  
+  const toastId = 'toast-' + Date.now();
+  const toast = document.createElement('div');
+  toast.className = `toast align-items-center border-0 border-start border-4 border-${type}`;
+  toast.setAttribute('role', 'alert');
+  toast.setAttribute('aria-live', 'assertive');
+  toast.setAttribute('aria-atomic', 'true');
+  toast.setAttribute('id', toastId);
+  
+  toast.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">
+        <strong>${title}</strong>: ${message}
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  `;
+  
+  toastContainer.appendChild(toast);
+  const toastInstance = new bootstrap.Toast(toast);
+  toastInstance.show();
+  
+  // Remove toast after it's hidden
+  toast.addEventListener('hidden.bs.toast', function() {
+    toast.remove();
+  });
+}
+// Function to load and display activity log
+function loadActivityLog() {
+  // Clear existing timeline items (except the first one which is ticket creation)
+  const timeline = document.querySelector('.timeline');
+  while (timeline.children.length > 1) {
+    timeline.removeChild(timeline.lastChild);
+  }
+  
+  // If ticket has activity, display it
+  if (ticket.activity && ticket.activity.length > 0) {
+    // Sort activities by date (newest first)
+    ticket.activity.sort((a, b) => new Date(b.date) - new Date(a.date));
     
-        // Edit form data button handler
-        // document.getElementById('editFormDataBtn').addEventListener('click', function() {
-        //   // Redirect to the form editing screen with this ticket's data
-        //   window.location.href = `/tickets/${ticket._id}/edit-form`;
-        // });
+    // Add each activity to the timeline
+    ticket.activity.forEach(activity => {
+      const activityItem = document.createElement('div');
+      activityItem.className = 'timeline-item';
+      
+      // Determine badge color based on activity type
+      let badgeColor = 'bg-info';
+      if (activity.title && activity.title.includes('Status')) badgeColor = 'bg-info';
+      if (activity.title && activity.title.includes('Assigned')) badgeColor = 'bg-success';
+      if (activity.title && activity.title.includes('Closed')) badgeColor = 'bg-danger';
+      if (activity.title && activity.title.includes('Priority')) badgeColor = 'bg-warning';
+      
+      activityItem.innerHTML = `
+        <div class="timeline-badge ${badgeColor}"></div>
+        <div class="timeline-content">
+          <div class="d-flex justify-content-between">
+            <h6 class="mb-1">${activity.title || 'Activity'}</h6>
+            <small class="text-muted">${formatTimeAgo(new Date(activity.date))}</small>
+          </div>
+          <p class="mb-0">${activity.solution || 'No details provided'}</p>
+        </div>
+      `;
+      
+      timeline.appendChild(activityItem);
+    });
+  }
+  
+  // Also show assignment history if available
+  if (ticket.assigned && ticket.assigned.length > 0) {
+    ticket.assigned.forEach(assign => {
+      const assignItem = document.createElement('div');
+      assignItem.className = 'timeline-item';
+      
+      assignItem.innerHTML = `
+        <div class="timeline-badge bg-success"></div>
+        <div class="timeline-content">
+          <div class="d-flex justify-content-between">
+            <h6 class="mb-1">Ticket Assigned</h6>
+            <small class="text-muted">${formatTimeAgo(new Date(assign.date))}</small>
+          </div>
+          <p class="mb-0">Assigned to ${assign.employee} by ${assign.assignedby}</p>
+        </div>
+      `;
+      
+      timeline.appendChild(assignItem);
+    });
+  }
+}
+
+// Call this function when the page loads
+  // ... other existing code ...
+  
+  // Load activity log
+  loadActivityLog();
+    // Close ticket button handler
+document.getElementById('closeTicketBtn').addEventListener('click', function() {
+  if (confirm('Are you sure you want to close this ticket?')) {
+    const comment = prompt('Add any closing comments (optional):');
     
-        // Status update form handler
-        document.getElementById('statusUpdateForm').addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          const newStatus = document.getElementById('statusSelect').value;
-          const newPriority = document.getElementById('prioritySelect').value;
-          const assignedTo = document.getElementById('assignToSelect').value;
-          const comment = document.getElementById('statusComment').value;
-          
-          // Here you would make an API call to update the ticket
-          console.log('Updating ticket:', {
-            status: newStatus,
-            priority: newPriority,
-            assignedTo,
-            comment
-          });
-          
-          // Update the UI
-          document.getElementById('ticketStatus').textContent = newStatus;
-          
-          // Add to activity log
-          const activityLog = document.querySelector('.timeline');
-          const newActivity = document.createElement('div');
-          newActivity.className = 'timeline-item';
-          newActivity.innerHTML = `
-            <div class="timeline-badge bg-info"></div>
-            <div class="timeline-content">
-              <div class="d-flex justify-content-between">
-                <h6 class="mb-1">Status Updated</h6>
-                <small class="text-muted">Just now</small>
-              </div>
-              <p class="mb-0">Status changed to ${newStatus}</p>
-              ${comment ? `<p class="text-muted mb-0">"${comment}"</p>` : ''}
-            </div>
-          `;
-          activityLog.insertBefore(newActivity, activityLog.firstChild);
-          
-          // Clear comment field
-          document.getElementById('statusComment').value = '';
-          
-          // Show success message
-          alert('Ticket updated successfully!');
-        });
+    // Show loading state
+    const btn = this;
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Closing...';
     
-        // Close ticket button handler
-        document.getElementById('closeTicketBtn').addEventListener('click', function() {
-          if (confirm('Are you sure you want to close this ticket?')) {
-            // Here you would make an API call to close the ticket
-            console.log('Closing ticket');
-            
-            // Update UI
-            document.getElementById('ticketStatus').textContent = 'Closed';
-            document.getElementById('statusSelect').value = 'Closed';
-            
-            // Add to activity log
-            const activityLog = document.querySelector('.timeline');
-            const newActivity = document.createElement('div');
-            newActivity.className = 'timeline-item';
-            newActivity.innerHTML = `
-              <div class="timeline-badge bg-danger"></div>
-              <div class="timeline-content">
-                <div class="d-flex justify-content-between">
-                  <h6 class="mb-1">Ticket Closed</h6>
-                  <small class="text-muted">Just now</small>
-                </div>
-                <p class="mb-0">Ticket was closed by you</p>
-              </div>
-            `;
-            activityLog.insertBefore(newActivity, activityLog.firstChild);
-          }
-        });
-    
+    // Make API call to close the ticket
+    fetch(`/tickets/${ticket._id}/close`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ comment })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Update UI
+        document.getElementById('ticketStatus').textContent = 'Closed';
+        document.getElementById('statusSelect').value = 'Closed';
+        
+        // Add to activity log
+        addActivityToTimeline(data.activity);
+        
+        showToast('Success', 'Ticket closed successfully!', 'success');
+      } else {
+        showToast('Error', data.message || 'Error closing ticket', 'danger');
+      }
+    })
+    .catch(error => {
+      console.error('Error closing ticket:', error);
+      showToast('Error', 'Network or server error occurred', 'danger');
+    })
+    .finally(() => {
+      // Restore button state
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    });
+  }
+});
         // Print ticket button handler
         // document.getElementById('printTicketBtn').addEventListener('click', function() {
         //   window.print();
         // });
       });
+
     </script>
   </div>
 
@@ -474,7 +590,6 @@
 
 
   <!-- Bootstrap JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
   <script>
     // Mobile menu toggle
@@ -489,5 +604,44 @@
       }
     });
   </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Select2 CSS -->
+
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<script>
+
+
+$(document).ready(function() {
+  // Initialize Select2
+  $('.select2-employee').select2({
+    placeholder: 'Select an employee',
+    allowClear: true,
+    ajax: {
+      url: '/employee/select-list',
+      dataType: 'json',
+      delay: 250, // milliseconds
+      processResults: function(data) {
+        return {
+          results: data.map(employee => ({
+            id: employee._id,
+            text: employee.name
+          }))
+        };
+      },
+      cache: true
+    },
+    minimumInputLength: 0 ,
+    dropdownParent: $("#selectdiv"),
+
+    // Show all options without typing
+  });
+})
+</script>
   </body>
 </html>

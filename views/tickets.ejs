@@ -12,7 +12,7 @@
         <button class="mobile-menu-toggle me-3" id="mobileMenuToggle">
           <i class="fas fa-bars"></i>
         </button>
-        <h1 class="page-title mb-0">Ticket Dashboard</h1>
+        <h1 class="page-title mb-0">Tickets</h1>
       </div>
       <div class="user-menu">
         <div class="dropdown">
@@ -22,15 +22,14 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
             <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-bell me-2"></i> Notifications</a></li>
+            
             <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+            <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
           </ul>
         </div>
       </div>
     </nav>
-
     <!-- Main Content -->
     <div class="container-fluid p-4">
 
@@ -110,24 +109,24 @@
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-secondary" id="open-tab" data-bs-toggle="tab" data-bs-target="#open-tickets" type="button" role="tab">
+            <button class="nav-link text-secondary" id="open-tab" data-bs-toggle="tab" data-bs-target="#all-tickets" type="button" role="tab">
               <i class="fas fa-folder-open me-2"></i> Open
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-secondary" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending-tickets" type="button" role="tab">
+            <button class="nav-link text-secondary" id="pending-tab" data-bs-toggle="tab" data-bs-target="#all-tickets" type="button" role="tab">
               <i class="fas fa-clock me-2"></i> Pending
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-secondary" id="solved-tab" data-bs-toggle="tab" data-bs-target="#solved-tickets" type="button" role="tab">
-              <i class="fas fa-check-circle me-2"></i> Solved
+            <button class="nav-link text-secondary" id="solved-tab" data-bs-toggle="tab" data-bs-target="#all-tickets" type="button" role="tab">
+              <i class="fas fa-check-circle me-2"></i> Closed
             </button>
           </li>
         </ul>
       
         <!-- Button -->
-        <a href="/newticket/general" class="btn btn-primary ms-3" id="createTicketBtn">
+        <a href="/newticket/generalticket" class="btn btn-primary ms-3" id="createTicketBtn">
           <i class="fas fa-plus me-1"></i> Create Ticket
         </a>
       </div>
@@ -159,18 +158,7 @@
           </div>
         </div>
         
-        <!-- Other tab panes for Open, Pending, Solved -->
-        <div class="tab-pane fade" id="open-tickets" role="tabpanel" aria-labelledby="open-tab">
-          <!-- Content for open tickets will be loaded via JS -->
-        </div>
-        
-        <div class="tab-pane fade" id="pending-tickets" role="tabpanel" aria-labelledby="pending-tab">
-          <!-- Content for pending tickets will be loaded via JS -->
-        </div>
-        
-        <div class="tab-pane fade" id="solved-tickets" role="tabpanel" aria-labelledby="solved-tab">
-          <!-- Content for solved tickets will be loaded via JS -->
-        </div>
+
       </div>
 
       <!-- Ticket Details Modal -->
@@ -273,7 +261,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Required JS Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
@@ -284,6 +271,9 @@
     $(document).ready(function() {
       // Initialize DataTable
       const ticketsTable = $('#ticketsTable').DataTable({
+        responsive: true,
+          processing: true,
+          serverSide: true,
         ajax: {
           url: '/tickets/tickets',
           dataSrc: 'data'
@@ -295,7 +285,12 @@
               return `#TKT-${data.substring(0, 6)}`;
             }
           },
-          { data: 'title' },
+            { 
+          data: 'title',
+          render: function (data, type, row) {
+            return data ? data : 'Not available';
+          }
+        },
           { 
             data: 'requestor',
             render: function(data) {
@@ -304,16 +299,16 @@
           },
           { 
             data: 'ticketType',
-            render: function(data) {
-              let badgeClass = '';
-              switch(data) {
-                case 'Support': badgeClass = 'bg-primary'; break;
-                case 'Billing': badgeClass = 'bg-warning'; break;
-                case 'Sales': badgeClass = 'bg-success'; break;
-                default: badgeClass = 'bg-secondary';
-              }
-              return `<span class="badge ${badgeClass}">${data}</span>`;
-            }
+            // render: function(data) {
+            //   let badgeClass = '';
+            //   switch(data) {
+            //     case 'Support': badgeClass = 'bg-primary'; break;
+            //     case 'Billing': badgeClass = 'bg-warning'; break;
+            //     case 'Sales': badgeClass = 'bg-success'; break;
+            //     default: badgeClass = 'bg-secondary';
+            //   }
+            //   return `<span class="badge ${badgeClass}">${data}</span>`;
+            // }
           },
           { 
             data: 'status',
@@ -361,9 +356,6 @@
           }
         ],
         responsive: true,
-        order: [[6, 'desc']], // Sort by created date descending
-        pageLength: 10,
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
       });
 
       // Load dashboard counts
@@ -371,13 +363,13 @@
 
       // Handle tab changes - reload data for the specific tab
       $('#ticketTabs button').on('click', function (e) {
-        const status = $(this).text().trim().replace(/^\s+|\s+$/g, '');
-        if (status === "All Tickets") {
-          ticketsTable.ajax.url('/tickets/tickets').load();
-        } else {
-          ticketsTable.ajax.url(`/tickets/tickets?status=${status}`).load();
-        }
-      });
+  const status = $(this).text().trim();
+  console.log('Status:', status);
+
+  // Use backticks for dynamic URL
+  ticketsTable.ajax.url(`/tickets/tickets?status=${encodeURIComponent(status)}`).load();
+});
+
 
       // Function to load dashboard counts
       function loadDashboardCounts() {

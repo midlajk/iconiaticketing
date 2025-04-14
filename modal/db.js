@@ -16,7 +16,18 @@ mongoose.connection.on("error", (err) => {
   console.error("❌ MongoDB connection error:", err);
 });
 
+const sessions = session({
+  secret: "icoia@123",
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: url,
+    collectionName: "sessions",
+  }),
+  cookie: { maxAge: 1000 * 60 * 60 * 24 },
+});
 require('./database'); 
-module.exports = {  mongoose };
+module.exports = { sessions, mongoose };
+
 
 

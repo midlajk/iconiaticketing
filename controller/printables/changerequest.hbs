@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Change Request Form</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.3;
+            color: #333;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            max-height: 60px;
+            max-width: 200px;
+            margin-right: 20px;
+        }
+        .header h1 {
+            font-size: 18pt;
+            color: #0056b3;
+            margin: 0;
+        }
+        .badge {
+            background-color: #ffc107;
+            color: #212529;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-header {
+            background-color: #f0f0f0;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #0056b3;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            width: 30%;
+        }
+        .table-value {
+            min-height: 20px;
+        }
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 30px;
+            width: 100%;
+            display: inline-block;
+        }
+        .dropdown-value {
+            font-style: italic;
+        }
+        .checkbox-group {
+            margin-top: 5px;
+        }
+        .checkbox {
+            display: inline-block;
+            border: 1px solid #ddd;
+            width: 16px;
+            height: 16px;
+            text-align: center;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .checkbox.checked:after {
+            content: "✓";
+        }
+        .comments-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            min-height: 50px;
+            margin-top: 5px;
+        }
+        .date-time-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .date-time-group div {
+            width: 48%;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        @media print {
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            {{#if logoUrl}}
+            <img src="{{logoUrl}}" alt="Company Logo" class="logo">
+            {{/if}}
+            <h1>Change Request Form</h1>
+        </div>
+        <span class="badge">Change</span>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Change Requester Information</div>
+        <table>
+            <tr>
+                <th>Change requester employee no.</th>
+                <td class="table-value">{{formData.data1}}</td>
+                <th>Change ID</th>
+                <td class="table-value">{{formData.data2}}</td>
+            </tr>
+            <tr>
+                <th>Change requester employee name</th>
+                <td class="table-value">{{requestor.name}}</td>
+                <th>Date</th>
+                <td class="table-value">{{formData.data3}}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td class="table-value">{{requestor.email}}</td>
+                <th>Section/Department</th>
+                <td class="table-value">{{formData.data4}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Change Request Details</div>
+        <table>
+            <tr>
+                <th>Title of the change</th>
+                <td class="table-value">{{title}}</td>
+            </tr>
+            <tr>
+                <th>Description of change</th>
+                <td class="table-value">{{description}}</td>
+            </tr>
+            <tr>
+                <th>Reason for change</th>
+                <td class="table-value">{{formData.data5}}</td>
+            </tr>
+            <tr>
+                <th>Service</th>
+                <td class="table-value">{{formData.data6}}</td>
+            </tr>
+            <tr>
+                <th>Change requester sign off</th>
+                <td class="table-value">{{formData.data7}}</td>
+            </tr>
+            <tr>
+                <th>Change Request Status</th>
+                <td class="table-value dropdown-value">{{status}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Change Impact Evaluation</div>
+        <table>
+            <tr>
+                <th>Infrastructure</th>
+                <td class="table-value">{{formData.data8}}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td class="table-value dropdown-value">{{formData.data9}}</td>
+            </tr>
+            <tr>
+                <th>Change Category</th>
+                <td class="table-value dropdown-value">{{category}}</td>
+            </tr>
+            <tr>
+                <th>Change Impact</th>
+                <td class="table-value dropdown-value">{{formData.data10}}</td>
+            </tr>
+            <tr>
+                <th>Change Urgency</th>
+                <td class="table-value dropdown-value">{{formData.data11}}</td>
+            </tr>
+            <tr>
+                <th>Priority</th>
+                <td class="table-value dropdown-value">{{priority}}</td>
+            </tr>
+            <tr>
+                <th>Affected Services</th>
+                <td class="table-value">{{formData.data12}}</td>
+            </tr>
+            <tr>
+                <th>Affected Configuration Items</th>
+                <td class="table-value">{{formData.data13}}</td>
+            </tr>
+            <tr>
+                <th>Resource Requirements</th>
+                <td class="table-value">{{formData.data14}}</td>
+            </tr>
+            <tr>
+                <th>Financial Impact</th>
+                <td class="table-value">{{formData.data15}}</td>
+            </tr>
+            <tr>
+                <th>Rollback Plan Description</th>
+                <td class="table-value">{{formData.data16}}</td>
+            </tr>
+            <tr>
+                <th>Pre Implementation Testing</th>
+                <td>
+                    <div class="dropdown-value">{{formData.data17}}</div>
+                    <div class="comments-box">{{formData.data18}}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Change Plan and Schedule</div>
+        <table>
+            <tr>
+                <th>Implementation Plan Description</th>
+                <td class="table-value">{{formData.data19}}</td>
+            </tr>
+            <tr>
+                <th>Downtime Window</th>
+                <td>
+                    <div class="date-time-group">
+                        <div>
+                            <strong>Start:</strong> {{formData.data20}}
+                        </div>
+                        <div>
+                            <strong>End:</strong> {{formData.data21}}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Change Control Committee/Change Advisory Board/Designated Approver Sign off</th>
+                <td class="table-value">{{formData.data22}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Change Implementation Status</div>
+        <table>
+            <tr>
+                <th>Implementation</th>
+                <td>
+                    <div class="dropdown-value">{{formData.data23}}</div>
+                    <div class="comments-box">{{formData.data24}}</div>
+                </td>
+            </tr>
+            <tr>
+                <th>Implementer Sign off</th>
+                <td class="table-value">{{formData.data25}}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td class="table-value">{{formData.data26}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Signatures</div>
+        <table>
+            <tr>
+                <th>Change Requester</th>
+                <td>
+                    <div class="signature-line"></div>
+                    <div style="margin-top: 5px;">Name: {{requestor.name}}</div>
+                    <div>Date: {{formData.data3}}</div>
+                </td>
+            </tr>
+            <tr>
+                <th>Change Approver</th>
+                <td>
+                    <div class="signature-line"></div>
+                    <div style="margin-top: 5px;">Name: ____________________</div>
+                    <div>Date: ____________________</div>
+                </td>
+            </tr>
+            <tr>
+                <th>Change Implementer</th>
+                <td>
+                    <div class="signature-line"></div>
+                    <div style="margin-top: 5px;">Name: {{formData.data25}}</div>
+                    <div>Date: {{formData.data26}}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit Clearance Form</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 100%;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+        .logo {
+            max-height: 80px;
+            max-width: 200px;
+        }
+        .document-title {
+            text-align: center;
+            color: #333;
+            margin: 20px 0;
+        }
+        .hr-badge {
+            background-color: #ffc107;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+        .section-title {
+            background-color: #f8f9fa;
+            padding: 8px 15px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-value {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            min-height: 20px;
+        }
+        .form-value-textarea {
+            white-space: pre-wrap;
+            min-height: 60px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .col-md-4, .col-md-6, .col-md-8, .col-md-12 {
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        @media (min-width: 768px) {
+            .col-md-4 {
+                flex: 0 0 33.333333%;
+                max-width: 33.333333%;
+            }
+            .col-md-6 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+            .col-md-8 {
+                flex: 0 0 66.666667%;
+                max-width: 66.666667%;
+            }
+            .col-md-12 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+        .signature-area {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #333;
+        }
+        .signature-line {
+            width: 300px;
+            border-bottom: 1px solid #333;
+            margin: 20px 0 5px;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+        .notice-box {
+            background-color: #e7f5fe;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .approval-section {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        {{#if logoUrl}}
+        <img src="{{logoUrl}}" class="logo" alt="Company Logo">
+        {{else}}
+        <div style="width: 200px;"></div>
+        {{/if}}
+        <div class="hr-badge">HR DOCUMENT</div>
+    </div>
+
+    <h1 class="document-title">Exit Clearance Form</h1>
+
+    <!-- Employee Information Section -->
+    <div class="section">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Employee Name</label>
+                    <div class="form-value">{{formData.data1}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Employee ID</label>
+                    <div class="form-value">{{formData.data2}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Email ID</label>
+                    <div class="form-value">{{requestor.email}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Phone Ext.</label>
+                    <div class="form-value">{{formData.data3}}</div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="form-label">Section/Department</label>
+                    <div class="form-value">{{formData.data4}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <div class="form-value">{{formData.data5}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Last Working Day</label>
+                    <div class="form-value">{{formData.data6}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notice-box">
+        Before your departure, please ensure that you surrender all your entity assets and get clearance from your immediate manager, Finance and Administration office on the following items:
+    </div>
+
+    <!-- HR Department/Admin - Physical Access Revocation -->
+    <div class="section">
+        <h2 class="section-title">HR Department/Admin - Physical Access Revocation</h2>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="form-label">Door Access</label>
+                    <div class="form-value">{{formData.data7}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Desk Keys</label>
+                    <div class="form-value">{{formData.data8}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Cancellation of benefits – medical/life</label>
+                    <div class="form-value">{{formData.data9}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Other</label>
+                    <div class="form-value">{{formData.data10}}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="signature-area">
+                    <div class="form-group">
+                        <label class="form-label">Admin</label>
+                        <div class="form-value">{{formData.data11}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data12}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Immediate Manager -->
+    <div class="section">
+        <h2 class="section-title">Immediate Manager</h2>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="form-label">Handover Report Submitted</label>
+                    <div class="form-value">{{formData.data13}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Other</label>
+                    <div class="form-value">{{formData.data14}}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="signature-area">
+                    <div class="form-group">
+                        <label class="form-label">Manager</label>
+                        <div class="form-value">{{formData.data15}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data16}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Apps. Access Revocation -->
+    <div class="section">
+        <h2 class="section-title">Apps. Access Revocation</h2>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="form-label">Application(s) Access</label>
+                    <div class="form-value">{{formData.data17}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">EMR Access</label>
+                    <div class="form-value">{{formData.data18}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Other</label>
+                    <div class="form-value">{{formData.data19}}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="signature-area">
+                    <div class="form-group">
+                        <label class="form-label">Apps. Admin</label>
+                        <div class="form-value">{{formData.data20}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data21}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Access Revocation -->
+    <div class="section">
+        <h2 class="section-title">System Access Revocation</h2>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <div class="form-value">{{formData.data22}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mailbox</label>
+                    <div class="form-value">{{formData.data23}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Other</label>
+                    <div class="form-value">{{formData.data24}}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="signature-area">
+                    <div class="form-group">
+                        <label class="form-label">Sys. Admin</label>
+                        <div class="form-value">{{formData.data25}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data26}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Communication Access Revocation -->
+    <div class="section">
+        <h2 class="section-title">Communication Access Revocation</h2>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="form-label">Phone Ext</label>
+                    <div class="form-value">{{formData.data27}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">e-Fax</label>
+                    <div class="form-value">{{formData.data28}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Other</label>
+                    <div class="form-value">{{formData.data29}}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="signature-area">
+                    <div class="form-group">
+                        <label class="form-label">Com. Admin</label>
+                        <div class="form-value">{{formData.data30}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data31}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IT Asset Return -->
+    <div class="section">
+        <h2 class="section-title">IT Asset Return</h2>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="form-label">Desktop</label>
+                    <div class="form-value">{{formData.data32}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Laptop</label>
+                    <div class="form-value">{{formData.data33}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Printer</label>
+                    <div class="form-value">{{formData.data34}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Other</label>
+                    <div class="form-value">{{formData.data35}}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="signature-area">
+                    <div class="form-group">
+                        <label class="form-label">IT Asset Admin</label>
+                        <div class="form-value">{{formData.data36}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data37}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approvals Section -->
+    <div class="section approval-section">
+        <!-- HR Section Approval -->
+        <div class="form-group">
+            <label class="form-label">HR Section/Department Approval</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <div class="form-value">{{formData.data38}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data39}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Finance Section Approval -->
+        <div class="form-group">
+            <label class="form-label">Finance Section/Department Approval</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <div class="form-value">{{formData.data40}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data41}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clearance Reason -->
+        <div class="form-group">
+            <label class="form-label">Clearance Reason</label>
+            <div class="form-value">{{formData.data42}}</div>
+            {{#if (eq formData.data42 "Other")}}
+            <div class="form-value">{{formData.data43}}</div>
+            {{/if}}
+        </div>
+
+        <!-- Director Approval -->
+        <div class="form-group">
+            <label class="form-label">Head of Section/Department (Director)</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <div class="form-value">{{formData.data44}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Signature</label>
+                        <div class="signature-line"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <div class="form-value">{{formData.data45}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="section">
+        <label class="form-label">Comments</label>
+        <div class="form-value form-value-textarea">{{formData.data46}}</div>
+    </div>
+
+    <!-- Completed By -->
+    <div class="section">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Completed By</label>
+                    <div class="form-value">{{formData.data47}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Signature & Date</label>
+                    <div class="form-value">{{formData.data48}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>This document is confidential and intended solely for the use of the individual or entity to whom it is addressed.</p>
+        <p>Generated on: {{currentDate}}</p>
+    </div>
+</body>
+</html>

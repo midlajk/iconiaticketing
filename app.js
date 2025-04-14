@@ -5,13 +5,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const session = require('express-session');
+const { sessions } = require('./modal/db'); // Explicitly import sessions
 const flash = require('connect-flash');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var usersRouter = require('./routes/users');
 const customerRoutes = require('./routes/customer');
 const employeeRoutes = require('./routes/employees');
 const ticketRoutes = require('./routes/tickets');
+const { router: usersRouter, isAuthenticated, hasRole } = require('./routes/users');
+const MongoStore = require("connect-mongo");
 
 var app = express();
 
@@ -24,16 +26,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  secret: 'iconia@asda', // use a secure, secret key
-  resave: false,
-  saveUninitialized: true
-}));
+
+
+// Session configuration
+app.use(sessions);
 
 app.use(flash());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter);
 app.use('/employee', employeeRoutes);
 app.use('/tickets', ticketRoutes);
 

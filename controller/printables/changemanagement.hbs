@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Change Management Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.4;
+      color: #333;
+    }
+    .document-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+    }
+    .logo {
+      max-height: 80px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 15px 0 10px 0;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #ddd;
+    }
+    .form-section {
+      margin-bottom: 20px;
+    }
+    .form-row {
+      display: flex;
+      margin-bottom: 8px;
+    }
+    .form-group {
+      flex: 1;
+      padding-right: 15px;
+    }
+    .form-label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .form-value {
+      border: 1px solid #ddd;
+      padding: 5px;
+      min-height: 18px;
+      background-color: #f9f9f9;
+    }
+    .checkbox-group {
+      margin: 5px 0;
+    }
+    .checkbox {
+      margin-right: 10px;
+    }
+    .textarea-value {
+      min-height: 60px;
+    }
+    .signature-section {
+      margin-top: 30px;
+    }
+    .signature-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    .signature-box {
+      flex: 1;
+      margin: 0 10px;
+      text-align: center;
+    }
+    .signature-line {
+      border-top: 1px solid #333;
+      margin-top: 40px;
+      padding-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="document-container">
+    <div class="header">
+      {{#if logo}}
+      <img src="{{logo}}" alt="Company Logo" class="logo">
+      {{/if}}
+      <h1>Change Management Form</h1>
+    </div>
+
+    <!-- 1. General Information -->
+    <div class="form-section">
+      <h2>1. General Information</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Change Request ID:</div>
+          <div class="form-value">{{formData.data1}}</div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Date Submitted:</div>
+          <div class="form-value">{{formData.data2}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Requested By:</div>
+          <div class="form-value">{{requestor.name}}</div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Email:</div>
+          <div class="form-value">{{requestor.email}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Department/Section:</div>
+          <div class="form-value">{{formData.data3}}</div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Change Manager:</div>
+          <div class="form-value">{{formData.data4}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Assigned To:</div>
+          <div class="form-value">{{formData.data5}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Change Title:</div>
+          <div class="form-value">{{title}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Change Details -->
+    <div class="form-section">
+      <h2>2. Change Details</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Type of Change:</div>
+          <div class="checkbox-group">
+            <span class="checkbox">
+              <strong>☐</strong> Emergency Change {{#if (eq category "Emergency Change")}}✓{{/if}}
+            </span>
+            <span class="checkbox">
+              <strong>☐</strong> Normal Change {{#if (eq category "Normal Change")}}✓{{/if}}
+            </span>
+            <span class="checkbox">
+              <strong>☐</strong> Standard Change {{#if (eq category "Standard Change")}}✓{{/if}}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Summary of Change:</div>
+          <div class="form-value textarea-value">{{description}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Reason for Change:</div>
+          <div class="form-value textarea-value">{{formData.data6}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Scope of Change:</div>
+          <div class="form-value textarea-value">{{formData.data7}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Priority:</div>
+          <div class="checkbox-group">
+            <span class="checkbox">
+              <strong>☐</strong> High {{#if (eq priority "High")}}✓{{/if}}
+            </span>
+            <span class="checkbox">
+              <strong>☐</strong> Medium {{#if (eq priority "Medium")}}✓{{/if}}
+            </span>
+            <span class="checkbox">
+              <strong>☐</strong> Low {{#if (eq priority "Low")}}✓{{/if}}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Proposed Implementation Date:</div>
+          <div class="form-value">{{formData.data8}}</div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Estimated Effort (hours):</div>
+          <div class="form-value">{{formData.data9}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Resources Required:</div>
+          <div class="form-value">{{formData.data10}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Impact Analysis -->
+    <div class="form-section">
+      <h2>3. Impact Analysis</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Impact on Business Operations:</div>
+          <div class="form-value textarea-value">{{formData.data11}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Impact on Users/Departments:</div>
+          <div class="form-value textarea-value">{{formData.data12}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Impact on Systems/Services:</div>
+          <div class="form-value textarea-value">{{formData.data13}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Risk Assessment:</div>
+          <div class="checkbox-group">
+            <span class="checkbox">
+              <strong>☐</strong> High {{#if (eq formData.data14 "High")}}✓{{/if}}
+            </span>
+            <span class="checkbox">
+              <strong>☐</strong> Medium {{#if (eq formData.data14 "Medium")}}✓{{/if}}
+            </span>
+            <span class="checkbox">
+              <strong>☐</strong> Low {{#if (eq formData.data14 "Low")}}✓{{/if}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Implementation Plan -->
+    <div class="form-section">
+      <h2>4. Implementation Plan</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Planned Implementation Date:</div>
+          <div class="form-value">{{formData.data15}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Implementation Steps:</div>
+          <div class="form-value textarea-value">{{formData.data16}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Backup/Contingency Plan:</div>
+          <div class="form-value textarea-value">{{formData.data17}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Rollback Plan:</div>
+          <div class="form-value textarea-value">{{formData.data18}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Testing and Validation -->
+    <div class="form-section">
+      <h2>5. Testing and Validation</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Testing Plan:</div>
+          <div class="form-value textarea-value">{{formData.data19}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Testing Environment:</div>
+          <div class="form-value">{{formData.data20}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Approval Process -->
+    <div class="form-section">
+      <h2>6. Approval Process</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Change Advisory Board (CAB) Approval:</div>
+          <div class="checkbox-group">
+            <span class="checkbox">
+              <strong>☐</strong> Approved {{#if (eq formData.data21 "Approved")}}✓{{/if}}
+            </span>
+            <span class="checkbox">
+              <strong>☐</strong> Rejected {{#if (eq formData.data21 "Rejected")}}✓{{/if}}
+            </span>
+            <span class="checkbox">
+              <strong>☐</strong> Pending {{#if (eq formData.data21 "Pending")}}✓{{/if}}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Approval Date:</div>
+          <div class="form-value">{{formData.data22}}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-label">Approvers:</div>
+          <div class="form-value">{{formData.data23}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Comments and Notes -->
+    <div class="form-section">
+      <h2>7. Comments and Notes</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-value textarea-value">{{formData.data24}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signature Section -->
+    <div class="signature-section">
+      <div class="signature-row">
+        <div class="signature-box">
+          <div class="signature-line"></div>
+          <div>Implemented By</div>
+        </div>
+        <div class="signature-box">
+          <div class="signature-line"></div>
+          <div>Verified By</div>
+        </div>
+        <div class="signature-box">
+          <div class="signature-line"></div>
+          <div>Approved By</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

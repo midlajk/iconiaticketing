@@ -20,7 +20,6 @@ exports.updateEmployee = async (req, res) => {
       role,
       status
     };
-
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 10);
       updateData.password = hashedPassword;
@@ -107,4 +106,14 @@ exports.getEmployees = async (req, res) => {
         console.error('Error fetching customers:', err);
         res.status(500).json({ error: 'Failed to fetch customers' });
       }
+}
+
+exports.selectname = async (req, res) => {
+  try {
+    const employees = await Employee.find({}, 'name _id').sort({ name: 1 });
+    res.json(employees);
+  } catch (error) {
+    console.error('Error fetching employees:', error);
+    res.status(500).json({ message: 'Error fetching employees' });
+  }
 }

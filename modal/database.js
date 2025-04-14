@@ -117,6 +117,17 @@ const ticketSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  assigned:[{
+    date:Date,
+    employee:String,
+    assignedby:String,
+    
+  }],
+  activity:[{
+    date:Date,
+    tite:String,
+    solution:String,
+  }],
   attachments: [String], // For file URLs or names if needed
   approvals: [{
     by: String, // Role or name

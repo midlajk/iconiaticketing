@@ -12,33 +12,17 @@ const moment = require('moment');
 exports.addticket = async (req, res) => {
     try{
 
-console.log(req.body)
     
     
         // Generate a unique ID for the ticket
         const ticketId = uuidv4();
         
-        // Process form data
-        const {
-          title,
-          description,
-          priority = 'Medium',
-          ticketType = 'GeneralTicket'
-
-        } = req.body;
-        
-        // Handle nested requestor data
-        const requestorName = req.body['requestor.name'];
-        const requestorEmpId = req.body['requestor.empId'];
-        const email = req.body['requestor.email'];
-
-        // Prepare files information
-        const attachments = req.files ? req.files.map(file => file.path) : [];
+ 
 
         // Create ticket object
   
         const newTicket = new Ticket({
-            ticketType: "Backup", // From hidden field
+            ticketType: req.body.ticketType, // From hidden field
             title: req.body.title,
             description: req.body.description,
             priority: req.body.priority,
@@ -112,7 +96,6 @@ console.log(req.body)
 
 // GET: Fetch tickets with DataTables support
 exports.getTickets = async (req, res) => {
-    console.log('here')
     
     try {
       // DataTables server-side processing parameters
@@ -130,11 +113,11 @@ exports.getTickets = async (req, res) => {
       
       // Build filter object
       const filters = {};
-      
       // Status filter (from tab selection)
       if (req.query.status && req.query.status !== 'All Tickets') {
         filters.status = req.query.status;
       }
+      console.log(req.query.status)
       
       // Priority filter (from dropdown)
       if (req.query.priorityFilter && req.query.priorityFilter !== '') {
@@ -201,10 +184,10 @@ exports.getTickets = async (req, res) => {
       
       // Get paginated and sorted data
       const tickets = await Ticket.find(filters)
-        // .sort(sort)
+        .sort({_id:-1})
         .skip(start)
         .limit(length);
-      console.log(tickets)
+        console.log(tickets)
       // Format response for DataTables
       res.json({
         draw: draw,
@@ -235,8 +218,12 @@ exports.getTickets = async (req, res) => {
         const openCount = await Ticket.countDocuments({ status: 'Open' });
         
         // Count tickets with no assignee (assuming this is how you track unassigned)
-        const unassignedCount = await Ticket.countDocuments({ createdby: { $exists: false } });
-        
+        const unassignedCount = await Ticket.countDocuments({
+            $or: [
+              { assigned: { $exists: false } }
+            ]
+          });
+                  
         // Count tickets completed today
         const completedTodayCount = await Ticket.countDocuments({
           status: 'Solved',
@@ -259,16 +246,31 @@ exports.getTickets = async (req, res) => {
 
 
 
-exports.updateticketscreen = async (req, res) => {
-    const ticket = await Ticket.findById(req.params.id)
-    
-   
-    // Create ticket object
-
-    res.render('viewticket', { title: 'Express' ,screen : 'Tickets',ticket:ticket });
-
-
-};
+  exports.updateticketscreen = async (req, res) => {
+    try {
+      // Find and update the ticket status
+      const ticket = await Ticket.findByIdAndUpdate(
+        req.params.id,
+        { status: 'Open' },
+        { new: true } // This returns the updated ticket
+      );
+  
+      if (!ticket) {
+        return res.status(404).send('Ticket not found');
+      }
+  
+      // Render the view
+      res.render('viewticket', {
+        title: 'Express',
+        screen: 'Tickets',
+        ticket: ticket
+      });
+    } catch (err) {
+      console.error('Error updating ticket status:', err);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+  
 
 const getBase64Image = (filePath) => {
     const image = fs.readFileSync(filePath);
@@ -335,11 +337,274 @@ exports.downloadform = async (req, res) => {
 
 exports.viewform = async (req, res) => {
 
-    const ticket = await Ticket.findById(req.params.id)
-    
-   
+    const ticket = await Ticket.findById(req.params.id)    
     // Create ticket object
 
     res.render('viewform', { title: 'Express' ,screen : 'Tickets',ticket:ticket });
   
 };
+
+
+
+exports.updateticketform = async (req, res) => {
+    try {
+        const { ticketId } = req.body;
+
+        if (!ticketId) {
+            return res.status(400).json({ success: false, message: 'Ticket ID is required' });
+        }
+
+        // Find the existing ticket
+        const ticket = await Ticket.findById(ticketId);
+
+        if (!ticket) {
+            return res.status(404).json({ success: false, message: 'Ticket not found' });
+        }
+
+        // Update basic ticket fields if they exist in the request
+        const updateFields = [
+            'ticketType', 'title', 'description', 'status', 'priority', 'category'
+        ];
+
+        updateFields.forEach(field => {
+            if (req.body[field] !== undefined) {
+                ticket[field] = req.body[field];
+            }
+        });
+
+        // Update requestor information if provided
+        if (req.body['requestor.name']) ticket.requestor.name = req.body['requestor.name'];
+        if (req.body['requestor.customerid']) ticket.requestor.customerid = req.body['requestor.customerid'];
+        if (req.body['requestor.email']) ticket.requestor.email = req.body['requestor.email'];
+
+        // Process dynamic form data (data1 through data36)
+        for (let i = 1; i <= 36; i++) {
+            const fieldName = `formData.data${i}`;
+            if (req.body[fieldName] !== undefined) {
+                // Initialize formData object if it doesn't exist
+                if (!ticket.formData) {
+                    ticket.formData = {};
+                }
+                ticket.formData[`data${i}`] = req.body[fieldName];
+            }
+        }
+
+        // Handle file attachments if any
+        if (req.files && req.files.length > 0) {
+            const attachmentPaths = req.files.map(file => file.path || file.filename);
+            if (!ticket.attachments) {
+                ticket.attachments = attachmentPaths;
+            } else {
+                ticket.attachments = [...ticket.attachments, ...attachmentPaths];
+            }
+        }
+
+        // Handle approvals if provided
+        if (req.body.approval) {
+            const approval = {
+                by: req.body['approval.by'] || req.user?.name || 'System',
+                status: req.body['approval.status'],
+                date: new Date(),
+                comments: req.body['approval.comments'] || ''
+            };
+
+            if (!ticket.approvals) {
+                ticket.approvals = [approval];
+            } else {
+                ticket.approvals.push(approval);
+            }
+        }
+
+        // Save the updated ticket
+        await ticket.save();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Ticket updated successfully',
+            ticket
+        });
+
+    } catch (error) {
+        console.error('Error updating ticket:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error updating ticket',
+            error: error.message
+        });
+    }
+};
+
+
+exports.updateticketstatus = async (req, res) => {
+    try {
+        const { ticketId, status, priority, assignedTo, comment } = req.body;
+        const user = 'System User';
+        
+        // Find the ticket
+        const ticket = await Ticket.findById(ticketId);
+        
+        if (!ticket) {
+          return res.status(404).json({ success: false, message: 'Ticket not found' });
+        }
+        
+        // Prepare update data
+        const updateData = {};
+        let activityTitle = '';
+        let activitySolution = '';
+        
+        // Check what changed and update accordingly
+        if (status !== ticket.status) {
+          updateData.status = status;
+          activityTitle += 'Status Updated';
+          activitySolution += `Status changed from ${ticket.status} to ${status}. `;
+        }
+        
+        if (priority !== ticket.priority) {
+          updateData.priority = priority;
+          activityTitle += activityTitle ? ' & Priority Updated' : 'Priority Updated';
+          activitySolution += `Priority changed from ${ticket.priority} to ${priority}. `;
+        }
+        
+        // Handle assignment
+        if (assignedTo && (!ticket.assigned || ticket.assigned.length === 0 || 
+            ticket.assigned[ticket.assigned.length - 1].employee !== assignedTo)) {
+          
+          // Add to assigned array
+          const assignmentData = {
+            date: new Date(),
+            employee: assignedTo,
+            assignedby: user
+          };
+          
+          updateData.$push = { assigned: assignmentData };
+          
+          if (!activityTitle) {
+            activityTitle = 'Ticket Assigned';
+          } else {
+            activityTitle += ' & Assigned';
+          }
+          
+          activitySolution += `Assigned to ${assignedTo} by ${user}. `;
+        }
+        
+        // Add user comment if provided
+        if (comment) {
+          activitySolution += `Comment: "${comment}"`;
+        }
+        
+        // If nothing changed, return error
+        if (Object.keys(updateData).length === 0 && !comment) {
+          return res.status(400).json({ 
+            success: false, 
+            message: 'No changes were made to the ticket' 
+          });
+        }
+        
+        // Create activity record
+        const newActivity = {
+          date: new Date(),
+          title: activityTitle || 'Ticket Updated',
+          solution: activitySolution || `Updated by ${user}`
+        };
+        
+        // Add activity to update data
+        if (!updateData.$push) {
+          updateData.$push = { activity: newActivity };
+        } else {
+          updateData.$push.activity = newActivity;
+        }
+        
+        // Update the ticket
+        const updatedTicket = await Ticket.findByIdAndUpdate(
+          ticketId,
+          updateData,
+          { new: true }
+        );
+        
+        res.json({ 
+          success: true, 
+          ticket: updatedTicket,
+          activity: newActivity
+        });
+        
+      } catch (error) {
+        console.error('Error updating ticket status:', error);
+        res.status(500).json({ 
+          success: false, 
+          message: 'Server error while updating ticket' 
+        });
+      }
+  };
+  exports.viewactivity = async (req, res) => {
+    try {
+      const { ticketId } = req.params;
+      
+      // Find the ticket and select only the activity and assigned fields
+      const ticket = await Ticket.findById(ticketId).select('activity assigned');
+      
+      if (!ticket) {
+        return res.status(404).json({ success: false, message: 'Ticket not found' });
+      }
+      
+      res.json({ 
+        success: true, 
+        activity: ticket.activity || [],
+        assigned: ticket.assigned || []
+      });
+      
+    } catch (error) {
+      console.error('Error fetching ticket activity:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Server error while fetching activity log' 
+      });
+    }
+  };
+  
+  // Route to close ticket
+  exports.closeticket = async (req, res) => {
+
+    try {
+      const { ticketId } = req.params;
+      const { comment } = req.body;
+      const user =  'System User';
+      
+      // Find the ticket
+      const ticket = await Ticket.findById(ticketId);
+      
+      if (!ticket) {
+        return res.status(404).json({ success: false, message: 'Ticket not found' });
+      }
+      
+      // Create activity record for closing
+      const newActivity = {
+        date: new Date(),
+        title: 'Ticket Closed',
+        solution: `Ticket closed by ${user}${comment ? `. Comment: "${comment}"` : ''}`
+      };
+      
+      // Update the ticket
+      const updatedTicket = await Ticket.findByIdAndUpdate(
+        ticketId,
+        {
+          status: 'Closed',
+          $push: { activity: newActivity }
+        },
+        { new: true }
+      );
+      
+      res.json({ 
+        success: true, 
+        ticket: updatedTicket,
+        activity: newActivity
+      });
+      
+    } catch (error) {
+      console.error('Error closing ticket:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Server error while closing ticket' 
+      });
+    }
+  };
+  

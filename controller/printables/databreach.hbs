@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Breach Notification</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 100%;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+        }
+        .logo {
+            max-height: 80px;
+            max-width: 200px;
+        }
+        .document-title {
+            text-align: center;
+            color: #0056b3;
+            margin: 20px 0;
+        }
+        .confidential-badge {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+        .section-title {
+            background-color: #f8f9fa;
+            padding: 8px 15px;
+            border-left: 4px solid #0056b3;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-value {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            min-height: 20px;
+        }
+        .form-value-textarea {
+            white-space: pre-wrap;
+            min-height: 60px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .col-md-4, .col-md-6 {
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        @media (min-width: 768px) {
+            .col-md-4 {
+                flex: 0 0 33.333333%;
+                max-width: 33.333333%;
+            }
+            .col-md-6 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+        .signature-area {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        .signature-line {
+            width: 300px;
+            border-bottom: 1px solid #333;
+            margin: 30px 0 5px;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        {{#if logoUrl}}
+        <img src="{{logoUrl}}" class="logo" alt="Company Logo">
+        {{else}}
+        <div style="width: 200px;"></div>
+        {{/if}}
+        <div class="confidential-badge">CONFIDENTIAL</div>
+    </div>
+
+    <h1 class="document-title">Data Breach Notification Form</h1>
+
+    <!-- Overview Section -->
+    <div class="section">
+        <h2 class="section-title">Overview of the personal data breach</h2>
+        
+        <div class="form-group">
+            <label class="form-label">Requestor email</label>
+            <div class="form-value">{{requestor.email}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Nature of the breach</label>
+            <div class="form-value">{{formData.data1}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label">Date of when the incident occurred</label>
+                    <div class="form-value">{{formData.data2}}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label">Date of when the incident was acknowledged</label>
+                    <div class="form-value">{{formData.data3}}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label">Date of when the incident was reported to DoH</label>
+                    <div class="form-value">{{formData.data4}}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Summary of the incident</label>
+            <div class="form-value form-value-textarea">{{formData.data5}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">How did the incident happen?</label>
+            <div class="form-value form-value-textarea">{{formData.data6}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Reason for the delay in reporting the incident to DoH, if applicable</label>
+            <div class="form-value form-value-textarea">{{formData.data7}}</div>
+        </div>
+    </div>
+
+    <!-- Impacted PII and PHI -->
+    <div class="section">
+        <h2 class="section-title">Impacted PII and PHI</h2>
+        
+        <div class="form-group">
+            <label class="form-label">Details of the impacted PII and PHI</label>
+            <div class="form-value form-value-textarea">{{formData.data8}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Number of impacted records</label>
+                    <div class="form-value">{{formData.data9}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Number of impacted individuals</label>
+                    <div class="form-value">{{formData.data10}}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Have the impacted individuals been notified about this incident?</label>
+            <div class="form-value">{{formData.data11}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Potential detriment this incident will cause to individuals</label>
+            <div class="form-value form-value-textarea">{{formData.data12}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Have any of the impacted individuals complained to the entity?</label>
+            <div class="form-value">{{formData.data13}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Has the entity taken any action by mitigating/minimizing the effect on the impacted individuals?</label>
+            <div class="form-value form-value-textarea">{{formData.data14}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">What are the steps taken by the entity to prevent the incident from occurring again?</label>
+            <div class="form-value form-value-textarea">{{formData.data15}}</div>
+        </div>
+    </div>
+
+    <!-- Data Processors (Third-Party) -->
+    <div class="section">
+        <h2 class="section-title">Data Processors (Third-Party)</h2>
+        
+        <div class="form-group">
+            <label class="form-label">Was this incident a result of a data breach by a data processor?</label>
+            <div class="form-value">{{formData.data16}}</div>
+        </div>
+        
+        {{#if (eq formData.data16 "Yes")}}
+        <div class="form-group">
+            <label class="form-label">What action(s) did the data processor take to mitigate the effect on the impacted individuals?</label>
+            <div class="form-value form-value-textarea">{{formData.data17}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Were there any contractual obligation(s) with the data processor regarding the use of PII and PHI?</label>
+            <div class="form-value">{{formData.data18}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Did the contractual obligation(s) include technical and organizational security measures?</label>
+            <div class="form-value">{{formData.data19}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Do you consider the incident has breached any contractual obligations?</label>
+            <div class="form-value">{{formData.data20}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">What action have you taken in regard to the processor?</label>
+            <div class="form-value form-value-textarea">{{formData.data21}}</div>
+        </div>
+        {{/if}}
+    </div>
+
+    <!-- Training & Guidance -->
+    <div class="section">
+        <h2 class="section-title">Training & Guidance</h2>
+        
+        <div class="form-group">
+            <label class="form-label">As a data controller, were the employees at the entity trained on data protection and the appropriate regulations?</label>
+            <div class="form-value">{{formData.data22}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Is the training mandatory for all employees?</label>
+            <div class="form-value">{{formData.data23}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Did the employees, who are involved in this incident, complete the training?</label>
+            <div class="form-value">{{formData.data24}}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">As the data controller, have you provided a guideline or guidance to employees on how to handle PII and PHI that is related to this incident?</label>
+            <div class="form-value">{{formData.data25}}</div>
+        </div>
+    </div>
+
+    <!-- Reporting -->
+    <div class="section">
+        <h2 class="section-title">Reporting</h2>
+        
+        <div class="form-group">
+            <label class="form-label">Have you reported a PII and PHI breach to DoH in the past two years?</label>
+            <div class="form-value">{{formData.data26}}</div>
+        </div>
+    </div>
+
+    <!-- Signatures -->
+    <div class="section">
+        <div class="signature-area">
+            <div class="form-group">
+                <label class="form-label">Data Protection Representative Name</label>
+                <div class="signature-line"></div>
+                <div class="form-text">(Print Name)</div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Signature</label>
+                <div class="signature-line"></div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Date</label>
+                <div class="signature-line" style="width: 150px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>This document is confidential and intended solely for the use of the individual or entity to whom it is addressed.</p>
+        <p>Generated on: {{currentDate}}</p>
+    </div>
+</body>
+</html>
