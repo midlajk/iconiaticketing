@@ -29,7 +29,6 @@ exports.addCustomer = async (req, res) => {
       'contactDetails.pocEmail': pocEmail,
       services
     } = req.body;
-    console.log(req.body)
 
     const logo = req.file ? req.file.filename : null;
 
@@ -93,7 +92,6 @@ exports.getCustomer = async (req, res) => {
           .skip(start)
           .limit(length)
 
-          console.log(data)
     
         res.json({
           draw,

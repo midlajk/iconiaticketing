@@ -4,11 +4,14 @@ const router = express.Router();
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-
+var path = require('path');
+var fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 require('../modal/database')
 const mongoose = require('mongoose');
 const Ticket = mongoose.model('Ticket')
 const Customer = mongoose.model('Customer')
+const upload = require('../middlewares/multipleupload');
 
 // In-memory store for OTPs (in production, use a database)
 const otpStore = new Map();
@@ -26,100 +29,105 @@ const transporter = nodemailer.createTransport({
 
 // Send OTP endpoint
 router.post('/send-otp', async (req, res) => {
-    console.log(process.env.MTP_HOST)
-  try {
-    const { email } = req.body;
-    
-    if (!email) {
-      return res.status(400).json({ success: false, message: 'Email is required' });
-    }
-    
-    // Generate a 6-digit OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const requestId = crypto.randomBytes(16).toString('hex');
-    const expiresAt = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
-    
-    // Store OTP
-    otpStore.set(requestId, { email, otp, expiresAt, attempts: 0 });
-    
-    // Send email
-    const mailOptions = {
-      from: process.env.EMAIL_FROM || 'information@iconia.ae',
-      to: email,
-      subject: 'Your Verification Code',
-      text: `Your verification code is: ${otp}\nThis code will expire in 10 minutes.`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #2c7a7b;">Email Verification</h2>
-          <p>Please use the following verification code to complete your ticket submission:</p>
-          <div style="background: #f8f9fa; padding: 20px; text-align: center; margin: 20px 0; font-size: 24px; letter-spacing: 5px;">
-            ${otp}
+    try {
+      const { email } = req.body;
+      
+   
+      const customer = await Customer.findOne({ email: email });
+      if (!customer) {
+        return res.status(404).json({ 
+          success: false, 
+          message: 'No account found with this email. Please contact support.' 
+        });
+      }
+  
+      // Generate a 6-digit OTP
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  
+      // Save OTP to customer record
+      customer.authentication = {
+        otp,
+        created: new Date().toISOString()
+      };
+      await customer.save();
+  
+      // Send email
+      const mailOptions = {
+        from: process.env.EMAIL_FROM || 'information@iconia.ae',
+        to: email,
+        subject: 'Your Verification Code',
+        text: `Your verification code is: ${otp}\nThis code will expire in 10 minutes.`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2c7a7b;">Email Verification</h2>
+            <p>Please use the following verification code to complete your ticket submission:</p>
+            <div style="background: #f8f9fa; padding: 20px; text-align: center; margin: 20px 0; font-size: 24px; letter-spacing: 5px;">
+              ${otp}
+            </div>
+            <p>This code will expire in 10 minutes.</p>
+            <p style="color: #6c757d; font-size: 12px;">If you didn't request this code, you can safely ignore this email.</p>
           </div>
-          <p>This code will expire in 10 minutes.</p>
-          <p style="color: #6c757d; font-size: 12px;">If you didn't request this code, you can safely ignore this email.</p>
-        </div>
-      `
-    };
-    
-    await transporter.sendMail(mailOptions);
-    
-    res.json({ success: true, requestId });
-  } catch (error) {
-    console.error('Error sending OTP:', error);
-    res.status(500).json({ success: false, message: 'Failed to send OTP' });
-  }
-});
-
-// Verify OTP endpoint
-router.post('/verify-otp', (req, res) => {
-  try {
-    const { requestId, otp } = req.body;
-    console.log(req.body)
-    
-    if (!otp) {
-      return res.status(400).json({ success: false, message: 'Request ID and OTP are required' });
+        `
+      };
+      
+      await transporter.sendMail(mailOptions);
+      
+      res.json({ 
+        success: true, 
+        message: 'OTP sent successfully' 
+      });
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      res.json({ 
+        success: false, 
+        message: 'An error occurred while sending OTP. Please try again later.' 
+      });
     }
-    
-    const otpData = otpStore.get(requestId);
-    
-    // if (!otpData) {
-    //   return res.status(400).json({ success: false, message: 'Invalid or expired OTP request' });
-    // }
-    
-    // // Check if OTP has expired
-    // if (Date.now() > otpData.expiresAt) {
-    //   otpStore.delete(requestId);
-    //   return res.status(400).json({ success: false, message: 'OTP has expired' });
-    // }
-    
-    // // Check attempts
-    // if (otpData.attempts >= 3) {
-    //   otpStore.delete(requestId);
-    //   return res.status(400).json({ success: false, message: 'Too many attempts. Please request a new OTP.' });
-    // }
-    
-    // // Verify OTP
-    // if (otpData.otp !== otp) {
-    //   otpData.attempts++;
-    //   otpStore.set(requestId, otpData);
-    //   return res.status(400).json({ success: false, message: 'Invalid OTP' });
-    // }
-    
-    // // OTP is valid - remove from store and return success
-    otpStore.delete(requestId);
-    res.json({ verified: true });
-  } catch (error) {
-    console.error('Error verifying OTP:', error);
-    res.status(500).json({ success: false, message: 'Failed to verify OTP' });
-  }
-});
+  });
+// Verify OTP endpoint
+router.post('/verify-otp', async (req, res) => {
+    try {
+      const { email, otp } = req.body;
+  
+      if (!email || !otp) {
+        return res.status(400).json({ success: false, message: 'Email and OTP are required' });
+      }
+  
+      const customer = await Customer.findOne({ email });
+  
+      if (!customer || !customer.authentication || !customer.authentication.otp) {
+        return res.status(404).json({ success: false, message: 'No OTP found for this customer' });
+      }
+  
+      const storedOtp = customer.authentication.otp;
+      const createdTime = new Date(customer.authentication.created);
+      const currentTime = new Date();
+      const diffInMinutes = (currentTime - createdTime) / (1000 * 60);
+  
+      if (otp !== storedOtp) {
+        return res.status(401).json({ success: false, message: 'Invalid OTP' });
+      }
+  
+      if (diffInMinutes > 5) {
+        return res.status(410).json({ success: false, message: 'OTP has expired' });
+      }
+  
+      // Optional: clear the OTP after successful verification
+      customer.authentication.otp = null;
+      customer.authentication.created = null;
+      await customer.save();
+  
+      res.json({ success: true, message: 'OTP verified successfully',verified: true  });
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      res.status(500).json({ success: false, message: 'Failed to verify OTP' });
+    }
+  });
+  
 
 // Your existing ticket submission route
-router.post('/newuserticket',async (req, res) => {
+router.post('/newcostumerticket',upload,async (req, res) => {
     try{
-
-    
-    
         // Generate a unique ID for the ticket
         const ticketId = uuidv4();
         

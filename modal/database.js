@@ -31,6 +31,10 @@ const customerSchema = new mongoose.Schema({
   itService: {
     services: [{ type: String }] // allow multiple services like 'AMC', 'Troubleshooting'
   },
+  authentication:{
+    otp:String,
+    created:String
+  },
 
   createdAt: { type: Date, default: Date.now },
   logo: { type: String }, // Stores filename like '17232091212-logo.png'
