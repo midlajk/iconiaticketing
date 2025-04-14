@@ -134,7 +134,12 @@
         <p class="mb-0">We'll get back to you as soon as possible</p>
       </div> -->
       <div class="container-fluid p-4">
-
+        <div id="alertContainer" class="mb-4" style="display: none;">
+          <div class="alert alert-dismissible fade show" role="alert">
+            <span id="alertMessage"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
         <!-- Ticket Type Selection Card -->
         <div class="card mb-4">
           <div class="card-header">
@@ -214,7 +219,27 @@
       </div>
     <!-- </div> -->
   </div>
-
+<!-- OTP Modal -->
+<div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form id="otpForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="otpModalLabel">Enter OTP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>An OTP has been sent to your email. Please enter it below to verify your identity.</p>
+          <input type="text" class="form-control" id="otpInput" placeholder="Enter OTP" required>
+          <div class="invalid-feedback">Please enter the OTP sent to your email.</div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Verify OTP</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
@@ -277,13 +302,126 @@
         }
       </style>
   <script>
-    document.getElementById('ticketForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // In a real application, you would send the form data to your backend here
-      alert('Thank you! Your ticket has been submitted successfully. We will contact you soon.');
-      this.reset();
+document.addEventListener('DOMContentLoaded', function() {
+  const ticketForm = document.getElementById('ticketForm');
+  const submitButton = document.getElementById('submitButton');
+  const otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
+  const otpForm = document.getElementById('otpForm');
+  let formDataCache = null; // To store form data between steps
+
+  ticketForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    if (!ticketForm.checkValidity()) {
+      event.stopPropagation();
+      ticketForm.classList.add('was-validated');
+      showAlert('Please fill in all required fields.', 'danger');
+      return;
+    }
+
+    // Get email from form (update selector as per your form)
+    const emailInput = ticketForm.querySelector('input[type="email"]');
+    if (!emailInput || !emailInput.value) {
+      showAlert('Please enter a valid email address.', 'danger');
+      return;
+    }
+
+    // Cache form data for later submission
+    formDataCache = new FormData(ticketForm);
+
+    // Send OTP request to server
+    submitButton.disabled = true;
+    fetch('/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: emailInput.value })
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Failed to send OTP');
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        otpModal.show();
+      } else {
+        showAlert('Failed to send OTP. Please try again.', 'danger');
+        submitButton.disabled = false;
+      }
+    })
+    .catch(() => {
+      showAlert('Error sending OTP. Please try again.', 'danger');
+      submitButton.disabled = false;
     });
-  </script>
+  });
+
+  otpForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const otpValue = document.getElementById('otpInput').value.trim();
+    if (!otpValue) {
+      document.getElementById('otpInput').classList.add('is-invalid');
+      return;
+    }
+    document.getElementById('otpInput').classList.remove('is-invalid');
+
+    // Verify OTP with server
+    fetch('/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ otp: otpValue })
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('OTP verification failed');
+      return response.json();
+    })
+    .then(data => {
+      if (data.verified) {
+        otpModal.hide();
+        // Now submit the ticket form as before
+        fetch('/newcostumerticket', {
+          method: 'POST',
+          body: formDataCache,
+        })
+        .then(response => {
+          if (!response.ok) throw new Error('Ticket creation failed');
+          return response.json();
+        })
+        .then(data => {
+          showAlert('Ticket created successfully! Redirect ing to tickets page...', 'success');
+          ticketForm.reset();
+          ticketForm.classList.remove('was-validated');
+          setTimeout(() => {
+            window.location.href = `/tickets`;
+          }, 2000);
+        })
+        .catch(() => {
+          showAlert('Error creating ticket. Please try again later.', 'danger');
+        })
+        .finally(() => {
+          submitButton.disabled = false;
+        });
+      } else {
+        showAlert('Invalid OTP. Please try again.', 'danger');
+        document.getElementById('otpInput').classList.add('is-invalid');
+      }
+    })
+    .catch(() => {
+      showAlert('Error verifying OTP. Please try again.', 'danger');
+    });
+  });
+  const alertMessage = document.getElementById('alertMessage');
+
+  function showAlert(message, type) {
+        alertMessage.innerText = message;
+        alertContainer.querySelector('.alert').className = `alert alert-${type} alert-dismissible fade show`;
+        alertContainer.style.display = 'block';
+        submitButton.disabled = false;
+
+        // Auto hide after 5 seconds
+        // setTimeout(() => {
+        //   const bsAlert = new bootstrap.Alert(alertContainer.querySelector('.alert'));
+        //   bsAlert.close();
+        // }, 5000);
+      }
+}); </script>
 </body>
 </html>

@@ -30,7 +30,7 @@ router.get('/newcustomers',requireAuth, function(req, res, next) {
 });
 
 
-router.get('/employees',requireAuth, function(req, res, next) {
+router.get('/employees', function(req, res, next) {
   res.render('users', { title: 'Express' ,screen : 'Employees' });
 });
 

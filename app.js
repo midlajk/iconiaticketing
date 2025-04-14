@@ -1,4 +1,5 @@
 require('./modal/db');
+require('dotenv').config();
 
 var createError = require('http-errors');
 var express = require('express');
@@ -8,6 +9,8 @@ var logger = require('morgan');
 const { sessions } = require('./modal/db'); // Explicitly import sessions
 const flash = require('connect-flash');
 var indexRouter = require('./routes/index');
+var customerpages = require('./routes/customerrequest');
+
 // var usersRouter = require('./routes/users');
 const customerRoutes = require('./routes/customer');
 const employeeRoutes = require('./routes/employees');
@@ -37,6 +40,7 @@ app.use('/', indexRouter);
 app.use('/', usersRouter);
 app.use('/employee', employeeRoutes);
 app.use('/tickets', ticketRoutes);
+app.use('/', customerpages);
 
 app.use('/customers', customerRoutes);
 app.use((req, res, next) => {
