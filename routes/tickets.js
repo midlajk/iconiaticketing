@@ -16,4 +16,6 @@ router.post('/updateticketstatus',requireAuth, customerController.updateticketst
 
 router.get('/:ticketId/activity',requireAuth,customerController.viewactivity);
 router.post('/:ticketId/close',requireAuth,customerController.closeticket);
+
+
 module.exports = router;

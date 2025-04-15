@@ -27,9 +27,9 @@ router.post('/login', async function(req, res, next) {
     }
 
     // Check if account is active
-    if (employee.status != 'Active') {
-      return res.status(403).json({ message: 'Account is not active' });
-    }
+    // if (employee.status != 'Active') {
+    //   return res.status(403).json({ message: 'Account is not active' });
+    // }
 
     // Store user data in session
     req.session.user = {

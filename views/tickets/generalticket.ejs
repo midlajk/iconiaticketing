@@ -8,6 +8,21 @@
         <input type="hidden" name="ticketType" value="GeneralTicket">
         <input type="hidden" name="status" value="New">
         <!-- Title -->
+
+        
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Registered Email</label>
+                <select  class="form-control emailInput" id="email"  name="requestor.email"  required></select>
+                <div class="invalid-feedback">Please enter your email.</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="name" class="form-label">Name of Requestor</label>
+                <select type="text" class="form-control" id="name" name="requestor.name" required>></select>
+                <div class="invalid-feedback">Please enter your name.</div>
+              </div>
+            </div>
+          
         <div class="mb-4">
           <label for="title" class="form-label">Title</label>
           <input type="text" class="form-control form-control-lg" id="title" name="title" placeholder="Briefly describe your issue" required>
@@ -46,25 +61,7 @@
         </div>
         
         <!-- Requestor Information -->
-        <div class="card mb-4">
-          <div class="card-header">
-            <h6 class="mb-0">Requestor Information</h6>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="requestorName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="requestorName" name="requestor.name" required>
-                <div class="invalid-feedback">Please enter your name.</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="requestorEmpId" class="form-label">Email</label>
-                <input type="email" class="form-control" id="requestorEmpId" name="requestor.email" required>
-                <div class="invalid-feedback">Please enter your Email</div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
         
         <!-- Attachments -->
         <div class="mb-4">

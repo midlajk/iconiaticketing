@@ -214,4 +214,49 @@ exports.updatecustomer = async (req, res) => {
       res.redirect(`/customers/edit/${req.params.id}`);
     }
   };
-  
+
+
+exports.getemails = async (req, res) => {
+  console.log(req.query)
+  try {
+    let query = {};
+    
+    // If name is provided, filter by name
+    if (req.query.name && req.query.name.trim() !== '') {
+      query.name = req.query.name;
+    }
+    
+    // If search term is provided, add to query
+    if (req.query.search && req.query.search.trim() !== '') {
+      query.email = { $regex: req.query.search, $options: 'i' };
+    }
+    
+    const customers = await Customer.find(query, 'name email').sort({ email: 1 });
+    res.json(customers);
+  } catch (error) {
+    console.error('Error fetching customers:', error);
+    res.status(500).json({ message: 'Error fetching customers' });
+  }
+};
+
+exports.getnames = async (req, res) => {
+  try {
+    let query = {};
+    
+    // If email is provided, filter by email
+    if (req.query.email && req.query.email.trim() !== '') {
+      query.email = req.query.email;
+    }
+    
+    // If search term is provided, add to query
+    if (req.query.search && req.query.search.trim() !== '') {
+      query.name = { $regex: req.query.search, $options: 'i' };
+    }
+    
+    const customers = await Customer.find(query, 'name email').sort({ name: 1 });
+    res.json(customers);
+  } catch (error) {
+    console.error('Error fetching customers:', error);
+    res.status(500).json({ message: 'Error fetching customers' });
+  }
+};

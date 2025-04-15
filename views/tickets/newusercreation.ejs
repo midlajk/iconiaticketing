@@ -9,14 +9,16 @@
         <input type="hidden" name="ticketType" value="NewUserCreation">
         <input type="hidden" name="status" value="New">
         <!-- Requestor Information -->
-        <div class="row mb-4">
-          <div class="col-md-6">
-            <label for="requestorName" class="form-label">Requestor Name</label>
-            <input type="text" class="form-control" id="requestorName" name="requestor.name" placeholder="Your name" required>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Registered Email</label>
+            <select  class="form-control emailInput" id="email"  name="requestor.email"  required></select>
+            <div class="invalid-feedback">Please enter your email.</div>
           </div>
-          <div class="col-md-6">
-            <label for="requestorEmail" class="form-label">Requestor Email</label>
-            <input type="email" class="form-control" id="requestorEmail" name="requestor.email" placeholder="Your email" required>
+          <div class="col-md-6 mb-3">
+            <label for="name" class="form-label">Name of Requestor</label>
+            <select type="text" class="form-control" id="name" name="requestor.name" required>></select>
+            <div class="invalid-feedback">Please enter your name.</div>
           </div>
         </div>
         

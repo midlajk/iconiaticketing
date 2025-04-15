@@ -17,16 +17,17 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="requestor.email" required>
-                <div class="invalid-feedback">Please enter requester email.</div>
+                <label for="email" class="form-label">Registered Email</label>
+                <select  class="form-control emailInput" id="email"  name="requestor.email"  required></select>
+                <div class="invalid-feedback">Please enter your email.</div>
               </div>
               <div class="col-md-6 mb-3">
-                <label for="requestedBy" class="form-label">Requested By</label>
-                <input type="text" class="form-control" id="requestedBy" name="requestor.name" required>
-                <div class="invalid-feedback">Please enter requester name.</div>
+                <label for="name" class="form-label">Name of Requestor</label>
+                <select type="text" class="form-control" id="name" name="requestor.name" required>></select>
+                <div class="invalid-feedback">Please enter your name.</div>
               </div>
             </div>
+          
             
             <div class="row">
               <div class="col-md-6 mb-3">

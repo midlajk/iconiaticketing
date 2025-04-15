@@ -10,6 +10,8 @@ router.get('/customers',requireAuth,requireRole('Admin'),  customerController.ge
 router.get('/details/:id',requireAuth,requireRole('Admin'),  customerController.customerDetails);
 router.get('/edit/:id',requireAuth,requireRole('Admin'), customerController.editcustomer)
 router.post('/update/:id',requireAuth,requireRole('Admin'),  upload.single('logo') ,customerController.updatecustomer)
+router.get('/getemails',requireAuth, customerController.getemails);
+router.get('/getnames',requireAuth, customerController.getnames);
 
 
 module.exports = router;

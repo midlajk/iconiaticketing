@@ -15,10 +15,19 @@
           </div>
           <div class="card-body">
             <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="email" name="requestor.email" placeholder="Email" required>
-                </div>
+              <div class="col-md-6 mb-3">
+                <label for="requestorName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="requestor.name" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="requestorEmpId" class="form-label">Email</label>
+                <input type="email" class="form-control emailInput" id="email" name="requestor.email" required>
+                <div class="invalid-feedback">Please enter your Email</div>
+              </div>
+            </div>
+            <div class="row">
+               
               <div class="col-md-6 mb-3">
                 <label for="requesterEmpId" class="form-label">Change requester employee no.</label>
                 <input type="text" class="form-control" id="requesterEmpId" name="formData.data1" placeholder="EMP ID of employee requesting the change" required>
@@ -29,10 +38,10 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 mb-3">
+              <!-- <div class="col-md-6 mb-3">
                 <label for="requesterName" class="form-label">Change requester employee name</label>
-                <input type="text" class="form-control" id="requesterName" name="requestor.name" placeholder="Name of the employee" required>
-              </div>
+                <input type="text" class="form-control" id="name" name="requestor.name" placeholder="Name of the employee" required>
+              </div> -->
               <div class="col-md-6 mb-3">
                 <label for="requestDate" class="form-label">Date</label>
                 <input type="date" class="form-control" id="requestDate" name="formData.data3" required>
