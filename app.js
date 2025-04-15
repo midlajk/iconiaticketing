@@ -16,7 +16,6 @@ const customerRoutes = require('./routes/customer');
 const employeeRoutes = require('./routes/employees');
 const ticketRoutes = require('./routes/tickets');
 const { router: usersRouter, isAuthenticated, hasRole } = require('./routes/users');
-const MongoStore = require("connect-mongo");
 
 var app = express();
 
@@ -33,6 +32,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Session configuration
 app.use(sessions);
+app.use((req, res, next) => {
+  
+  if (req.session && req.session.user) {
+    res.locals.user = req.session.user;
+    //added resptype to true 
+  }  else {
+    res.locals.user = null; // Ensures `user` is always defined
+  }
+  next();
+});
 
 app.use(flash());
 

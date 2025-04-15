@@ -145,8 +145,8 @@
 </head>
 <body>
     <div class="header">
-        {{#if logoUrl}}
-        <img src="{{logoUrl}}" class="logo" alt="Company Logo">
+        {{#if data.logo}}
+        <img src="{{data.logo}}" class="logo" alt="Company Logo">
         {{else}}
         <div style="width: 200px;"></div>
         {{/if}}
@@ -167,13 +167,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Incident No.</label>
-                    <div class="form-value">{{formData.data1}}</div>
+                    <div class="form-value">{{data.formData.data1}}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Severity</label>
-                    <div class="form-value severity-{{lowercase priority}}">{{priority}}</div>
+                    <div class="form-value severity-{{data.lowercase priority}}">{{data.priority}}</div>
                 </div>
             </div>
         </div>
@@ -182,14 +182,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Category</label>
-                    <div class="form-value">{{category}}</div>
+                    <div class="form-value">{{data.category}}</div>
                 </div>
             </div>
-            {{#if (eq category "Other")}}
+            {{#if data.(eq category "Other")}}
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Category (Other)</label>
-                    <div class="form-value">{{formData.data2}}</div>
+                    <div class="form-value">{{data.formData.data2}}</div>
                 </div>
             </div>
             {{/if}}
@@ -199,32 +199,32 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Repetitive Incident</label>
-                    <div class="form-value">{{formData.data3}}</div>
+                    <div class="form-value">{{data.formData.data3}}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Status of Incident</label>
-                    <div class="form-value">{{status}}</div>
+                    <div class="form-value">{{data.status}}</div>
                 </div>
             </div>
         </div>
 
-        {{#if (eq formData.data3 "Yes")}}
+        {{#if data.(eq formData.data3 "Yes")}}
         <div class="form-group">
             <label class="form-label">Repetitive Incident Comments</label>
-            <div class="form-value form-value-textarea">{{formData.data4}}</div>
+            <div class="form-value form-value-textarea">{{data.formData.data4}}</div>
         </div>
         {{/if}}
 
         <div class="form-group">
             <label class="form-label">Reported by</label>
-            <div class="form-value">{{formData.data5}}</div>
+            <div class="form-value">{{data.formData.data5}}</div>
         </div>
 
         <div class="form-group">
             <label class="form-label">Description</label>
-            <div class="form-value form-value-textarea">{{description}}</div>
+            <div class="form-value form-value-textarea">{{data.description}}</div>
         </div>
     </div>
 
@@ -238,13 +238,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Detected Date & Time</label>
-                        <div class="form-value">{{formData.data6}}</div>
+                        <div class="form-value">{{data.formData.data6}}</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Reported to DoH Date</label>
-                        <div class="form-value">{{formData.data7}}</div>
+                        <div class="form-value">{{data.formData.data7}}</div>
                     </div>
                 </div>
             </div>
@@ -253,60 +253,60 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Closed Date & Time</label>
-                        <div class="form-value">{{formData.data8}}</div>
+                        <div class="form-value">{{data.formData.data8}}</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Detected Source</label>
-                        <div class="form-value">{{formData.data9}}</div>
+                        <div class="form-value">{{data.formData.data9}}</div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Affected Systems/Services</label>
-                <div class="form-value form-value-textarea">{{formData.data10}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data10}}</div>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Monetary Damage</label>
-                        <div class="form-value">${{formData.data11}}</div>
+                        <div class="form-value">${{data.formData.data11}}</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Outage Information</label>
-                        <div class="form-value">{{formData.data12}}</div>
+                        <div class="form-value">{{data.formData.data12}}</div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Business Impact Caused</label>
-                <div class="form-value form-value-textarea">{{formData.data13}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data13}}</div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Suspected Method</label>
-                <div class="form-value form-value-textarea">{{formData.data14}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data14}}</div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Summary/Description</label>
-                <div class="form-value form-value-textarea">{{formData.data15}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data15}}</div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Policies and Procedures</label>
-                <div class="form-value form-value-textarea">{{formData.data16}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data16}}</div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Reason for Delay</label>
-                <div class="form-value form-value-textarea">{{formData.data17}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data17}}</div>
             </div>
         </div>
     </div>
@@ -321,13 +321,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Source User/Name</label>
-                        <div class="form-value">{{formData.data18}}</div>
+                        <div class="form-value">{{data.formData.data18}}</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">User ID/Email ID</label>
-                        <div class="form-value">{{formData.data19}}</div>
+                        <div class="form-value">{{data.formData.data19}}</div>
                     </div>
                 </div>
             </div>
@@ -336,25 +336,25 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Source IP</label>
-                        <div class="form-value">{{formData.data20}}</div>
+                        <div class="form-value">{{data.formData.data20}}</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label">Destination IP</label>
-                        <div class="form-value">{{formData.data21}}</div>
+                        <div class="form-value">{{data.formData.data21}}</div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Destination Domain</label>
-                <div class="form-value">{{formData.data22}}</div>
+                <div class="form-value">{{data.formData.data22}}</div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Others</label>
-                <div class="form-value form-value-textarea">{{formData.data23}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data23}}</div>
             </div>
         </div>
     </div>
@@ -366,7 +366,7 @@
         </div>
         <div class="card-body">
             <div class="form-group">
-                <div class="form-value form-value-textarea">{{formData.data24}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data24}}</div>
             </div>
         </div>
     </div>
@@ -379,12 +379,12 @@
         <div class="card-body">
             <div class="form-group">
                 <label class="form-label">Containment Measures</label>
-                <div class="form-value form-value-textarea">{{formData.data25}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data25}}</div>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Recovery Measures</label>
-                <div class="form-value form-value-textarea">{{formData.data26}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data26}}</div>
             </div>
         </div>
     </div>
@@ -397,12 +397,12 @@
         <div class="card-body">
             <div class="form-group">
                 <label class="form-label">Preventive Actions</label>
-                <div class="form-value form-value-textarea">{{formData.data27}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data27}}</div>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Lesson Learned</label>
-                <div class="form-value form-value-textarea">{{formData.data28}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data28}}</div>
             </div>
         </div>
     </div>
@@ -415,22 +415,22 @@
         <div class="card-body">
             <div class="form-group">
                 <label class="form-label">Suspected Email</label>
-                <div class="form-value form-value-textarea">{{formData.data29}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data29}}</div>
             </div>
             
             <div class="form-group">
                 <label class="form-label">SIEM Alert</label>
-                <div class="form-value form-value-textarea">{{formData.data30}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data30}}</div>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Firewall Logs</label>
-                <div class="form-value form-value-textarea">{{formData.data31}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data31}}</div>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Others</label>
-                <div class="form-value form-value-textarea">{{formData.data32}}</div>
+                <div class="form-value form-value-textarea">{{data.formData.data32}}</div>
             </div>
         </div>
     </div>
@@ -439,7 +439,7 @@
         <p>* Refers for information to be provided to DoH as part of initial Incident notification</p>
         <p>** Refers for the information to be provided to DoH at an appropriate frequency as the investigation unfolds</p>
         <p>*** Refers for the information to be provided to DoH post incident resolution</p>
-        <p>Generated on: {{currentDate}}</p>
+        <p>Generated on: {{data.currentDate}}</p>
     </div>
 </body>
 </html>

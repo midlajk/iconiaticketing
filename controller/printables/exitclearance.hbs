@@ -130,8 +130,8 @@
 </head>
 <body>
     <div class="header">
-        {{#if logoUrl}}
-        <img src="{{logoUrl}}" class="logo" alt="Company Logo">
+        {{#if data.logo}}
+        <img src="{{data.logo}}" class="logo" alt="Company Logo">
         {{else}}
         <div style="width: 200px;"></div>
         {{/if}}
@@ -146,43 +146,43 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Employee Name</label>
-                    <div class="form-value">{{formData.data1}}</div>
+                    <div class="form-value">{{data.formData.data1}}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Employee ID</label>
-                    <div class="form-value">{{formData.data2}}</div>
+                    <div class="form-value">{{data.formData.data2}}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Email ID</label>
-                    <div class="form-value">{{requestor.email}}</div>
+                    <div class="form-value">{{data.requestor.email}}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Phone Ext.</label>
-                    <div class="form-value">{{formData.data3}}</div>
+                    <div class="form-value">{{data.formData.data3}}</div>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
                     <label class="form-label">Section/Department</label>
-                    <div class="form-value">{{formData.data4}}</div>
+                    <div class="form-value">{{data.formData.data4}}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Location</label>
-                    <div class="form-value">{{formData.data5}}</div>
+                    <div class="form-value">{{data.formData.data5}}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Last Working Day</label>
-                    <div class="form-value">{{formData.data6}}</div>
+                    <div class="form-value">{{data.formData.data6}}</div>
                 </div>
             </div>
         </div>
@@ -200,26 +200,26 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label class="form-label">Door Access</label>
-                    <div class="form-value">{{formData.data7}}</div>
+                    <div class="form-value">{{data.formData.data7}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Desk Keys</label>
-                    <div class="form-value">{{formData.data8}}</div>
+                    <div class="form-value">{{data.formData.data8}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Cancellation of benefits – medical/life</label>
-                    <div class="form-value">{{formData.data9}}</div>
+                    <div class="form-value">{{data.formData.data9}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Other</label>
-                    <div class="form-value">{{formData.data10}}</div>
+                    <div class="form-value">{{data.formData.data10}}</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="signature-area">
                     <div class="form-group">
                         <label class="form-label">Admin</label>
-                        <div class="form-value">{{formData.data11}}</div>
+                        <div class="form-value">{{data.formData.data11}}</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Signature</label>
@@ -227,7 +227,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data12}}</div>
+                        <div class="form-value">{{data.formData.data12}}</div>
                     </div>
                 </div>
             </div>
@@ -242,18 +242,18 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label class="form-label">Handover Report Submitted</label>
-                    <div class="form-value">{{formData.data13}}</div>
+                    <div class="form-value">{{data.formData.data13}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Other</label>
-                    <div class="form-value">{{formData.data14}}</div>
+                    <div class="form-value">{{data.formData.data14}}</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="signature-area">
                     <div class="form-group">
                         <label class="form-label">Manager</label>
-                        <div class="form-value">{{formData.data15}}</div>
+                        <div class="form-value">{{data.formData.data15}}</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Signature</label>
@@ -261,7 +261,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data16}}</div>
+                        <div class="form-value">{{data.formData.data16}}</div>
                     </div>
                 </div>
             </div>
@@ -276,22 +276,22 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label class="form-label">Application(s) Access</label>
-                    <div class="form-value">{{formData.data17}}</div>
+                    <div class="form-value">{{data.formData.data17}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">EMR Access</label>
-                    <div class="form-value">{{formData.data18}}</div>
+                    <div class="form-value">{{data.formData.data18}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Other</label>
-                    <div class="form-value">{{formData.data19}}</div>
+                    <div class="form-value">{{data.formData.data19}}</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="signature-area">
                     <div class="form-group">
                         <label class="form-label">Apps. Admin</label>
-                        <div class="form-value">{{formData.data20}}</div>
+                        <div class="form-value">{{data.formData.data20}}</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Signature</label>
@@ -299,7 +299,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data21}}</div>
+                        <div class="form-value">{{data.formData.data21}}</div>
                     </div>
                 </div>
             </div>
@@ -314,22 +314,22 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label class="form-label">Username</label>
-                    <div class="form-value">{{formData.data22}}</div>
+                    <div class="form-value">{{data.formData.data22}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Mailbox</label>
-                    <div class="form-value">{{formData.data23}}</div>
+                    <div class="form-value">{{data.formData.data23}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Other</label>
-                    <div class="form-value">{{formData.data24}}</div>
+                    <div class="form-value">{{data.formData.data24}}</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="signature-area">
                     <div class="form-group">
                         <label class="form-label">Sys. Admin</label>
-                        <div class="form-value">{{formData.data25}}</div>
+                        <div class="form-value">{{data.formData.data25}}</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Signature</label>
@@ -337,7 +337,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data26}}</div>
+                        <div class="form-value">{{data.formData.data26}}</div>
                     </div>
                 </div>
             </div>
@@ -352,22 +352,22 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label class="form-label">Phone Ext</label>
-                    <div class="form-value">{{formData.data27}}</div>
+                    <div class="form-value">{{data.formData.data27}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">e-Fax</label>
-                    <div class="form-value">{{formData.data28}}</div>
+                    <div class="form-value">{{data.formData.data28}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Other</label>
-                    <div class="form-value">{{formData.data29}}</div>
+                    <div class="form-value">{{data.formData.data29}}</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="signature-area">
                     <div class="form-group">
                         <label class="form-label">Com. Admin</label>
-                        <div class="form-value">{{formData.data30}}</div>
+                        <div class="form-value">{{data.formData.data30}}</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Signature</label>
@@ -375,7 +375,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data31}}</div>
+                        <div class="form-value">{{data.formData.data31}}</div>
                     </div>
                 </div>
             </div>
@@ -390,26 +390,26 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label class="form-label">Desktop</label>
-                    <div class="form-value">{{formData.data32}}</div>
+                    <div class="form-value">{{data.formData.data32}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Laptop</label>
-                    <div class="form-value">{{formData.data33}}</div>
+                    <div class="form-value">{{data.formData.data33}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Printer</label>
-                    <div class="form-value">{{formData.data34}}</div>
+                    <div class="form-value">{{data.formData.data34}}</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Other</label>
-                    <div class="form-value">{{formData.data35}}</div>
+                    <div class="form-value">{{data.formData.data35}}</div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="signature-area">
                     <div class="form-group">
                         <label class="form-label">IT Asset Admin</label>
-                        <div class="form-value">{{formData.data36}}</div>
+                        <div class="form-value">{{data.formData.data36}}</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Signature</label>
@@ -417,7 +417,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data37}}</div>
+                        <div class="form-value">{{data.formData.data37}}</div>
                     </div>
                 </div>
             </div>
@@ -433,7 +433,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name</label>
-                        <div class="form-value">{{formData.data38}}</div>
+                        <div class="form-value">{{data.formData.data38}}</div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -445,7 +445,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data39}}</div>
+                        <div class="form-value">{{data.formData.data39}}</div>
                     </div>
                 </div>
             </div>
@@ -458,7 +458,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name</label>
-                        <div class="form-value">{{formData.data40}}</div>
+                        <div class="form-value">{{data.formData.data40}}</div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -470,7 +470,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data41}}</div>
+                        <div class="form-value">{{data.formData.data41}}</div>
                     </div>
                 </div>
             </div>
@@ -479,9 +479,9 @@
         <!-- Clearance Reason -->
         <div class="form-group">
             <label class="form-label">Clearance Reason</label>
-            <div class="form-value">{{formData.data42}}</div>
-            {{#if (eq formData.data42 "Other")}}
-            <div class="form-value">{{formData.data43}}</div>
+            <div class="form-value">{{data.formData.data42}}</div>
+            {{#if data.(eq formData.data42 "Other")}}
+            <div class="form-value">{{data.formData.data43}}</div>
             {{/if}}
         </div>
 
@@ -492,7 +492,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name</label>
-                        <div class="form-value">{{formData.data44}}</div>
+                        <div class="form-value">{{data.formData.data44}}</div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -504,7 +504,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Date</label>
-                        <div class="form-value">{{formData.data45}}</div>
+                        <div class="form-value">{{data.formData.data45}}</div>
                     </div>
                 </div>
             </div>
@@ -514,7 +514,7 @@
     <!-- Comments -->
     <div class="section">
         <label class="form-label">Comments</label>
-        <div class="form-value form-value-textarea">{{formData.data46}}</div>
+        <div class="form-value form-value-textarea">{{data.formData.data46}}</div>
     </div>
 
     <!-- Completed By -->
@@ -523,13 +523,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Completed By</label>
-                    <div class="form-value">{{formData.data47}}</div>
+                    <div class="form-value">{{data.formData.data47}}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Signature & Date</label>
-                    <div class="form-value">{{formData.data48}}</div>
+                    <div class="form-value">{{data.formData.data48}}</div>
                 </div>
             </div>
         </div>
@@ -537,7 +537,7 @@
 
     <div class="footer">
         <p>This document is confidential and intended solely for the use of the individual or entity to whom it is addressed.</p>
-        <p>Generated on: {{currentDate}}</p>
+        <p>Generated on: {{data.currentDate}}</p>
     </div>
 </body>
 </html>

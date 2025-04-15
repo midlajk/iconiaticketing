@@ -41,13 +41,15 @@ const customerSchema = new mongoose.Schema({
 
 });
 const employeeSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: {type: String,
+  required: true,
+  unique: true, // Ensure unique names
+  trim: true},
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String },
   status: { type: String },
-
-  created: { type: Date, default: Date.now }
+  created: { type: Date, default: Date.now } 
 });
 
 
@@ -127,6 +129,7 @@ const ticketSchema = new mongoose.Schema({
     assignedby:String,
     
   }],
+  currentassigned:String,
   activity:[{
     date:Date,
     tite:String,

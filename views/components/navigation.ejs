@@ -16,7 +16,8 @@
       <span>Tickets</span>
     </a>
   </div>
-  
+  <%if(user.role=='Admin'){%>
+
   <div class="nav-item">
     <a class="nav-link <%= screen=='Customers'?'active':'' %>" href="/customers">
       <i class="fas fa-users"></i>
@@ -24,8 +25,9 @@
     </a>
   </div>
   
-  
+   
   
   <div class="nav-item"><a class="nav-link <%= screen=='Employees'?'active':'' %>" href="/employees"><i class="fas fa-user-cog"></i><span>Employees</span></a></div>
 
+ <%}%>
 </div>

@@ -199,7 +199,9 @@ router.post('/newcostumerticket',upload,async (req, res) => {
         return res.status(201).json({
           success: true,
           message: 'Ticket created successfully',
-          ticketId
+          ticketId:newTicket._id,
+          tickeType:req.body.ticketType
+
         });
     }catch (e){
         console.log(e)

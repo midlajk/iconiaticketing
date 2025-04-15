@@ -125,8 +125,8 @@
 <body>
     <div class="header">
         <div class="header-content">
-            {{#if logoUrl}}
-            <img src="{{logoUrl}}" alt="Company Logo" class="logo">
+            {{#if data.logo}}
+            <img src="{{data.logo}}" alt="Company Logo" class="logo">
             {{/if}}
             <h1>Change Request Form</h1>
         </div>
@@ -138,21 +138,21 @@
         <table>
             <tr>
                 <th>Change requester employee no.</th>
-                <td class="table-value">{{formData.data1}}</td>
+                <td class="table-value">{{data.formData.data1}}</td>
                 <th>Change ID</th>
-                <td class="table-value">{{formData.data2}}</td>
+                <td class="table-value">{{data.formData.data2}}</td>
             </tr>
             <tr>
                 <th>Change requester employee name</th>
-                <td class="table-value">{{requestor.name}}</td>
+                <td class="table-value">{{data.requestor.name}}</td>
                 <th>Date</th>
-                <td class="table-value">{{formData.data3}}</td>
+                <td class="table-value">{{data.formData.data3}}</td>
             </tr>
             <tr>
                 <th>Email</th>
-                <td class="table-value">{{requestor.email}}</td>
+                <td class="table-value">{{data.requestor.email}}</td>
                 <th>Section/Department</th>
-                <td class="table-value">{{formData.data4}}</td>
+                <td class="table-value">{{data.formData.data4}}</td>
             </tr>
         </table>
     </div>
@@ -162,27 +162,27 @@
         <table>
             <tr>
                 <th>Title of the change</th>
-                <td class="table-value">{{title}}</td>
+                <td class="table-value">{{data.title}}</td>
             </tr>
             <tr>
                 <th>Description of change</th>
-                <td class="table-value">{{description}}</td>
+                <td class="table-value">{{data.description}}</td>
             </tr>
             <tr>
                 <th>Reason for change</th>
-                <td class="table-value">{{formData.data5}}</td>
+                <td class="table-value">{{data.formData.data5}}</td>
             </tr>
             <tr>
                 <th>Service</th>
-                <td class="table-value">{{formData.data6}}</td>
+                <td class="table-value">{{data.formData.data6}}</td>
             </tr>
             <tr>
                 <th>Change requester sign off</th>
-                <td class="table-value">{{formData.data7}}</td>
+                <td class="table-value">{{data.formData.data7}}</td>
             </tr>
             <tr>
                 <th>Change Request Status</th>
-                <td class="table-value dropdown-value">{{status}}</td>
+                <td class="table-value dropdown-value">{{data.status}}</td>
             </tr>
         </table>
     </div>
@@ -192,53 +192,53 @@
         <table>
             <tr>
                 <th>Infrastructure</th>
-                <td class="table-value">{{formData.data8}}</td>
+                <td class="table-value">{{data.formData.data8}}</td>
             </tr>
             <tr>
                 <th>Type</th>
-                <td class="table-value dropdown-value">{{formData.data9}}</td>
+                <td class="table-value dropdown-value">{{data.formData.data9}}</td>
             </tr>
             <tr>
                 <th>Change Category</th>
-                <td class="table-value dropdown-value">{{category}}</td>
+                <td class="table-value dropdown-value">{{data.category}}</td>
             </tr>
             <tr>
                 <th>Change Impact</th>
-                <td class="table-value dropdown-value">{{formData.data10}}</td>
+                <td class="table-value dropdown-value">{{data.formData.data10}}</td>
             </tr>
             <tr>
                 <th>Change Urgency</th>
-                <td class="table-value dropdown-value">{{formData.data11}}</td>
+                <td class="table-value dropdown-value">{{data.formData.data11}}</td>
             </tr>
             <tr>
                 <th>Priority</th>
-                <td class="table-value dropdown-value">{{priority}}</td>
+                <td class="table-value dropdown-value">{{data.priority}}</td>
             </tr>
             <tr>
                 <th>Affected Services</th>
-                <td class="table-value">{{formData.data12}}</td>
+                <td class="table-value">{{data.formData.data12}}</td>
             </tr>
             <tr>
                 <th>Affected Configuration Items</th>
-                <td class="table-value">{{formData.data13}}</td>
+                <td class="table-value">{{data.formData.data13}}</td>
             </tr>
             <tr>
                 <th>Resource Requirements</th>
-                <td class="table-value">{{formData.data14}}</td>
+                <td class="table-value">{{data.formData.data14}}</td>
             </tr>
             <tr>
                 <th>Financial Impact</th>
-                <td class="table-value">{{formData.data15}}</td>
+                <td class="table-value">{{data.formData.data15}}</td>
             </tr>
             <tr>
                 <th>Rollback Plan Description</th>
-                <td class="table-value">{{formData.data16}}</td>
+                <td class="table-value">{{data.formData.data16}}</td>
             </tr>
             <tr>
                 <th>Pre Implementation Testing</th>
                 <td>
-                    <div class="dropdown-value">{{formData.data17}}</div>
-                    <div class="comments-box">{{formData.data18}}</div>
+                    <div class="dropdown-value">{{data.formData.data17}}</div>
+                    <div class="comments-box">{{data.formData.data18}}</div>
                 </td>
             </tr>
         </table>
@@ -249,24 +249,24 @@
         <table>
             <tr>
                 <th>Implementation Plan Description</th>
-                <td class="table-value">{{formData.data19}}</td>
+                <td class="table-value">{{data.formData.data19}}</td>
             </tr>
             <tr>
                 <th>Downtime Window</th>
                 <td>
                     <div class="date-time-group">
                         <div>
-                            <strong>Start:</strong> {{formData.data20}}
+                            <strong>Start:</strong> {{data.formData.data20}}
                         </div>
                         <div>
-                            <strong>End:</strong> {{formData.data21}}
+                            <strong>End:</strong> {{data.formData.data21}}
                         </div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <th>Change Control Committee/Change Advisory Board/Designated Approver Sign off</th>
-                <td class="table-value">{{formData.data22}}</td>
+                <td class="table-value">{{data.formData.data22}}</td>
             </tr>
         </table>
     </div>
@@ -277,17 +277,17 @@
             <tr>
                 <th>Implementation</th>
                 <td>
-                    <div class="dropdown-value">{{formData.data23}}</div>
-                    <div class="comments-box">{{formData.data24}}</div>
+                    <div class="dropdown-value">{{data.formData.data23}}</div>
+                    <div class="comments-box">{{data.formData.data24}}</div>
                 </td>
             </tr>
             <tr>
                 <th>Implementer Sign off</th>
-                <td class="table-value">{{formData.data25}}</td>
+                <td class="table-value">{{data.formData.data25}}</td>
             </tr>
             <tr>
                 <th>Date</th>
-                <td class="table-value">{{formData.data26}}</td>
+                <td class="table-value">{{data.formData.data26}}</td>
             </tr>
         </table>
     </div>
@@ -299,8 +299,8 @@
                 <th>Change Requester</th>
                 <td>
                     <div class="signature-line"></div>
-                    <div style="margin-top: 5px;">Name: {{requestor.name}}</div>
-                    <div>Date: {{formData.data3}}</div>
+                    <div style="margin-top: 5px;">Name: {{data.requestor.name}}</div>
+                    <div>Date: {{data.formData.data3}}</div>
                 </td>
             </tr>
             <tr>
@@ -315,8 +315,8 @@
                 <th>Change Implementer</th>
                 <td>
                     <div class="signature-line"></div>
-                    <div style="margin-top: 5px;">Name: {{formData.data25}}</div>
-                    <div>Date: {{formData.data26}}</div>
+                    <div style="margin-top: 5px;">Name: {{data.formData.data25}}</div>
+                    <div>Date: {{data.formData.data26}}</div>
                 </td>
             </tr>
         </table>

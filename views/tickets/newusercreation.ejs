@@ -242,7 +242,7 @@
               <label for="itComments" class="form-label">IT Comments (if any)</label>
               <textarea class="form-control" id="itComments" name="formData.data22" rows="2" placeholder="To be filled by IT"></textarea>
             </div>
-            
+            <% if (user) { %>
             <div class="row mb-4">
               <div class="col-md-6">
                 <label class="form-label">Completed and Preserved By:</label>
@@ -253,6 +253,8 @@
                 <input type="text" class="form-control" id="completedDate" name="formData.data24" placeholder="Will be filled automatically" readonly>
               </div>
             </div>
+
+            <%}%>
           </div>
         </div>
   

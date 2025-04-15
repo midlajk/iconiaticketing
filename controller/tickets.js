@@ -8,6 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 const handlebars = require('handlebars');
 const html_to_pdf = require('html-pdf-node');
 const moment = require('moment');
+const Customer = mongoose.model('Customer')
 
 exports.addticket = async (req, res) => {
     try{
@@ -117,7 +118,14 @@ exports.getTickets = async (req, res) => {
       if (req.query.status && req.query.status !== 'All Tickets') {
         filters.status = req.query.status;
       }
-      console.log(req.query.status)
+      // if(req.session.user.role=='Assistant'){
+      //   filters
+      // }
+
+        if(req.session.user.role=='Assistant'){
+          filters.currentassigned = req.session.user.name;
+          }
+
       
       // Priority filter (from dropdown)
       if (req.query.priorityFilter && req.query.priorityFilter !== '') {
@@ -187,7 +195,6 @@ exports.getTickets = async (req, res) => {
         .sort({_id:-1})
         .skip(start)
         .limit(length);
-        console.log(tickets)
       // Format response for DataTables
       res.json({
         draw: draw,
@@ -206,45 +213,56 @@ exports.getTickets = async (req, res) => {
       });
     }
   };
-
   exports.dhasboardCount = async (req, res) => {
     try {
-        // Today's date (start of day)
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+      // Today's date (start of day)
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      // Base filters
+      let pendingFilter = { status: 'Pending' };
+      let openFilter = { status: 'Open' };
+      let unassignedFilter = {
+        $or: [
+          { assigned: { $exists: false } }
+        ]
+      };
+      let completedTodayFilter = {
+        status: 'Solved',
+        'approvals.status': 'Approved',
+        'approvals.date': { $gte: today }
+      };
+      
+      // Add additional filter for Assistant role
+      if (req.session.user.role == 'Assistant') {
+        // Filter to only show tickets where this user is the assigned employee
+        const assistantFilter = { currentassigned: req.session.user.name };
         
-        // Count tickets by status
-        const pendingCount = await Ticket.countDocuments({ status: 'Pending' });
-        const openCount = await Ticket.countDocuments({ status: 'Open' });
+        // Merge filters
+        pendingFilter = { ...pendingFilter, ...assistantFilter };
+        openFilter = { ...openFilter, ...assistantFilter };
+        completedTodayFilter = { ...completedTodayFilter, ...assistantFilter };
         
-        // Count tickets with no assignee (assuming this is how you track unassigned)
-        const unassignedCount = await Ticket.countDocuments({
-            $or: [
-              { assigned: { $exists: false } }
-            ]
-          });
-                  
-        // Count tickets completed today
-        const completedTodayCount = await Ticket.countDocuments({
-          status: 'Solved',
-          'approvals.status': 'Approved',
-          'approvals.date': { $gte: today }
-        });
-        
-        res.json({
-          pending: pendingCount,
-          open: openCount,
-          unassigned: unassignedCount,
-          completedToday: completedTodayCount
-        });
-      } catch (err) {
-        console.error('Error fetching ticket counts:', err);
-        res.status(500).json({ message: 'Error fetching ticket counts', error: err.message });
+        // Note: We don't modify unassignedFilter since it's for tickets with no assignee
       }
+      
+      // Count tickets by status with appropriate filters
+      const pendingCount = await Ticket.countDocuments(pendingFilter);
+      const openCount = await Ticket.countDocuments(openFilter);
+      const unassignedCount = await Ticket.countDocuments(unassignedFilter);
+      const completedTodayCount = await Ticket.countDocuments(completedTodayFilter);
+      
+      res.json({
+        pending: pendingCount,
+        open: openCount,
+        unassigned: unassignedCount,
+        completedToday: completedTodayCount
+      });
+    } catch (err) {
+      console.error('Error fetching ticket counts:', err);
+      res.status(500).json({ message: 'Error fetching ticket counts', error: err.message });
+    }
   };
-  
-
-
 
   exports.updateticketscreen = async (req, res) => {
     try {
@@ -277,53 +295,63 @@ const getBase64Image = (filePath) => {
     const ext = path.extname(filePath).slice(1); // 'png'
     return `data:image/${ext};base64,${image.toString('base64')}`;
   };
-exports.downloadform = async (req, res) => {
-    const logoPath = path.join(__dirname, '..', 'public', 'images', 'logo.png');
-    const logoBase64 = getBase64Image(logoPath);
+  exports.downloadform = async (req, res) => {
+    const ticket = await Ticket.findById(req.params.id)
+    const customer = await Customer.findOne({email:ticket.requestor.email})
     
-    const data = {
-        requestorName: "John Doe",
-        department: "Finance",
-        location: "HQ",
-        contact: "john.doe@example.com",
-        requestDate: "2025-04-11",
-        fileNames: "Financial Reports Q1 2025",
-        logo: logoBase64,
-        fileLocation: "../public/images/logo.png",
-        startDate: "2025-04-12",
-        endDate: "2025-04-12",
-        frequency: "Daily",
-        retentionPeriod: "1 year",
-        backupType: "Full",
-        criticality: "High",
-        hodStatus: "Approved",
-        hodSignature: "",
-        hodSignatureDate: "2025-04-11",
-        hodComments: "Approved for standard backup protocol",
-        itManagerStatus: "Approved",
-        itManagerSignature: "",
-        itManagerSignatureDate: "2025-04-11",
-        backupOperatorSignature: "",
-        backupOperatorSignatureDate: ""
-    };
+    let logoPath;
+    if (customer && customer.logo) {
+      
+       logoPath = path.join(__dirname, '..', 'public', 'uploads', customer.logo);
+    } else {
+       logoPath = path.join(__dirname, '..', 'public', 'images', 'logo.png');
+    }
+    
+    const logoBase64 = getBase64Image(logoPath);
+    const ticketObject = ticket.toObject ? ticket.toObject() : {...ticket._doc};
 
+    // Create data object with the logo
+    const data = {
+      ...ticketObject,
+      logo: logoBase64
+    };
+    
+    
+    let templatePath = ''
     // Load the Handlebars template
-    const templatePath = path.join(__dirname, 'template.hbs');
+    if (ticket.ticketType === 'BackupRequest') {
+      templatePath = path.join(__dirname, 'printables', 'backuprequest.hbs');
+    } else if (ticket.ticketType === 'ChangeRequest') {
+      templatePath = path.join(__dirname, 'printables', 'changerequest.hbs');
+    } else if (ticket.ticketType === 'ChangeManagement') {
+      templatePath = path.join(__dirname, 'printables', 'changemanagement.hbs');
+    } else if (ticket.ticketType === 'ExitClearance') {
+      templatePath = path.join(__dirname, 'printables', 'exitclearance.hbs');
+    } else if (ticket.ticketType === 'IncidentReport') {
+      templatePath = path.join(__dirname, 'printables', 'incidentreport.hbs');
+    } else if (ticket.ticketType === 'DataBreach') {
+      templatePath = path.join(__dirname, 'printables', 'databreach.hbs');
+    } else if (ticket.ticketType === 'NewUserCreation') {
+      templatePath = path.join(__dirname, 'printables', 'newusercreation.hbs');
+    } else {
+      templatePath = path.join(__dirname, 'printables', 'template.hbs');
+    }
+    
     const template = fs.readFileSync(templatePath, 'utf8');
     const compiledTemplate = handlebars.compile(template);
     const html = compiledTemplate({ data });
-
+     
     // PDF generation options
     const options = {
         format: 'A4',
         margin: { top: '20px', right: '20px', bottom: '20px', left: '20px' }
     };
-
+     
     const file = { content: html };
-
+     
     // Define ticketId or use a default one
     const ticketId = req.params.ticketId || '12345';
-
+     
     try {
         const pdfBuffer = await html_to_pdf.generatePdf(file, options);
         res.setHeader('Content-Type', 'application/pdf');
@@ -333,7 +361,7 @@ exports.downloadform = async (req, res) => {
         console.error("Error generating PDF:", error);
         res.status(500).send("Something went wrong while generating the PDF.");
     }
-};
+ };
 
 exports.viewform = async (req, res) => {
 
@@ -438,7 +466,7 @@ exports.updateticketform = async (req, res) => {
 exports.updateticketstatus = async (req, res) => {
     try {
         const { ticketId, status, priority, assignedTo, comment } = req.body;
-        const user = 'System User';
+        const user = req.session.user.name||'Admin';
         
         // Find the ticket
         const ticket = await Ticket.findById(ticketId);
@@ -468,7 +496,7 @@ exports.updateticketstatus = async (req, res) => {
         // Handle assignment
         if (assignedTo && (!ticket.assigned || ticket.assigned.length === 0 || 
             ticket.assigned[ticket.assigned.length - 1].employee !== assignedTo)) {
-          
+          updateData.currentassigned = assignedTo
           // Add to assigned array
           const assignmentData = {
             date: new Date(),

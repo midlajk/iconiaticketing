@@ -370,7 +370,8 @@
                 </div>
               </div>
             </div>
-  
+            
+
             <!-- Director Approval -->
             <div class="row mb-4">
               <div class="col-md-12 mb-2">
@@ -391,7 +392,7 @@
             </div>
           </div>
         </div>
-  
+  <% if (user) { %>
         <!-- Comments -->
         <div class="mb-4">
           <label for="comments" class="form-label">Comments</label>
@@ -409,5 +410,6 @@
             <input type="text" class="form-control" id="completionSignatureDate" name="formData.data24">
           </div>
         </div>
+        <%}%>
         <!-- Submit Buttons -->
        

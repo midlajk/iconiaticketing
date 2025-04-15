@@ -92,8 +92,8 @@
 <body>
   <div class="document-container">
     <div class="header">
-      {{#if logo}}
-      <img src="{{logo}}" alt="Company Logo" class="logo">
+      {{#if data.logo}}
+      <img src="{{data.logo}}" alt="Company Logo" class="logo">
       {{/if}}
       <h1>Change Management Form</h1>
     </div>
@@ -105,47 +105,47 @@
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Change Request ID:</div>
-          <div class="form-value">{{formData.data1}}</div>
+          <div class="form-value">{{data.formData.data1}}</div>
         </div>
         <div class="form-group">
           <div class="form-label">Date Submitted:</div>
-          <div class="form-value">{{formData.data2}}</div>
+          <div class="form-value">{{data.formData.data2}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Requested By:</div>
-          <div class="form-value">{{requestor.name}}</div>
+          <div class="form-value">{{data.requestor.name}}</div>
         </div>
         <div class="form-group">
           <div class="form-label">Email:</div>
-          <div class="form-value">{{requestor.email}}</div>
+          <div class="form-value">{{data.requestor.email}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Department/Section:</div>
-          <div class="form-value">{{formData.data3}}</div>
+          <div class="form-value">{{data.formData.data3}}</div>
         </div>
         <div class="form-group">
           <div class="form-label">Change Manager:</div>
-          <div class="form-value">{{formData.data4}}</div>
+          <div class="form-value">{{data.formData.data4}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Assigned To:</div>
-          <div class="form-value">{{formData.data5}}</div>
+          <div class="form-value">{{data.formData.data5}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Change Title:</div>
-          <div class="form-value">{{title}}</div>
+          <div class="form-value">{{data.title}}</div>
         </div>
       </div>
     </div>
@@ -159,13 +159,13 @@
           <div class="form-label">Type of Change:</div>
           <div class="checkbox-group">
             <span class="checkbox">
-              <strong>☐</strong> Emergency Change {{#if (eq category "Emergency Change")}}✓{{/if}}
+              <strong>☐</strong> Emergency Change {{#if data.(eq category "Emergency Change")}}✓{{/if}}
             </span>
             <span class="checkbox">
-              <strong>☐</strong> Normal Change {{#if (eq category "Normal Change")}}✓{{/if}}
+              <strong>☐</strong> Normal Change {{#if data.(eq category "Normal Change")}}✓{{/if}}
             </span>
             <span class="checkbox">
-              <strong>☐</strong> Standard Change {{#if (eq category "Standard Change")}}✓{{/if}}
+              <strong>☐</strong> Standard Change {{#if data.(eq category "Standard Change")}}✓{{/if}}
             </span>
           </div>
         </div>
@@ -174,21 +174,21 @@
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Summary of Change:</div>
-          <div class="form-value textarea-value">{{description}}</div>
+          <div class="form-value textarea-value">{{data.description}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Reason for Change:</div>
-          <div class="form-value textarea-value">{{formData.data6}}</div>
+          <div class="form-value textarea-value">{{data.formData.data6}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Scope of Change:</div>
-          <div class="form-value textarea-value">{{formData.data7}}</div>
+          <div class="form-value textarea-value">{{data.formData.data7}}</div>
         </div>
       </div>
       
@@ -197,13 +197,13 @@
           <div class="form-label">Priority:</div>
           <div class="checkbox-group">
             <span class="checkbox">
-              <strong>☐</strong> High {{#if (eq priority "High")}}✓{{/if}}
+              <strong>☐</strong> High {{#if data.(eq priority "High")}}✓{{/if}}
             </span>
             <span class="checkbox">
-              <strong>☐</strong> Medium {{#if (eq priority "Medium")}}✓{{/if}}
+              <strong>☐</strong> Medium {{#if data.(eq priority "Medium")}}✓{{/if}}
             </span>
             <span class="checkbox">
-              <strong>☐</strong> Low {{#if (eq priority "Low")}}✓{{/if}}
+              <strong>☐</strong> Low {{#if data.(eq priority "Low")}}✓{{/if}}
             </span>
           </div>
         </div>
@@ -212,18 +212,18 @@
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Proposed Implementation Date:</div>
-          <div class="form-value">{{formData.data8}}</div>
+          <div class="form-value">{{data.formData.data8}}</div>
         </div>
         <div class="form-group">
           <div class="form-label">Estimated Effort (hours):</div>
-          <div class="form-value">{{formData.data9}}</div>
+          <div class="form-value">{{data.formData.data9}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Resources Required:</div>
-          <div class="form-value">{{formData.data10}}</div>
+          <div class="form-value">{{data.formData.data10}}</div>
         </div>
       </div>
     </div>
@@ -235,21 +235,21 @@
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Impact on Business Operations:</div>
-          <div class="form-value textarea-value">{{formData.data11}}</div>
+          <div class="form-value textarea-value">{{data.formData.data11}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Impact on Users/Departments:</div>
-          <div class="form-value textarea-value">{{formData.data12}}</div>
+          <div class="form-value textarea-value">{{data.formData.data12}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Impact on Systems/Services:</div>
-          <div class="form-value textarea-value">{{formData.data13}}</div>
+          <div class="form-value textarea-value">{{data.formData.data13}}</div>
         </div>
       </div>
       
@@ -258,13 +258,13 @@
           <div class="form-label">Risk Assessment:</div>
           <div class="checkbox-group">
             <span class="checkbox">
-              <strong>☐</strong> High {{#if (eq formData.data14 "High")}}✓{{/if}}
+              <strong>☐</strong> High {{#if data.(eq formData.data14 "High")}}✓{{/if}}
             </span>
             <span class="checkbox">
-              <strong>☐</strong> Medium {{#if (eq formData.data14 "Medium")}}✓{{/if}}
+              <strong>☐</strong> Medium {{#if data.(eq formData.data14 "Medium")}}✓{{/if}}
             </span>
             <span class="checkbox">
-              <strong>☐</strong> Low {{#if (eq formData.data14 "Low")}}✓{{/if}}
+              <strong>☐</strong> Low {{#if data.(eq formData.data14 "Low")}}✓{{/if}}
             </span>
           </div>
         </div>
@@ -278,28 +278,28 @@
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Planned Implementation Date:</div>
-          <div class="form-value">{{formData.data15}}</div>
+          <div class="form-value">{{data.formData.data15}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Implementation Steps:</div>
-          <div class="form-value textarea-value">{{formData.data16}}</div>
+          <div class="form-value textarea-value">{{data.formData.data16}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Backup/Contingency Plan:</div>
-          <div class="form-value textarea-value">{{formData.data17}}</div>
+          <div class="form-value textarea-value">{{data.formData.data17}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Rollback Plan:</div>
-          <div class="form-value textarea-value">{{formData.data18}}</div>
+          <div class="form-value textarea-value">{{data.formData.data18}}</div>
         </div>
       </div>
     </div>
@@ -311,14 +311,14 @@
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Testing Plan:</div>
-          <div class="form-value textarea-value">{{formData.data19}}</div>
+          <div class="form-value textarea-value">{{data.formData.data19}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Testing Environment:</div>
-          <div class="form-value">{{formData.data20}}</div>
+          <div class="form-value">{{data.formData.data20}}</div>
         </div>
       </div>
     </div>
@@ -332,13 +332,13 @@
           <div class="form-label">Change Advisory Board (CAB) Approval:</div>
           <div class="checkbox-group">
             <span class="checkbox">
-              <strong>☐</strong> Approved {{#if (eq formData.data21 "Approved")}}✓{{/if}}
+              <strong>☐</strong> Approved {{#if data.(eq formData.data21 "Approved")}}✓{{/if}}
             </span>
             <span class="checkbox">
-              <strong>☐</strong> Rejected {{#if (eq formData.data21 "Rejected")}}✓{{/if}}
+              <strong>☐</strong> Rejected {{#if data.(eq formData.data21 "Rejected")}}✓{{/if}}
             </span>
             <span class="checkbox">
-              <strong>☐</strong> Pending {{#if (eq formData.data21 "Pending")}}✓{{/if}}
+              <strong>☐</strong> Pending {{#if data.(eq formData.data21 "Pending")}}✓{{/if}}
             </span>
           </div>
         </div>
@@ -347,14 +347,14 @@
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Approval Date:</div>
-          <div class="form-value">{{formData.data22}}</div>
+          <div class="form-value">{{data.formData.data22}}</div>
         </div>
       </div>
       
       <div class="form-row">
         <div class="form-group">
           <div class="form-label">Approvers:</div>
-          <div class="form-value">{{formData.data23}}</div>
+          <div class="form-value">{{data.formData.data23}}</div>
         </div>
       </div>
     </div>
@@ -365,7 +365,7 @@
       
       <div class="form-row">
         <div class="form-group">
-          <div class="form-value textarea-value">{{formData.data24}}</div>
+          <div class="form-value textarea-value">{{data.formData.data24}}</div>
         </div>
       </div>
     </div>

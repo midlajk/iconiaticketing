@@ -13,9 +13,11 @@
           <input type="text" class="form-control form-control-lg" id="title" name="title" placeholder="Briefly describe your issue" required>
           <div class="invalid-feedback">Please provide a title for your ticket.</div>
         </div>
-        
+        <% if (user) { %>
+
         <!-- Priority -->
         <div class="mb-4">
+
           <label class="form-label">Priority</label>
           <div class="btn-group w-100" role="group">
             <input type="radio" class="btn-check" name="priority" id="priority-low" value="Low" autocomplete="off">
@@ -34,7 +36,8 @@
             </label>
           </div>
         </div>
-        
+        <%}%>
+
         <!-- Description -->
         <div class="mb-4">
           <label for="description" class="form-label">Description</label>

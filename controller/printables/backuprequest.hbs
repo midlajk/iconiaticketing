@@ -25,7 +25,8 @@
       border-bottom: 2px solid #ddd;
     }
     .logo {
-      max-width: 200px;
+      max-width: 100%;
+       max-height: 100px;
       margin-bottom: 10px;
     }
     h1 {
@@ -91,72 +92,72 @@
 <body>
   <div class="container">
     <div class="header">
-      <img src="{{logoUrl}}" alt="Company Logo" class="logo">
+      <img src="{{data.logo}}" alt="Company Logo" class="logo">
       <h1>Backup Request Form</h1>
     </div>
 
     <div class="form-section">
       <div class="form-row">
         <div class="form-label">Name of Requestor</div>
-        <div class="form-value">{{requestor.name}}</div>
+        <div class="form-value">{{data.requestor.name}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Registered Email</div>
-        <div class="form-value">{{requestor.email}}</div>
+        <div class="form-value">{{data.requestor.email}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Section/Department</div>
-        <div class="form-value">{{requestor.department}}</div>
+        <div class="form-value">{{data.requestor.department}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Location</div>
-        <div class="form-value">{{formData.data1}}</div>
+        <div class="form-value">{{data.formData.data1}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Contact</div>
-        <div class="form-value">{{formData.data2}}</div>
+        <div class="form-value">{{data.formData.data2}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Request Date</div>
-        <div class="form-value">{{formData.data4}}</div>
+        <div class="form-value">{{data.formData.data4}}</div>
       </div>
     </div>
     
     <div class="form-section">
       <div class="form-row">
         <div class="form-label">File/Folder Name of Data to be backed up</div>
-        <div class="form-value">{{formData.data5}}</div>
+        <div class="form-value">{{data.formData.data5}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">File Location</div>
-        <div class="form-value">{{formData.data6}}</div>
+        <div class="form-value">{{data.formData.data6}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Start Date</div>
-        <div class="form-value">{{formData.data7}}</div>
+        <div class="form-value">{{data.formData.data7}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">End Date</div>
-        <div class="form-value">{{formData.data8}}</div>
+        <div class="form-value">{{data.formData.data8}}</div>
       </div>
     </div>
     
     <div class="form-section">
       <div class="form-row">
         <div class="form-label">Frequency</div>
-        <div class="form-value">{{formData.data9}}</div>
+        <div class="form-value">{{data.formData.data9}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Retention Period</div>
-        <div class="form-value">{{formData.data11}}</div>
+        <div class="form-value">{{data.formData.data11}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Backup Type</div>
-        <div class="form-value">{{formData.data13}}</div>
+        <div class="form-value">{{data.formData.data13}}</div>
       </div>
       <div class="form-row">
         <div class="form-label">Criticality of Data</div>
-        <div class="form-value">{{formData.data14}}</div>
+        <div class="form-value">{{data.formData.data14}}</div>
       </div>
     </div>
 
@@ -165,22 +166,22 @@
       <div class="form-row">
         <div class="form-label">Head of Department</div>
         <div class="form-value">
-          <strong>Status:</strong> {{formData.data15}}
+          <strong>Status:</strong> {{data.formData.data15}}
           <div class="signature-row">
             <div class="signature-box">
-              {{#if formData.data16}}
-                <img src="{{logoUrl}}" alt="HOD Signature" style="max-width: 150px; max-height: 50px;">
+              {{#if data.formData.data16}}
+                <img src="{{data.logoUrl}}" alt="HOD Signature" style="max-width: 150px; max-height: 50px;">
               {{else}}
                 Signature
               {{/if}}
             </div>
             <div>
-              Date: {{formData.data17}}
+              Date: {{data.formData.data17}}
             </div>
           </div>
           <div>
             <strong>Comments:</strong>
-            <div class="comments-box">{{formData.data18}}</div>
+            <div class="comments-box">{{data.formData.data18}}</div>
           </div>
         </div>
       </div>
@@ -188,17 +189,17 @@
       <div class="form-row">
         <div class="form-label">Head/Manager - IT</div>
         <div class="form-value">
-          <strong>Status:</strong> {{formData.data19}}
+          <strong>Status:</strong> {{data.formData.data19}}
           <div class="signature-row">
             <div class="signature-box">
-              {{#if formData.data20}}
-                <img src="{{logoUrl}}" alt="IT Manager Signature" style="max-width: 150px; max-height: 50px;">
+              {{#if data.formData.data20}}
+                <img src="{{data.logoUrl}}" alt="IT Manager Signature" style="max-width: 150px; max-height: 50px;">
               {{else}}
                 Signature
               {{/if}}
             </div>
             <div>
-              Date: {{formData.data21}}
+              Date: {{data.formData.data21}}
             </div>
           </div>
         </div>
@@ -209,14 +210,14 @@
       <h2>Acknowledgement (Backup Operator)</h2>
       <div class="signature-row">
         <div class="signature-box">
-          {{#if formData.data22}}
-            <img src="{{logoUrl}}" alt ="Backup Operator Signature" style="max-width: 150px; max-height: 50px;">
+          {{#if data.formData.data22}}
+            <img src="{{data.logoUrl}}" alt ="Backup Operator Signature" style="max-width: 150px; max-height: 50px;">
           {{else}}
             Signature
           {{/if}}
         </div>
         <div>
-          Date: {{formData.data23}}
+          Date: {{data.formData.data23}}
         </div>
       </div>
     </div>

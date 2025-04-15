@@ -22,15 +22,15 @@ router.get('/tickets', requireAuth,function(req, res, next) {
   res.render('tickets', { title: 'Express',screen : 'Tickets' });
 });
 
-router.get('/customers',requireAuth, function(req, res, next) {
+router.get('/customers',requireAuth,requireRole('Admin'), function(req, res, next) {
   res.render('customers', { title: 'Express',screen : 'Customers' });
 });
-router.get('/newcustomers',requireAuth, function(req, res, next) {
+router.get('/newcustomers',requireAuth,requireRole('Admin'),  function(req, res, next) {
   res.render('newcustomer', { title: 'Express' ,screen : 'Customers'});
 });
 
 
-router.get('/employees', function(req, res, next) {
+router.get('/employees', requireRole('Admin'), function(req, res, next) {
   res.render('users', { title: 'Express' ,screen : 'Employees' });
 });
 
